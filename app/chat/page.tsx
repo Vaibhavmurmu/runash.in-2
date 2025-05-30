@@ -7,13 +7,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Card } from "@/components/ui/card"
-import { Send, Sparkles, Leaf, Settings, History, Bot } from "lucide-react"
+import { Send, Sparkles, Leaf, Settings, History, Bot, Mic } from "lucide-react"
 import type { ChatMessage, ChatSession, UserPreferences, QuickAction } from "@/types/runash-chat"
 import ChatMessageComponent from "@/components/chat/chat-message"
 import QuickActions from "@/components/chat/quick-actions"
 import ChatSidebar from "@/components/chat/chat-sidebar"
 import UserPreferencesDialog from "@/components/chat/user-preferences-dialog"
 import CartDrawer from "@/components/cart/cart-drawer"
+import VoiceControls from "@/components/chat/voice-controls"
 
 export default function RunAshChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -41,6 +42,9 @@ export default function RunAshChatPage() {
     preferredCategories: [],
     cookingSkillLevel: "intermediate",
   })
+
+  const [voiceEnabled, setVoiceEnabled] = useState(false)
+  const [autoSpeakResponses, setAutoSpeakResponses] = useState(false)
 
   const quickActions: QuickAction[] = [
     {
@@ -301,6 +305,16 @@ export default function RunAshChatPage() {
     }
   }
 
+  const handleVoiceInput = (transcript: string) => {
+    setInputValue(transcript)
+    handleSendMessage(transcript)
+  }
+
+  const handleSpeakResponse = (text: string) => {
+    // This will be handled by the VoiceControls component
+    console.log("Speaking:", text)
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900">
       {/* Header */}
@@ -327,6 +341,15 @@ export default function RunAshChatPage() {
               <Button variant="outline" size="sm" onClick={() => setSidebarOpen(!sidebarOpen)}>
                 <History className="h-4 w-4 mr-2" />
                 History
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setVoiceEnabled(!voiceEnabled)}
+                className={voiceEnabled ? "bg-green-100 text-green-700" : ""}
+              >
+                <Mic className="h-4 w-4 mr-2" />
+                {voiceEnabled ? "Voice On" : "Voice Off"}
               </Button>
             </div>
           </div>
@@ -377,6 +400,17 @@ export default function RunAshChatPage() {
                 <div ref={messagesEndRef} />
               </div>
             </ScrollArea>
+
+            {/* Voice Controls */}
+            {voiceEnabled && (
+              <div className="p-4 border-t">
+                <VoiceControls
+                  onVoiceInput={handleVoiceInput}
+                  onSpeakResponse={handleSpeakResponse}
+                  isEnabled={voiceEnabled}
+                />
+              </div>
+            )}
 
             {/* Input */}
             <div className="p-4 border-t">
