@@ -8,6 +8,7 @@ import Navbar from "@/components/navbar"
 import StatCounter from "@/components/stat-counter"
 import TechBadge from "@/components/tech-badge"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function Home() {
   return (
@@ -409,7 +410,7 @@ export default function Home() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="/docs"
+                    href="/tutorials"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     Documentation
@@ -480,28 +481,37 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-12 pt-8 border-t border-orange-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-600 dark:text-gray-400">
-              © {new Date().getFullYear()} RunAsh AI. All rights reserved.
-            </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a
-                href="/privacy"
-                className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="/terms"
-                className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
-              >
-                Terms of Service
-              </a>
-              <a
-                href="/cookies"
-                className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
-              >
-                Cookie Policy
-              </a>
+            <div className="flex items-center gap-4">
+              <p className="text-gray-600 dark:text-gray-400">
+                © {new Date().getFullYear()} RunAsh AI. All rights reserved.
+              </p>
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span className="text-sm text-gray-600 dark:text-gray-400">All systems operational</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-6 mt-4 md:mt-0">
+              <ThemeToggle />
+              <div className="flex space-x-6">
+                <a
+                  href="/privacy"
+                  className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
+                >
+                  Privacy Policy
+                </a>
+                <a
+                  href="/terms"
+                  className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
+                >
+                  Terms of Service
+                </a>
+                <a
+                  href="/cookies"
+                  className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
+                >
+                  Cookie Policy
+                </a>
+              </div>
             </div>
           </div>
         </div>
