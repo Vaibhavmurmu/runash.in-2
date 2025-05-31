@@ -78,6 +78,3 @@ export function useCurrency() {
   }
   return context
 }
-
-// Add the missing export that's causing the deployment error
-export const useCurrencyContext = useCurrency
