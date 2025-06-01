@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -22,6 +22,11 @@ import { TrendingUp, TrendingDown, Calendar, Users, DollarSign, Clock } from "lu
 export function ComparativeAnalytics() {
   const [comparisonType, setComparisonType] = useState("periods")
   const [selectedMetric, setSelectedMetric] = useState("viewers")
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Mock data for different comparison types
   const periodComparison = [
@@ -61,6 +66,17 @@ export function ComparativeAnalytics() {
     { id: "engagement", label: "Engagement", icon: TrendingUp },
     { id: "watchTime", label: "Watch Time", icon: Clock },
   ]
+
+  if (!mounted) {
+    return (
+      <div className="space-y-6">
+        <div className="animate-pulse">
+          <div className="h-32 bg-gray-200 rounded mb-4"></div>
+          <div className="h-96 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-6">
