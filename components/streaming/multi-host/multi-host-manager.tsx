@@ -5,11 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Users, UserPlus, LayoutGrid } from "lucide-react"
-import { HostGrid } from "./host-grid"
-import { HostControls } from "./host-controls"
 import { MultiHostService } from "@/services/multi-host-service"
 import type { LayoutConfiguration, MultiHostSession } from "@/types/multi-host"
 import { toast } from "@/components/ui/use-toast"
+import { WebRTCVideoGrid } from "./webrtc-video-grid"
+import { WebRTCConnectionStatus } from "./webrtc-connection-status"
+import { HostControls } from "./host-controls"
 
 interface MultiHostManagerProps {
   isStreaming: boolean
@@ -75,7 +76,15 @@ export function MultiHostManager({ isStreaming, currentUserId }: MultiHostManage
         <CardContent className="flex-1 p-0 pt-4">
           <TabsContent value="grid" className="m-0 h-full">
             {session ? (
-              <HostGrid layout={session.layout} currentUserId={currentUserId} onLayoutChange={handleLayoutChange} />
+              <div className="h-full flex flex-col gap-4 p-4">
+                <WebRTCVideoGrid
+                  hosts={session.hosts}
+                  layout={session.layout}
+                  currentUserId={currentUserId}
+                  onLayoutChange={handleLayoutChange}
+                />
+                <WebRTCConnectionStatus hosts={session.hosts} currentUserId={currentUserId} />
+              </div>
             ) : (
               <div className="h-full flex items-center justify-center">
                 <div className="text-center">

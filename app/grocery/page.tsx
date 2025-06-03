@@ -14,6 +14,7 @@ import ProductFilters from "@/components/grocery/product-filters"
 import FeaturedProducts from "@/components/grocery/featured-products"
 import CartDrawer from "@/components/cart/cart-drawer"
 import type { GroceryProduct, GroceryCategory, GroceryFilter } from "@/types/grocery-store"
+import FloatingLiveShoppingButton from "@/components/grocery/floating-live-shopping-button"
 
 function GroceryStoreContent() {
   const { currency, formatPrice, convertPrice } = useCurrency()
@@ -284,6 +285,8 @@ function GroceryStoreContent() {
           </div>
         </div>
       </div>
+      {/* Floating Live Shopping Button */}
+      <FloatingLiveShoppingButton />
     </div>
   )
 }

@@ -15,6 +15,7 @@ import {
   CameraOff,
   ScreenShare,
   StopCircle,
+  Activity,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -25,6 +26,7 @@ import { toast } from "@/components/ui/use-toast"
 import type { Host, LayoutConfiguration, MultiHostSession } from "@/types/multi-host"
 import { MultiHostService } from "@/services/multi-host-service"
 import { HostInvitationDialog } from "./host-invitation-dialog"
+import { WebRTCDiagnostics } from "./webrtc-diagnostics"
 
 interface HostControlsProps {
   currentUserId: string
@@ -212,7 +214,7 @@ export function HostControls({ currentUserId, isStreaming }: HostControlsProps) 
       <Separator />
 
       <Tabs defaultValue="hosts" className="w-full">
-        <TabsList className="grid grid-cols-3 mb-4">
+        <TabsList className="grid grid-cols-4 mb-4">
           <TabsTrigger value="hosts">
             <Users className="h-4 w-4 mr-2" />
             Hosts
@@ -224,6 +226,10 @@ export function HostControls({ currentUserId, isStreaming }: HostControlsProps) 
           <TabsTrigger value="settings">
             <Settings className="h-4 w-4 mr-2" />
             Settings
+          </TabsTrigger>
+          <TabsTrigger value="diagnostics">
+            <Activity className="h-4 w-4 mr-2" />
+            Diagnostics
           </TabsTrigger>
         </TabsList>
 
@@ -437,6 +443,9 @@ export function HostControls({ currentUserId, isStreaming }: HostControlsProps) 
               </div>
             </div>
           </div>
+        </TabsContent>
+        <TabsContent value="diagnostics" className="space-y-4">
+          <WebRTCDiagnostics />
         </TabsContent>
       </Tabs>
 

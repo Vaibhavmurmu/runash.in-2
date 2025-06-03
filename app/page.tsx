@@ -9,6 +9,9 @@ import StatCounter from "@/components/stat-counter"
 import TechBadge from "@/components/tech-badge"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { NewsletterSignup } from "@/components/newsletter-signup"
+import { LanguageSelector } from "@/components/language-selector"
+import { CountrySelector } from "@/components/country-selector"
 
 export default function Home() {
   return (
@@ -330,9 +333,32 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-16 bg-white dark:bg-gray-900 border-t border-orange-100 dark:border-orange-900/20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 mb-8">
+            {/* Company Info */}
+            <div className="lg:col-span-2">
+              <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                The most advanced AI-powered live streaming platform for creators, gamers, and businesses.
+              </p>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  <a href="/status" className="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
+                    All systems operational
+                  </a>
+                </span>
+              </div>
+
+              {/* Language and Country Selector */}
+              <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                <LanguageSelector />
+                <CountrySelector />
+              </div>
+            </div>
+
+            {/* Quick Links */}
             <div>
-              <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">RunAsh</h3>
+              <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Company</h3>
               <ul className="space-y-2">
                 <li>
                   <a
@@ -368,6 +394,7 @@ export default function Home() {
                 </li>
               </ul>
             </div>
+
             <div>
               <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Product</h3>
               <ul className="space-y-2">
@@ -405,6 +432,7 @@ export default function Home() {
                 </li>
               </ul>
             </div>
+
             <div>
               <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Resources</h3>
               <ul className="space-y-2">
@@ -442,53 +470,338 @@ export default function Home() {
                 </li>
               </ul>
             </div>
-            <div>
-              <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Connect</h3>
-              <ul className="space-y-2">
-                <li>
+
+            {/* Newsletter Signup */}
+            <div className="lg:col-span-2">
+              <NewsletterSignup />
+
+              {/* Social Media */}
+              <div className="mt-6">
+                <h4 className="font-medium text-sm mb-3 text-gray-700 dark:text-gray-300">Follow us</h4>
+                <div className="flex flex-wrap gap-4">
                   <a
                     href="https://twitter.com"
-                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    Twitter
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-twitter"
+                    >
+                      <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+                    </svg>
+                    <span>Twitter</span>
                   </a>
-                </li>
-                <li>
                   <a
                     href="https://discord.com"
-                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    Discord
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-message-circle"
+                    >
+                      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+                    </svg>
+                    <span>Discord</span>
                   </a>
-                </li>
-                <li>
                   <a
                     href="https://youtube.com"
-                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    YouTube
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-youtube"
+                    >
+                      <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+                      <path d="m10 15 5-3-5-3z" />
+                    </svg>
+                    <span>YouTube</span>
                   </a>
-                </li>
-                <li>
                   <a
                     href="https://instagram.com"
-                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    Instagram
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-instagram"
+                    >
+                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                    </svg>
+                    <span>Instagram</span>
                   </a>
-                </li>
-              </ul>
+                </div>
+              </div>
             </div>
           </div>
+
+          {/* Sitemap */}
+          <div className="border-t border-gray-200 dark:border-gray-800 pt-8 mt-8">
+            <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Sitemap</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Main Pages</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Home
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/features"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Features
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/pricing"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Pricing
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/about"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      About
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Products</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/stream"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Streaming
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/multi-host"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Multi-Host
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/analytics"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Analytics
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/ai"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      AI Features
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Resources</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/blog"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Blog
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/tutorials"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Tutorials
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/support"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Support
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/roadmap"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Roadmap
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Legal</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/privacy"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Privacy Policy
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/terms"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Terms of Service
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/cookies"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Cookie Policy
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/gdpr"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      GDPR
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Company</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/careers"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Careers
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/press"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Press
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/contact"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Contact
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/partners"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Partners
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Tools</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/status"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Status
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/api"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      API
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/integrations"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Integrations
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/mobile"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Mobile App
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Copyright and Legal */}
           <div className="mt-12 pt-8 border-t border-orange-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center gap-4">
               <p className="text-gray-600 dark:text-gray-400">
                 © {new Date().getFullYear()} RunAsh AI. All rights reserved.
               </p>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-                <span className="text-sm text-gray-600 dark:text-gray-400">All systems operational</span>
-              </div>
             </div>
             <div className="flex items-center gap-6 mt-4 md:mt-0">
               <ThemeToggle />

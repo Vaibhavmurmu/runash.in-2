@@ -25,6 +25,7 @@ import {
   Heart,
   Sparkles,
   Activity,
+  Users,
 } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -53,6 +54,7 @@ import VirtualBackgrounds from "./virtual-backgrounds"
 import MultiPlatformStreaming from "./multi-platform-streaming"
 import AlertDisplay from "./alerts/alert-display"
 import StreamChat from "./stream-chat"
+import { MultiHostManager } from "./multi-host/multi-host-manager"
 
 export function EnhancedStreamingStudio() {
   const [isStreaming, setIsStreaming] = useState(false)
@@ -574,6 +576,13 @@ export function EnhancedStreamingStudio() {
                     <Sparkles className="h-4 w-4 mr-2" />
                     Effects
                   </TabsTrigger>
+                  <TabsTrigger
+                    value="multihost"
+                    className="data-[state=active]:bg-orange-50 dark:data-[state=active]:bg-orange-950/20"
+                  >
+                    <Users className="h-4 w-4 mr-2" />
+                    Multi-Host
+                  </TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="chat" className="flex-1 p-0 m-0">
@@ -647,6 +656,9 @@ export function EnhancedStreamingStudio() {
 
                 <TabsContent value="effects" className="flex-1 p-3 m-0">
                   <VirtualBackgrounds />
+                </TabsContent>
+                <TabsContent value="multihost" className="flex-1 p-0 m-0">
+                  <MultiHostManager isStreaming={isStreaming} currentUserId="current-user-id" />
                 </TabsContent>
               </Tabs>
             </div>
