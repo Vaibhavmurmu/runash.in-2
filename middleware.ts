@@ -1,76 +1,73 @@
-import { withAuth } from "next-auth/middleware"
 import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
+import { getToken } from "next-auth/jwt"
 
-export default withAuth(
-  function middleware(req) {
-    const { pathname } = req.nextUrl
-    const token = req.nextauth.token
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl
+  const token = await getToken({ req: request })
 
-    // Protect dashboard routes
-    if (pathname.startsWith("/dashboard") && !token) {
-      return NextResponse.redirect(new URL("/login", req.url))
-    }
+  // Public routes that don't require authentication
+  const publicRoutes = [
+    "/",
+    "/login",
+    "/get-started",
+    "/forgot-password",
+    "/reset-password",
+    "/about",
+    "/features",
+    "/pricing",
+    "/contact",
+    "/blog",
+    "/careers",
+    "/press",
+    "/support",
+    "/tutorials",
+    "/integrations",
+    "/privacy",
+    "/terms",
+    "/cookies",
+    "/roadmap",
+    "/status",
+  ]
 
-    // Protect admin routes
-    if (pathname.startsWith("/admin") && token?.role !== "admin") {
-      return NextResponse.redirect(new URL("/dashboard", req.url))
-    }
+  // API routes that don't require authentication
+  const publicApiRoutes = ["/api/auth", "/api/turn-credentials"]
 
-    // Redirect authenticated users away from auth pages
-    if (token && (pathname === "/login" || pathname === "/get-started")) {
-      return NextResponse.redirect(new URL("/dashboard", req.url))
-    }
-
+  // Check if the route is public
+  if (publicRoutes.some((route) => pathname === route || pathname.startsWith(route + "/"))) {
     return NextResponse.next()
-  },
-  {
-    callbacks: {
-      authorized: ({ token, req }) => {
-        // Define which routes require authentication
-        const { pathname } = req.nextUrl
+  }
 
-        // Public routes that don't require authentication
-        const publicRoutes = [
-          "/",
-          "/login",
-          "/get-started",
-          "/forgot-password",
-          "/reset-password",
-          "/about",
-          "/features",
-          "/pricing",
-          "/contact",
-          "/blog",
-          "/careers",
-          "/press",
-          "/support",
-          "/tutorials",
-          "/integrations",
-          "/privacy",
-          "/terms",
-          "/cookies",
-          "/roadmap",
-        ]
+  // Check if the API route is public
+  if (publicApiRoutes.some((route) => pathname.startsWith(route))) {
+    return NextResponse.next()
+  }
 
-        // API routes that don't require authentication
-        const publicApiRoutes = ["/api/auth", "/api/turn-credentials"]
+  // Protect dashboard routes
+  if (pathname.startsWith("/dashboard") && !token) {
+    return NextResponse.redirect(new URL("/login", request.url))
+  }
 
-        // Check if the route is public
-        if (publicRoutes.some((route) => pathname.startsWith(route))) {
-          return true
-        }
+  // Protect streaming routes
+  if (
+    (pathname.startsWith("/stream") || pathname.startsWith("/analytics") || pathname.startsWith("/recordings")) &&
+    !token
+  ) {
+    return NextResponse.redirect(new URL("/login", request.url))
+  }
 
-        // Check if the API route is public
-        if (publicApiRoutes.some((route) => pathname.startsWith(route))) {
-          return true
-        }
+  // Protect admin routes
+  if (pathname.startsWith("/admin") && token?.role !== "admin") {
+    return NextResponse.redirect(new URL("/dashboard", request.url))
+  }
 
-        // For protected routes, require authentication
-        return !!token
-      },
-    },
-  },
-)
+  // Redirect authenticated users away from auth pages
+  if (token && (pathname === "/login" || pathname === "/get-started")) {
+    return NextResponse.redirect(new URL("/dashboard", request.url))
+  }
+
+  return NextResponse.next()
+}
 
 export const config = {
   matcher: [

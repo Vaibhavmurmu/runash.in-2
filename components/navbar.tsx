@@ -69,15 +69,19 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center space-x-4">
             <ThemeSelector />
-            <Button
-              variant="ghost"
-              className="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400"
-            >
-              Log In
-            </Button>
-            <Button className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white">
-              Sign Up
-            </Button>
+            <Link href="/login">
+              <Button
+                variant="ghost"
+                className="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400"
+              >
+                Log In
+              </Button>
+            </Link>
+            <Link href="/get-started">
+              <Button className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white">
+                Sign Up
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -120,15 +124,19 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="px-5 py-4 border-t border-orange-100 dark:border-gray-800 flex flex-col space-y-3">
-            <Button
-              variant="ghost"
-              className="justify-center text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400"
-            >
-              Log In
-            </Button>
-            <Button className="justify-center bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white">
-              Sign Up
-            </Button>
+            <Link href="/login">
+              <Button
+                variant="ghost"
+                className="justify-center text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400"
+              >
+                Log In
+              </Button>
+            </Link>
+            <Link href="/get-started">
+              <Button className="justify-center bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white">
+                Sign Up
+              </Button>
+            </Link>
           </div>
         </div>
       )}

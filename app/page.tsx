@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Play, Zap, Users, Shield, ArrowRight, ChevronRight, Star, BarChart, Globe } from "lucide-react"
 import VideoBackground from "@/components/video-background"
@@ -12,8 +14,20 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { NewsletterSignup } from "@/components/newsletter-signup"
 import { LanguageSelector } from "@/components/language-selector"
 import { CountrySelector } from "@/components/country-selector"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 export default function Home() {
+  const router = useRouter()
+  const [currency, setCurrency] = useState<"USD" | "INR">("USD")
+
+  const formatPrice = (price: number) => {
+    if (currency === "INR") {
+      return `₹${(price * 83.25).toLocaleString("en-IN")}`
+    }
+    return `$${price}`
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-white">
       <Navbar />
@@ -37,6 +51,7 @@ export default function Home() {
             <Button
               size="lg"
               className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10"
+              onClick={() => router.push("/stream")}
             >
               Start Streaming <Play className="ml-2 h-4 w-4" />
             </Button>
@@ -255,15 +270,41 @@ export default function Home() {
             <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
               Choose Your Plan
             </h2>
-            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-8">
               Select the perfect plan for your streaming needs with no hidden fees
             </p>
+
+            {/* Currency Selector */}
+            <div className="flex justify-center mb-8">
+              <div className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-lg p-1 border border-gray-200 dark:border-gray-700">
+                <button
+                  onClick={() => setCurrency("USD")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    currency === "USD"
+                      ? "bg-orange-500 text-white"
+                      : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
+                  }`}
+                >
+                  🇺🇸 USD
+                </button>
+                <button
+                  onClick={() => setCurrency("INR")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    currency === "INR"
+                      ? "bg-orange-500 text-white"
+                      : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
+                  }`}
+                >
+                  🇮🇳 INR
+                </button>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <PricingCard
               title="Starter"
-              price="$19"
+              price={formatPrice(19)}
               features={[
                 "720p AI Enhancement",
                 "Basic Chat Moderation",
@@ -273,10 +314,11 @@ export default function Home() {
               ]}
               buttonText="Get Started"
               popular={false}
+              onButtonClick={() => router.push("/checkout?plan=starter")}
             />
             <PricingCard
               title="Professional"
-              price="$49"
+              price={formatPrice(49)}
               features={[
                 "1080p AI Enhancement",
                 "Advanced Chat Moderation",
@@ -288,10 +330,11 @@ export default function Home() {
               ]}
               buttonText="Choose Pro"
               popular={true}
+              onButtonClick={() => router.push("/checkout?plan=professional")}
             />
             <PricingCard
               title="Enterprise"
-              price="$99"
+              price={formatPrice(99)}
               features={[
                 "4K AI Enhancement",
                 "Premium Chat Moderation",
@@ -305,6 +348,7 @@ export default function Home() {
               ]}
               buttonText="Contact Sales"
               popular={false}
+              onButtonClick={() => router.push("/contact?plan=enterprise")}
             />
           </div>
         </div>
