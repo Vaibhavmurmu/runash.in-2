@@ -58,7 +58,7 @@ export default function AboutPage() {
                 Our Mission
               </h2>
               <p className="text-gray-700 dark:text-gray-300 mb-6 text-lg">
-                Founded in 2023, RunAsh was born from a simple idea: what if AI could make live streaming more engaging,
+                Founded in 2021, RunAsh was born from a simple idea: what if AI could make live streaming more engaging,
                 accessible, and powerful for everyone?
               </p>
               <p className="text-gray-700 dark:text-gray-300 mb-6 text-lg">
@@ -139,35 +139,35 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <TeamMember
-              name="Alex Chen"
+              name="Ram Murmu"
               role="Founder & CEO"
               image="/placeholder.svg?height=300&width=300"
-              bio="Former AI researcher with 10+ years experience in machine learning and computer vision."
+              bio="Led engineering and former AI researcher with 10+ years experience in machine learning and computer vision."
               socialLinks={{
-                twitter: "https://twitter.com/alexchen",
-                linkedin: "https://linkedin.com/in/alexchen",
+                twitter: "https://twitter.com/rammurmu",
+                linkedin: "https://linkedin.com/in/rammurmu",
               }}
               gradient="from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400"
             />
             <TeamMember
-              name="Sarah Johnson"
-              role="CTO"
+              name="Vaibhav Murmu"
+              role="CFO"
               image="/placeholder.svg?height=300&width=300"
-              bio="Led engineering teams at major streaming platforms before joining to build our AI infrastructure."
+              bio="Led Finance and Accounting teams with 4+ years experience in finance and accounting."
               socialLinks={{
-                twitter: "https://twitter.com/sarahjohnson",
-                linkedin: "https://linkedin.com/in/sarahjohnson",
+                twitter: "https://twitter.com/vaibhavmurmu",
+                linkedin: "https://linkedin.com/in/vaibhavmurmu",
               }}
               gradient="from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-orange-400"
             />
             <TeamMember
-              name="Michael Rodriguez"
-              role="Head of Product"
+              name="P K  Murmu"
+              role="Head of Marketing"
               image="/placeholder.svg?height=300&width=300"
-              bio="Product visionary with experience at leading tech companies focused on creator tools."
+              bio="Product visionary with 4+ years experience in marketing and sales and focused on creator tools."
               socialLinks={{
-                twitter: "https://twitter.com/michaelrodriguez",
-                linkedin: "https://linkedin.com/in/michaelrodriguez",
+                twitter: "https://twitter.com/pkmurmu",
+                linkedin: "https://linkedin.com/in/pkmurmu",
               }}
               gradient="from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400"
             />
@@ -182,31 +182,32 @@ export default function AboutPage() {
               }}
               gradient="from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-orange-400"
             />
+          
             <TeamMember
-              name="David Kim"
+              name=""
               role="UX Director"
               image="/placeholder.svg?height=300&width=300"
               bio="Award-winning designer focused on creating intuitive interfaces for complex AI tools."
               socialLinks={{
-                twitter: "https://twitter.com/davidkim",
-                linkedin: "https://linkedin.com/in/davidkim",
+                twitter: "https://twitter.com/",
+                linkedin: "https://linkedin.com/in/",
               }}
               gradient="from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400"
             />
             <TeamMember
-              name="Emma Wilson"
+              name=""
               role="Head of Community"
               image="/placeholder.svg?height=300&width=300"
               bio="Former content creator who understands the challenges streamers face every day."
               socialLinks={{
-                twitter: "https://twitter.com/emmawilson",
-                linkedin: "https://linkedin.com/in/emmawilson",
+                twitter: "https://twitter.com/",
+                linkedin: "https://linkedin.com/in/",
               }}
               gradient="from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-orange-400"
-            />
+            /> 
           </div>
         </div>
-      </section>
+      </section> 
 
       {/* Technology Section */}
       <section className="py-20 relative overflow-hidden">
@@ -284,21 +285,21 @@ export default function AboutPage() {
 
             <div className="space-y-24">
               <Milestone
-                year="2023"
+                year="2021"
                 title="Company Founded"
                 description="Our founding team came together with a vision to revolutionize live streaming with AI technology."
                 position="left"
                 gradient="from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400"
               />
               <Milestone
-                year="2023"
+                year="2022"
                 title="Seed Funding"
                 description="Secured $5M in seed funding to build our core AI technology and assemble our engineering team."
                 position="right"
                 gradient="from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-orange-400"
               />
               <Milestone
-                year="2024"
+                year="2023"
                 title="Beta Launch"
                 description="Released our beta platform to select content creators, gathering valuable feedback and refining our technology."
                 position="left"
