@@ -140,9 +140,9 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <TeamMember
               name="Ram Murmu"
-              role="Founder & CEO"
-              image="/placeholder.svg?height=300&width=300"
-              bio="Led engineering and former AI researcher with 10+ years experience in machine learning and computer vision."
+              role="Founder & CEO/CTO"
+              image="/rammurmu.jpg?height=300&width=300"
+              bio="Led engineering and AI researcher team with 10+ years experience in full-stack,machine learning and computer vision."
               socialLinks={{
                 twitter: "https://twitter.com/rammurmu",
                 linkedin: "https://linkedin.com/in/rammurmu",
@@ -151,9 +151,9 @@ export default function AboutPage() {
             />
             <TeamMember
               name="Vaibhav Murmu"
-              role="CFO"
-              image="/placeholder.svg?height=300&width=300"
-              bio="Led Finance and Accounting teams with 4+ years experience in finance and accounting."
+              role="Co-Founder & CFO"
+              image="/vaibhavmurmu.jpg?height=300&width=300"
+              bio="Led Finance and Accounting team with 4+ years experience in finance and accounting."
               socialLinks={{
                 twitter: "https://twitter.com/vaibhavmurmu",
                 linkedin: "https://linkedin.com/in/vaibhavmurmu",
@@ -172,20 +172,20 @@ export default function AboutPage() {
               gradient="from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400"
             />
             <TeamMember
-              name="Priya Patel"
-              role="Lead AI Engineer"
+              name="Nirali Murmu"
+              role="Lead RunAsh Team"
               image="/placeholder.svg?height=300&width=300"
-              bio="Specializes in real-time video processing and neural networks for content enhancement."
+              bio="Led HR team with 4+ years experience in HR."
               socialLinks={{
-                twitter: "https://twitter.com/priyapatel",
-                linkedin: "https://linkedin.com/in/priyapatel",
+                twitter: "https://twitter.com/",
+                linkedin: "https://linkedin.com/in/",
               }}
               gradient="from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-orange-400"
             />
           
             <TeamMember
-              name=""
-              role="UX Director"
+              name="AI Assistant"
+              role="UX Designer"
               image="/placeholder.svg?height=300&width=300"
               bio="Award-winning designer focused on creating intuitive interfaces for complex AI tools."
               socialLinks={{
@@ -195,10 +195,10 @@ export default function AboutPage() {
               gradient="from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400"
             />
             <TeamMember
-              name=""
+              name="C K Murmu"
               role="Head of Community"
               image="/placeholder.svg?height=300&width=300"
-              bio="Former content creator who understands the challenges streamers face every day."
+              bio="Content creator who understands the challenges streamers face every day."
               socialLinks={{
                 twitter: "https://twitter.com/",
                 linkedin: "https://linkedin.com/in/",
@@ -294,7 +294,7 @@ export default function AboutPage() {
               <Milestone
                 year="2022"
                 title="Seed Funding"
-                description="Secured $5M in seed funding to build our core AI technology and assemble our engineering team."
+                description="Secured $125K in seed grant funding to build our core AI technology and assemble our engineering team."
                 position="right"
                 gradient="from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-orange-400"
               />
@@ -372,6 +372,7 @@ export default function AboutPage() {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white"
+                onClick={() => router.push("/stream")}
               >
                 Start Streaming Now <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -517,7 +518,7 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-gray-500">
-            <p>© {new Date().getFullYear()} RunAsh AI. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} RunAsh. All rights reserved.</p>
           </div>
         </div>
       </footer>
