@@ -76,7 +76,7 @@ export default function Home() {
         </div>
       </section>
       {/* Stats Section */}
-      <section className="py-16 bg-white dark:bg-gray-900 border-y border-orange-100 dark:border-orange-900/20">
+  {/* <section className="py-16 bg-white dark:bg-gray-900 border-y border-orange-100 dark:border-orange-900/20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <StatCounter value={1000+} label="Organic Products" />
@@ -85,7 +85,7 @@ export default function Home() {
             <StatCounter value={100+} label="Organic Recipe s" suffix="+" />
           </div>
         </div>
-      </section>
+      </section> */}
 
        {/* Hero Section with Video Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
