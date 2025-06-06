@@ -21,7 +21,7 @@ export default function TermsPage() {
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
               Terms of Service
             </h1>
-            <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">Last updated: December 15, 2024</p>
+            <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">Last updated: Jun 06, 2025</p>
           </div>
         </div>
       </section>
@@ -157,11 +157,11 @@ export default function TermsPage() {
                 </p>
                 <div className="mt-4 p-6 bg-gray-50 dark:bg-gray-900 rounded-lg">
                   <p className="text-gray-700 dark:text-gray-300">
-                    <strong>Email:</strong> legal@runash.ai
+                    <strong>Email:</strong> admin@runash.in
                     <br />
-                    <strong>Address:</strong> 123 Innovation Drive, Tech Valley, CA 94000
+                    <strong>Address:</strong> 310  RunAsh Tech Avenue, Bokaro, JH, Bharat(India) 827014
                     <br />
-                    <strong>Phone:</strong> +1 (555) 123-4567
+                    <strong>Phone:</strong> +91 (06542) 253096
                   </p>
                 </div>
               </div>
