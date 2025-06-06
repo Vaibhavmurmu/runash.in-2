@@ -21,7 +21,7 @@ export default function PrivacyPage() {
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
               Privacy Policy
             </h1>
-            <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">Last updated: December 15, 2024</p>
+            <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">Last updated: Jun 06, 2025</p>
           </div>
         </div>
       </section>
@@ -222,15 +222,15 @@ export default function PrivacyPage() {
                 </p>
                 <div className="mt-4 p-4 bg-orange-50 dark:bg-orange-950/20 rounded-lg border border-orange-200 dark:border-orange-800/30">
                   <p className="text-gray-700 dark:text-gray-300">
-                    <strong>Email:</strong> privacy@runash.ai
+                    <strong>Email:</strong> admin@runash.in
                     <br />
-                    <strong>Address:</strong> RunAsh AI, Inc.
+                    <strong>Address:</strong> Runash Digital Innovation Technologies Pvt Ltd.
                     <br />
-                    123 Tech Avenue
+                    310 RunAsh Tech Avenue
                     <br />
-                    San Francisco, CA 94107
+                    Bokaro, Jharkhand, 827014
                     <br />
-                    United States
+                    Bharat (India)
                   </p>
                 </div>
               </div>
