@@ -160,11 +160,11 @@ export default function BlogPage() {
                       <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
                         <div className="flex items-center gap-1">
                           <User className="h-4 w-4" />
-                          <span>Alex Chen</span>
+                          <span>Ram Murmu</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <Calendar className="h-4 w-4" />
-                          <span>Dec 15, 2024</span>
+                          <span>Jun 06 2025</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock className="h-4 w-4" />
@@ -185,8 +185,8 @@ export default function BlogPage() {
                     <BlogPost
                       title="Getting Started with AI Video Enhancement"
                       excerpt="Learn how to use RunAsh's AI video enhancement features to improve your stream quality automatically."
-                      author="Sarah Johnson"
-                      date="Dec 12, 2024"
+                      author="Ram Murmu"
+                      date="Jun 06, 2025"
                       readTime="5 min read"
                       category="Tutorial"
                       image="/placeholder.svg?height=300&width=400"
@@ -194,8 +194,8 @@ export default function BlogPage() {
                     <BlogPost
                       title="Multi-Platform Streaming Best Practices"
                       excerpt="Discover the best strategies for streaming to multiple platforms simultaneously while maintaining quality."
-                      author="Michael Rodriguez"
-                      date="Dec 10, 2024"
+                      author="Ram Murmu"
+                      date="Jun 06, 2025"
                       readTime="7 min read"
                       category="Tips"
                       image="/placeholder.svg?height=300&width=400"
@@ -204,7 +204,7 @@ export default function BlogPage() {
                       title="RunAsh 2.1 Release Notes"
                       excerpt="Explore the latest features and improvements in RunAsh AI 2.1, including enhanced chat moderation and new analytics."
                       author="Product Team"
-                      date="Dec 8, 2024"
+                      date="Jun 04, 2025"
                       readTime="4 min read"
                       category="Product Updates"
                       image="/placeholder.svg?height=300&width=400"
@@ -212,8 +212,8 @@ export default function BlogPage() {
                     <BlogPost
                       title="Building Your Streaming Brand with AI"
                       excerpt="How to leverage AI tools to create consistent branding and grow your streaming audience."
-                      author="Emma Wilson"
-                      date="Dec 5, 2024"
+                      author="Community Team"
+                      date="May  06, 2025"
                       readTime="6 min read"
                       category="Community"
                       image="/placeholder.svg?height=300&width=400"
@@ -221,8 +221,8 @@ export default function BlogPage() {
                     <BlogPost
                       title="The Science Behind Real-Time Video Processing"
                       excerpt="A deep dive into the technical challenges and solutions for processing video streams in real-time."
-                      author="David Kim"
-                      date="Dec 3, 2024"
+                      author="Ram Murmu"
+                      date="Feb 01, 2025"
                       readTime="10 min read"
                       category="AI Research"
                       image="/placeholder.svg?height=300&width=400"
@@ -231,7 +231,7 @@ export default function BlogPage() {
                       title="Community Spotlight: Top Streamers Using RunAsh"
                       excerpt="Meet some of the amazing content creators who are using RunAsh AI to elevate their streaming experience."
                       author="Community Team"
-                      date="Dec 1, 2024"
+                      date="Jun 06, 2025"
                       readTime="8 min read"
                       category="Community"
                       image="/placeholder.svg?height=300&width=400"
@@ -245,8 +245,8 @@ export default function BlogPage() {
                   <BlogPost
                     title="Getting Started with AI Video Enhancement"
                     excerpt="Learn how to use RunAsh's AI video enhancement features to improve your stream quality automatically."
-                    author="Sarah Johnson"
-                    date="Dec 12, 2024"
+                    author="Vaibhav Murmu"
+                    date="Jun 06, 2025"
                     readTime="5 min read"
                     category="Tutorial"
                     image="/placeholder.svg?height=300&width=400"
@@ -255,7 +255,7 @@ export default function BlogPage() {
                     title="Setting Up Multi-Platform Streaming"
                     excerpt="Step-by-step guide to configure streaming to multiple platforms simultaneously."
                     author="Tech Team"
-                    date="Nov 28, 2024"
+                    date="Jun 06, 2025"
                     readTime="12 min read"
                     category="Tutorial"
                     image="/placeholder.svg?height=300&width=400"
@@ -269,7 +269,7 @@ export default function BlogPage() {
                     title="RunAsh 2.1 Release Notes"
                     excerpt="Explore the latest features and improvements in RunAsh AI 2.1, including enhanced chat moderation and new analytics."
                     author="Product Team"
-                    date="Dec 8, 2024"
+                    date="Jun 04, 2025"
                     readTime="4 min read"
                     category="Product Updates"
                     image="/placeholder.svg?height=300&width=400"
@@ -282,8 +282,8 @@ export default function BlogPage() {
                   <BlogPost
                     title="The Future of AI-Powered Live Streaming"
                     excerpt="Explore how artificial intelligence is revolutionizing the live streaming industry."
-                    author="Alex Chen"
-                    date="Dec 15, 2024"
+                    author="Vaibhav Murmu"
+                    date="Jun 06, 2025"
                     readTime="8 min read"
                     category="AI Research"
                     image="/placeholder.svg?height=300&width=400"
@@ -292,8 +292,8 @@ export default function BlogPage() {
                   <BlogPost
                     title="The Science Behind Real-Time Video Processing"
                     excerpt="A deep dive into the technical challenges and solutions for processing video streams in real-time."
-                    author="David Kim"
-                    date="Dec 3, 2024"
+                    author="Vaibhav Murmu"
+                    date="Jun 06, 2025"
                     readTime="10 min read"
                     category="AI Research"
                     image="/placeholder.svg?height=300&width=400"
@@ -306,8 +306,8 @@ export default function BlogPage() {
                   <BlogPost
                     title="Building Your Streaming Brand with AI"
                     excerpt="How to leverage AI tools to create consistent branding and grow your streaming audience."
-                    author="Emma Wilson"
-                    date="Dec 5, 2024"
+                    author="Community Team"
+                    date="Jun 06, 2025"
                     readTime="6 min read"
                     category="Community"
                     image="/placeholder.svg?height=300&width=400"
@@ -316,7 +316,7 @@ export default function BlogPage() {
                     title="Community Spotlight: Top Streamers Using RunAsh"
                     excerpt="Meet some of the amazing content creators who are using RunAsh AI to elevate their streaming experience."
                     author="Community Team"
-                    date="Dec 1, 2024"
+                    date="Jun 06, 2025"
                     readTime="8 min read"
                     category="Community"
                     image="/placeholder.svg?height=300&width=400"
