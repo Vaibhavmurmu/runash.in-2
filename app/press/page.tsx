@@ -58,6 +58,7 @@ export default function PressPage() {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white"
+                onClick={() => router.push("/press")}
               >
                 Press Releases <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -65,6 +66,7 @@ export default function PressPage() {
                 size="lg"
                 variant="outline"
                 className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:hover:bg-orange-950/50"
+              onClick={() => router.push("/media")}
               >
                 Media Kit <Download className="ml-2 h-4 w-4" />
               </Button>
@@ -88,14 +90,14 @@ export default function PressPage() {
               <TabsContent value="press-releases" className="mt-6">
                 <div className="space-y-8">
                   <PressReleaseCard
-                    title="RunAsh AI Raises $20M Series A to Transform Live Streaming with AI"
-                    date="June 15, 2023"
+                    title="RunAsh AI Raises $125K Seed grant funding  to Transform Live Streaming with AI"
+                    date="Jan 20, 2022"
                     excerpt="Funding will accelerate product development and global expansion of the AI-powered live streaming platform."
                     link="#"
                   />
                   <PressReleaseCard
-                    title="RunAsh AI Launches Revolutionary Real-time Video Enhancement Technology"
-                    date="May 3, 2023"
+                    title="RunAsh AI Pre Launches Revolutionary Real-time Video Enhancement Technology"
+                    date="April 06, 2023"
                     excerpt="New AI-powered features automatically enhance video quality, reduce noise, and optimize bandwidth in real-time."
                     link="#"
                   />
@@ -107,13 +109,13 @@ export default function PressPage() {
                   />
                   <PressReleaseCard
                     title="RunAsh AI Announces Public Beta Launch"
-                    date="March 1, 2023"
+                    date="April 06, 2024"
                     excerpt="After months of private testing, RunAsh AI opens its platform to public beta users."
                     link="#"
                   />
                   <PressReleaseCard
                     title="RunAsh AI Founded to Revolutionize Live Streaming with Artificial Intelligence"
-                    date="January 10, 2023"
+                    date="January 22, 2025"
                     excerpt="Tech industry veterans launch startup focused on bringing advanced AI capabilities to content creators."
                     link="#"
                   />
@@ -124,29 +126,29 @@ export default function PressPage() {
                 <div className="space-y-8">
                   <NewsCard
                     title="'RunAsh AI Is Changing How We Stream' - Tech Today"
-                    publication="Tech Today"
-                    date="June 20, 2023"
+                    publication=""
+                    date="Feb 22, 2025"
                     excerpt="An in-depth look at how RunAsh AI is transforming the streaming landscape with its innovative AI technology."
                     link="#"
                   />
                   <NewsCard
                     title="'The Future of Streaming: RunAsh AI's Innovative Approach' - Streaming Insider"
-                    publication="Streaming Insider"
-                    date="May 25, 2023"
+                    publication=""
+                    date="April 22, 2025"
                     excerpt="RunAsh AI's platform is setting new standards for video quality and audience engagement in live streaming."
                     link="#"
                   />
                   <NewsCard
-                    title="'RunAsh AI Secures Major Funding to Expand AI Streaming Tools' - VentureBeat"
-                    publication="VentureBeat"
-                    date="June 16, 2023"
-                    excerpt="The $20M Series A funding round positions RunAsh AI as a leader in the growing AI-enhanced streaming market."
+                    title="'RunAsh AI Secures Major Seed Funding to Expand AI Streaming Tools' - RunAsh"
+                    publication=""
+                    date="May 22, 2025"
+                    excerpt="The $1M Seed funding round positions RunAsh AI as a leader in the growing AI-enhanced streaming market."
                     link="#"
                   />
                   <NewsCard
                     title="'How RunAsh AI Is Making Professional-Quality Streaming Accessible to All' - Creator Economy"
-                    publication="Creator Economy"
-                    date="April 30, 2023"
+                    publication=""
+                    date="Jun 06, 2025"
                     excerpt="RunAsh AI's technology is democratizing high-quality streaming, allowing creators of all sizes to produce professional content."
                     link="#"
                   />
@@ -212,7 +214,7 @@ export default function PressPage() {
                           href="mailto:press@runash.ai"
                           className="text-orange-600 dark:text-orange-400 hover:underline"
                         >
-                          press@runash.ai
+                          press@runash.in
                         </a>
                       </div>
                     </div>
@@ -225,13 +227,13 @@ export default function PressPage() {
                         <h3 className="font-semibold text-lg">Social Media</h3>
                         <p className="text-gray-700 dark:text-gray-300 mb-1">Follow us for the latest updates:</p>
                         <div className="flex gap-3 mt-2">
-                          <a href="#" className="text-orange-600 dark:text-orange-400 hover:underline">
+                          <a href="https://x.com/runash.ai" className="text-orange-600 dark:text-orange-400 hover:underline">
                             Twitter
                           </a>
-                          <a href="#" className="text-orange-600 dark:text-orange-400 hover:underline">
+                          <a href="https://linkedin.com/in/runash.ai" className="text-orange-600 dark:text-orange-400 hover:underline">
                             LinkedIn
                           </a>
-                          <a href="#" className="text-orange-600 dark:text-orange-400 hover:underline">
+                          <a href="https://instagram.com/runash.ai" className="text-orange-600 dark:text-orange-400 hover:underline">
                             Instagram
                           </a>
                         </div>
@@ -317,6 +319,7 @@ export default function PressPage() {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white"
+                onClick={() => router.push("/get-started")}
               >
                 Start Free Trial <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -324,6 +327,7 @@ export default function PressPage() {
                 size="lg"
                 variant="outline"
                 className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:hover:bg-orange-950/50"
+               onClick={() => router.push("/request-demo")}
               >
                 Request Demo
               </Button>
