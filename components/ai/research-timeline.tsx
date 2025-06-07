@@ -29,7 +29,7 @@ export default function ResearchTimeline() {
     {
       year: 2024,
       title: "Multi-modal Understanding",
-      description: "Advanced research in Video Classification,Video Language Model,and combining video,audio, visual, and text data for holistic content understanding.",
+      description: "Advanced research in combining video, visual, and text data for holistic content understanding.",
     },
     {
       year: 2025,
