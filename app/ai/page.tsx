@@ -102,7 +102,7 @@ export default function AIPage() {
     {
       name: "Ram Murmu",
       role: "Chief AI Researcher",
-      image: "/hfprofile.jpg?height=300&width=300",
+      image: "/rammurmu.jpg?height=300&width=300",
       bio: "Ram Murmu leads RunAsh's AI research team, focusing on real-time video analysis and content understanding.",
       publications: 0,
       citations: 0,
