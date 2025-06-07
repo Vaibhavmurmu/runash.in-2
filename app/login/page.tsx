@@ -109,11 +109,11 @@ export default function LoginPage() {
                 Sign in to continue your AI-powered streaming journey and unlock powerful features
               </p>
             </div>
-            </div>
-          </div>
+          
+        
 
             {/* Feature Highlights */}
-                {/* <div className="space-y-4">
+            <div className="space-y-4">
               <div className="flex items-center gap-4 p-4 rounded-lg bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border border-orange-200/50 dark:border-orange-900/30">
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center">
                   <span className="text-white font-bold">AI</span>
@@ -136,7 +136,7 @@ export default function LoginPage() {
                 </div>
               </div> 
             </div>
-          </div> */}
+          </div> 
 
           {/* Right Side - Login Form */}
           <div className="flex justify-center lg:justify-end">
