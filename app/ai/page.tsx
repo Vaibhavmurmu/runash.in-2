@@ -37,9 +37,9 @@ export default function AIPage() {
   const papers = [
     {
       title: "Real-time AI-Powered Content Analysis for Live Streaming",
-      authors: ["Dr. Sarah Chen", "Dr. Michael Rodriguez", "Alex Kim"],
-      date: "June 2023",
-      conference: "International Conference on Machine Learning (ICML 2023)",
+      authors: ["Ram Murmu", "Vaibhav Murmu", "P K Murmu"],
+      date: "January 2025",
+      conference: "HuggingFace",
       abstract:
         "This paper presents a novel approach to real-time content analysis for live streaming platforms using a lightweight transformer architecture optimized for edge devices.",
       link: "#",
@@ -47,9 +47,9 @@ export default function AIPage() {
     },
     {
       title: "Adaptive Bandwidth Optimization Using Predictive AI Models",
-      authors: ["Dr. James Wilson", "Sophia Park", "Dr. Raj Patel"],
-      date: "March 2023",
-      conference: "IEEE Conference on Computer Vision and Pattern Recognition (CVPR 2023)",
+      authors: ["Ram Murmu", "Vaibhav Murmu", "P K Murmu"],
+      date: "January 2025",
+      conference: "HuggingFace",
       abstract:
         "We introduce an adaptive bandwidth optimization system that uses predictive AI models to anticipate streaming quality requirements based on content type and viewer engagement patterns.",
       link: "#",
@@ -57,13 +57,13 @@ export default function AIPage() {
     },
     {
       title: "Multi-modal Emotion Recognition for Enhanced Viewer Engagement",
-      authors: ["Dr. Lisa Johnson", "Thomas Zhang", "Dr. Emma Davis"],
-      date: "January 2023",
-      conference: "Association for Computational Linguistics (ACL 2023)",
+      authors: ["Ram Murmu", "Vaibhav Murmu", "P K Murmu"],
+      date: "January 2025",
+      conference: "HuggingFace,Kaggle",
       abstract:
         "This research explores multi-modal emotion recognition techniques combining audio, visual, and textual data to enhance viewer engagement metrics in live streaming environments.",
       link: "#",
-      tags: ["Emotion Recognition", "Multi-modal AI", "Engagement Metrics"],
+      tags: ["Emotion Recognition", "Action Recognition", "Action Recognition","Multi-modal AI", "Engagement Metrics"],
     },
   ]
 
@@ -100,36 +100,36 @@ export default function AIPage() {
   // Research team data
   const researchers = [
     {
-      name: "Dr. Sarah Chen",
-      role: "Chief AI Scientist",
-      image: "/placeholder.svg?height=300&width=300",
-      bio: "Dr. Chen leads RunAsh's AI research team, focusing on real-time video analysis and content understanding.",
-      publications: 47,
-      citations: 3200,
+      name: "Ram Murmu",
+      role: "Chief AI Researcher",
+      image: "/rammurmu.jpg?height=300&width=300",
+      bio: "Ram Murmu leads RunAsh's AI research team, focusing on real-time video analysis and content understanding.",
+      publications: 0,
+      citations: 0,
       links: {
-        linkedin: "#",
-        twitter: "#",
+        linkedin: "https://linkedin.com/in/rammurmu",
+        twitter: "https://x.com/rammurmuu",
         googleScholar: "#",
       },
     },
     {
-      name: "Dr. Michael Rodriguez",
-      role: "Principal Research Engineer",
-      image: "/placeholder.svg?height=300&width=300",
-      bio: "Dr. Rodriguez specializes in deep learning architectures for streaming media optimization and bandwidth prediction.",
-      publications: 32,
-      citations: 2100,
+      name: "Vaibhav Murmu",
+      role: "Principal Research Team Member",
+      image: "/vaibhavmurmu.jpg?height=300&width=300",
+      bio: "Vaibhav Murmu contribute in deep learning architectures for streaming media optimization and bandwidth prediction.",
+      publications: 0,
+      citations: 0,
       links: {
-        linkedin: "#",
-        twitter: "#",
+        linkedin: "https://linkedin.com/in/vaibhavmurmu",
+        twitter: "https://x.com/vaibhavmurmu",
         googleScholar: "#",
       },
     },
     {
-      name: "Dr. Emma Davis",
-      role: "Senior AI Researcher",
+      name: "P K Murmu",
+      role: "Researcher Team Members",
       image: "/placeholder.svg?height=300&width=300",
-      bio: "Dr. Davis focuses on multi-modal learning and emotion recognition systems for enhanced viewer engagement.",
+      bio: "P K Murmu focuses on multi-modal learning and emotion recognition systems for enhanced viewer engagement.",
       publications: 28,
       citations: 1800,
       links: {
@@ -415,7 +415,7 @@ export default function AIPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-white text-orange-600 hover:bg-orange-50">Research Partnerships</Button>
-              <Button variant="outline" className="border-white text-white hover:bg-white/10">
+              <Button variant="outline" className="border-white text-orange-600 hover:bg-white/10">
                 Contact Research Team
               </Button>
             </div>
