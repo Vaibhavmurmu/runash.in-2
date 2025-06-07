@@ -12,27 +12,27 @@ export default function ResearchTimeline() {
 
   const milestones = [
     {
-      year: 2020,
+      year: 2021,
       title: "RunAsh AI Research Founded",
       description: "Established dedicated AI research team focused on streaming technology.",
     },
     {
-      year: 2021,
-      title: "First Research Paper Published",
-      description: "Published our first paper on real-time content analysis at ICML.",
+      year: 2022,
+      title: "Building Foundation AI",
+      description: "Building a custom RunAsh AI Model.",
     },
     {
-      year: 2022,
+      year: 2023,
       title: "Edge AI Breakthrough",
       description: "Developed lightweight models for edge devices with 80% less compute.",
     },
     {
-      year: 2023,
+      year: 2024,
       title: "Multi-modal Understanding",
-      description: "Advanced research in combining audio, visual, and text data for holistic content understanding.",
+      description: "Advanced research in Video Classification,Video Language Model,and combining video,audio, visual, and text data for holistic content understanding.",
     },
     {
-      year: 2024,
+      year: 2025,
       title: "Open Source Initiative",
       description: "Released key components of our AI stack as open source projects.",
     },
