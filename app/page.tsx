@@ -44,7 +44,7 @@ export default function Home() {
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
             RunAsh AI Live Streaming Platform 
           </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
+          <p className="mt-2 text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
             The next generation of AI-powered live streaming for creators, sellers, and businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -53,19 +53,20 @@ export default function Home() {
               className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10"
               onClick={() => router.push("/stream")}
             >
-              Start Streaming <Play className="ml-2 h-4 w-4" />
+               Get Start Free  <Play className="ml-2 h-4 w-4" />
             </Button>
             <Button
               size="lg"
               variant="outline"
               className="border-orange-500 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-950"
+              onClick={() => router.push("/landing")}
             >
-              Watch Demo <ArrowRight className="ml-2 h-4 w-4" />
+              Learn More <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>     
          {/* Tech badges */}
           <div className="mt-12 flex flex-wrap justify-center gap-3">
-            <TechBadge label="Live Sales" />
+            <TechBadge label="Live Selling" />
             <TechBadge label="Live Shopping " />
             <TechBadge label="Live-on-demand" />
             <TechBadge label="Live Chat" />
@@ -135,7 +136,7 @@ export default function Home() {
       <section className="py-16 bg-white dark:bg-gray-900 border-y border-orange-100 dark:border-orange-900/20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <StatCounter value={1000} label="Active Streamers" />
+            <StatCounter value={1000} label="Active Streamers" suffix="+" />
             <StatCounter value={1000} label="Monthly Viewers" suffix="+" />
             <StatCounter value={99.9} label="Uptime Percentage" suffix="%" />
             <StatCounter value={2} label="Countries Reached" suffix="+" />
@@ -433,9 +434,9 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 mb-8">
             {/* Company Info */}
             <div className="lg:col-span-2">
-              <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh</h3>
+              <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh AI</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                The most advanced AI-powered live streaming platform for creators, gamers, and businesses.
+                The most advanced AI-powered live streaming platform for creators, sellers, and businesses.
               </p>
               <div className="flex items-center gap-2 mb-4">
                 <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -459,7 +460,7 @@ export default function Home() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="/ai"
+                    href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     AI
@@ -467,7 +468,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/chat"
+                    href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     RunAshChat
@@ -475,7 +476,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/store"
+                    href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     LiveStore
@@ -483,7 +484,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/seller"
+                    href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     Become a seller 
@@ -666,41 +667,41 @@ export default function Home() {
 
           {/* Sitemap */}
           <div className="border-t border-gray-200 dark:border-gray-800 pt-8 mt-8">
-            <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Sitemap</h3>
+            <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white"></h3>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               <div>
-                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Main Pages</h4>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Company</h4>
                 <ul className="space-y-1 text-sm">
-                  <li>
-                    <a
-                      href="/home"
-                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      Home
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/features"
-                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      Features
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/pricing"
-                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      Pricing
-                    </a>
-                  </li>
                   <li>
                     <a
                       href="/about"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       About
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/contact"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Contact 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/careers"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Careers
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/roadmap"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Roadmap
                     </a>
                   </li>
                 </ul>
@@ -718,7 +719,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/multi-host"
+                      href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Multi-Host
@@ -755,26 +756,26 @@ export default function Home() {
                   </li>
                   <li>
                     <a
+                      href="/Documentation"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Docs
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/learn"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Learn
+                    </a>
+                  </li>
+                  <li>
+                    <a
                       href="/tutorials"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Tutorials
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/support"
-                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      Support
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/roadmap"
-                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      Roadmap
+                      Tutorial 
                     </a>
                   </li>
                 </ul>
@@ -817,7 +818,7 @@ export default function Home() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Company</h4>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Changelog</h4>
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
@@ -882,7 +883,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/mobile"
+                      href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Mobile App
