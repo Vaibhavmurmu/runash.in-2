@@ -18,7 +18,6 @@ import {
   Film,
   clapperboard,
   Cpu,
-  externallink,
   Focus,
   Loader,
   Mic,
@@ -26,12 +25,10 @@ import {
   Video,
   Tv,
   Image,
-  Alargesmaall,
-  Filetext,
-  Imageplay,
-  Imageplus,
+  ImagePlay,
+  ImagePlus,
   Drama,
-  
+  ALargSmall,
   BarChartIcon as ChartBar,
 } from "lucide-react"
 
@@ -250,7 +247,7 @@ export default function AIPage() {
         <div className="container px-4 mx-auto">
           <div className="flex flex-col items-center text-center mb-16">
             <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4">
-              <Microscope className="h-6 w-6 text-white" />
+              <CPU className="h-6 w-6 text-white" />
             </div>
             <h2 className="text-4xl font-bold bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text mb-4">
               Custom RunAsh AI Model 
@@ -284,7 +281,7 @@ export default function AIPage() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Imageplus className="h-6 w-6 text-white" />
+                <ImagePlus className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Object Detection </h3>
               <p className="text-gray-700 dark:text-gray-300">
@@ -295,9 +292,9 @@ export default function AIPage() {
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
                 <Film className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white"></h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Multimodel</h3>
               <p className="text-gray-700 dark:text-gray-300">
-                
+                Video-Text-to-Text model take in a video chat and text prompt and output text.These model are call video language models.
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
@@ -320,7 +317,7 @@ export default function AIPage() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Imageplay className="h-6 w-6 text-white" />
+                <ImagePlay className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Image-to-Video</h3>
               <p className="text-gray-700 dark:text-gray-300">
@@ -329,7 +326,7 @@ export default function AIPage() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Alarsmall className="h-6 w-6 text-white" />
+                <ALargeSmall className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Translation</h3>
               <p className="text-gray-700 dark:text-gray-300">
@@ -340,7 +337,7 @@ export default function AIPage() {
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
                 <Speech className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Automatic Speech Recognition (ASR)</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Automatic Speech Recognition</h3>
               <p className="text-gray-700 dark:text-gray-300">
                 Our model supports TTS capabilities, allowing you to generate spoken language from text inputs in real-time.
               </p>
@@ -349,7 +346,7 @@ export default function AIPage() {
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
                 <Speech className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Text-toSpeech (TTS)</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Text-toSpeech</h3>
               <p className="text-gray-700 dark:text-gray-300">
                 This model supports TTS capabilities, allowing  to generate spoken language from text inputs in real-time.
               </p>
@@ -358,7 +355,7 @@ export default function AIPage() {
           </div>
 
           {/* Research Timeline */}
-          <ResearchTimeline />
+          
         </div>
       </section>
 
