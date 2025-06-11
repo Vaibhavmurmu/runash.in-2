@@ -14,6 +14,24 @@ import {
   Zap,
   Users,
   Server,
+  Speech,
+  Film,
+  clapperboard,
+  Cpu,
+  externallink,
+  Focus,
+  Loader,
+  Mic,
+  Nfc,
+  Video,
+  Tv,
+  Image,
+  Alargesmaall,
+  Filetext,
+  Imageplay,
+  Imageplus,
+  Drama,
+  
   BarChartIcon as ChartBar,
 } from "lucide-react"
 
@@ -247,7 +265,7 @@ export default function AIPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Brain className="h-6 w-6 text-white" />
+                <Drama className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Live Streaming Action Recognition </h3>
               <p className="text-gray-700 dark:text-gray-300">
@@ -256,7 +274,7 @@ export default function AIPage() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Lightbulb className="h-6 w-6 text-white" />
+                <Video className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Activity Recognition </h3>
               <p className="text-gray-700 dark:text-gray-300">
@@ -266,7 +284,7 @@ export default function AIPage() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Share2 className="h-6 w-6 text-white" />
+                <Imageplus className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Object Detection </h3>
               <p className="text-gray-700 dark:text-gray-300">
@@ -275,7 +293,7 @@ export default function AIPage() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Share2 className="h-6 w-6 text-white" />
+                <Film className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white"></h3>
               <p className="text-gray-700 dark:text-gray-300">
@@ -284,25 +302,25 @@ export default function AIPage() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Share2 className="h-6 w-6 text-white" />
+                <Video className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Video-Text-to-Text</h3>
               <p className="text-gray-700 dark:text-gray-300">
-                This feature allows you to analyze live streams and extract relevant text information in real-time.
+                This feature allows to analyze live streams and extract relevant text information in real-time.
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Share2 className="h-6 w-6 text-white" />
+                <Video className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Text-to-Video</h3>
               <p className="text-gray-700 dark:text-gray-300">
-                This feature enables you to generate live streams from text inputs, allowing for automated content creation.
+                This feature enables to generate live streams from text inputs, allowing for automated content creation.
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Share2 className="h-6 w-6 text-white" />
+                <Imageplay className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Image-to-Video</h3>
               <p className="text-gray-700 dark:text-gray-300">
@@ -311,7 +329,7 @@ export default function AIPage() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Share2 className="h-6 w-6 text-white" />
+                <Alarsmall className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Translation</h3>
               <p className="text-gray-700 dark:text-gray-300">
@@ -320,7 +338,7 @@ export default function AIPage() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Share2 className="h-6 w-6 text-white" />
+                <Speech className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Automatic Speech Recognition (ASR)</h3>
               <p className="text-gray-700 dark:text-gray-300">
@@ -329,11 +347,11 @@ export default function AIPage() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
-                <Share2 className="h-6 w-6 text-white" />
+                <Speech className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Text-toSpeech (TTS)</h3>
               <p className="text-gray-700 dark:text-gray-300">
-                
+                This model supports TTS capabilities, allowing  to generate spoken language from text inputs in real-time.
               </p>
             </div>
             
