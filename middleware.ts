@@ -28,6 +28,11 @@ export async function middleware(request: NextRequest) {
     "/cookies",
     "/roadmap",
     "/status",
+    "/dashboard",
+    "/analytic",
+    "/admin",
+    "/stream",
+    "/recording",
   ]
 
   // API routes that don't require authentication
@@ -50,7 +55,7 @@ export async function middleware(request: NextRequest) {
 
   // Protect streaming routes
   if (
-    (pathname.startsWith("/stream") || pathname.startsWith("/") || pathname.startsWith("/recordings")) &&
+    (pathname.startsWith("/") || pathname.startsWith("/") || pathname.startsWith("/")) &&
     !token
   ) {
     return NextResponse.redirect(new URL("/login", request.url))
