@@ -44,7 +44,7 @@ export default function Home() {
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
             RunAsh AI Live Streaming Platform 
           </h1>
-          <p className=" text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
+          <p className=" text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
             The next generation of AI-powered live streaming for creators, sellers, and businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -59,7 +59,7 @@ export default function Home() {
               size="lg"
               variant="outline"
               className="border-orange-500 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-950"
-              onClick={() => router.push("/landing")}
+              onClick={() => router.push("/")}
             >
               Learn More <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -115,6 +115,7 @@ export default function Home() {
               size="lg"
               variant="outline"
               className="border-orange-500 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-950"
+              onClick={() => router.push("/demo")}
             >
               Watch Demo <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -417,10 +418,14 @@ export default function Home() {
             trial today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 shadow-lg shadow-orange-700/20">
+            <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 shadow-lg shadow-orange-700/20"
+             onClick={() => router.push("/get-started")}
+             >
               Start Your Free Trial <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-orange-600 hover:bg-orange-600/20">
+            <Button size="lg" variant="outline" className="border-white text-orange-600 hover:bg-orange-600/20"
+              onClick={() => router.push("/demo")}
+              >
               Schedule a Demo
             </Button>
           </div>
