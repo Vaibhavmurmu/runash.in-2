@@ -327,7 +327,7 @@ export default function GetStartedPage() {
                   <div className="space-y-3">
                     <Label>Streaming Platforms</Label>
                     <div className="grid grid-cols-2 gap-3">
-                      {["Twitch", "YouTube", "TikTok", "Instagram"].map((platform) => (
+                      {["Twitch", "YouTube", "Facebook", "Instagram"].map((platform) => (
                         <div key={platform} className="flex items-center space-x-2">
                           <Checkbox
                             id={`platform-${platform.toLowerCase()}`}
@@ -347,7 +347,7 @@ export default function GetStartedPage() {
                   <div className="space-y-3">
                     <Label>Content Type</Label>
                     <div className="grid grid-cols-2 gap-3">
-                      {["Gaming", "IRL", "Creative", "Educational"].map((type) => (
+                      {["Creative", "Selling", "Businesses", "IRL"].map((type) => (
                         <div key={type} className="flex items-center space-x-2">
                           <Checkbox
                             id={`content-${type.toLowerCase()}`}
