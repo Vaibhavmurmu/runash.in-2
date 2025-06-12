@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Play, Zap, Users, Shield, ArrowRight, ChevronRight, Star, BarChart, Globe } from "lucide-react"
+import { Play, Zap, Users, Shield, ArrowRight, ChevronRight, Star, BarChart, Globe,SquareArrowDownRight } from "lucide-react"
 import VideoBackground from "@/components/video-background"
 import FeatureCard from "@/components/feature-card"
 import TestimonialCard from "@/components/testimonial-card"
@@ -45,7 +45,7 @@ export default function Home() {
             RunAsh AI Live Streaming Platform 
           </h1>
           <p className=" text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The next generation of AI live retail streaming platform where the retailers build custom AI-powered live streaming 
+            The next generation of AI live streaming platform where the retailers build custom livestream 
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -439,9 +439,9 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 mb-8">
             {/* Company Info */}
             <div className="lg:col-span-2">
-              <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh</h3>
+              <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh AI</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                The most advanced AI-powered live streaming platform for creators, sellers, and businesses.
+                The most advanced AI live streaming platform for creators, sellers, and businesses.
               </p>
               <div className="flex items-center gap-2 mb-4">
                 <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -672,7 +672,7 @@ export default function Home() {
 
           {/* Sitemap */}
           <div className="border-t border-gray-200 dark:border-gray-800 pt-8 mt-8">
-            <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white"></h3>
+            <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Quick Links<SquareArrowDownRight className="ml-2 h-4 w-4" /></h3>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               <div>
                 <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Company</h4>
@@ -842,7 +842,7 @@ export default function Home() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Social</h4>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">More</h4>
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
