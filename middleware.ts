@@ -44,26 +44,26 @@ export async function middleware(request: NextRequest) {
   }
 
   // Protect dashboard routes
-  if (pathname.startsWith("/dashboard") && !token) {
+  if (pathname.startsWith("/") && !token) {
     return NextResponse.redirect(new URL("/login", request.url))
   }
 
   // Protect streaming routes
   if (
-    (pathname.startsWith("/stream") || pathname.startsWith("/analytics") || pathname.startsWith("/recordings")) &&
+    (pathname.startsWith("/stream") || pathname.startsWith("/") || pathname.startsWith("/recordings")) &&
     !token
   ) {
     return NextResponse.redirect(new URL("/login", request.url))
   }
 
   // Protect admin routes
-  if (pathname.startsWith("/admin") && token?.role !== "admin") {
-    return NextResponse.redirect(new URL("/dashboard", request.url))
+  if (pathname.startsWith("/") && token?.role !== "admin") {
+    return NextResponse.redirect(new URL("/", request.url))
   }
 
   // Redirect authenticated users away from auth pages
   if (token && (pathname === "/login" || pathname === "/get-started")) {
-    return NextResponse.redirect(new URL("/dashboard", request.url))
+    return NextResponse.redirect(new URL("/", request.url))
   }
 
   return NextResponse.next()
