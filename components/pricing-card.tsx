@@ -52,6 +52,7 @@ export default function PricingCard({ title, price, features, buttonText, onButt
             ? "bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white w-full"
             : "bg-white dark:bg-gray-900 border border-orange-500 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 w-full"
         }
+        <Button className="w-full" variant={popular ? "default" : "outline"} onClick={onButtonClick}
       >
         {buttonText}
       </Button>
