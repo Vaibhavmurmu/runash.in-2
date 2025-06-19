@@ -359,7 +359,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <PricingCard
               title="Starter"
-              price={formatPrice (19)}
+              price={formatPrice(19)}
               features={[
                 "720p AI Enhancement",
                 "Basic Chat Moderation",
@@ -373,7 +373,7 @@ export default function Home() {
             />
             <PricingCard
               title="Professional"
-              price="{formatPrice (49)}
+              price={formatPrice (49)}
               features={[
                 "1080p AI Enhancement",
                 "Advanced Chat Moderation",
@@ -441,7 +441,7 @@ export default function Home() {
             <div className="lg:col-span-2">
               <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh AI</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                RunAsh AI is an live streaming platform bulit specifically for creators, sellers, and businesses .
+                RunAsh AI as an AI Research and Development Company focusing on live streaming innovation
               </p>
               <div className="flex items-center gap-2 mb-4">
                 <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -511,18 +511,18 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/sustainable-traker"
+                    href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    Sustainable Traker 
+                    iOS App 
                   </a>
                 </li>
                 <li>
                   <a
-                    href="/recipe-planner"
+                    href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    Recipe Planner
+                    Android App 
                   </a>
                 </li>
                 <li>
@@ -672,7 +672,10 @@ export default function Home() {
 
           {/* Sitemap */}
           <div className="border-t border-gray-200 dark:border-gray-800 pt-8 mt-8">
-            <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">RunAsh</h3>
+            <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">RunAsh AI</h3>
+             <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Streaming Innovation Forward: Where AI Meets Live"
+              </p>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               <div>
                 <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Company</h4>
@@ -769,18 +772,18 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/business"
+                      href="/Sustainable Traker"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Business 
+                      
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/start-up"
+                      href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Start-up 
+                     Recipe Planner 
                     </a>
 
                   </li>
@@ -870,10 +873,26 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/partners"
+                      href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Partners
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Business 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Influencer 
                     </a>
                   </li>
                 </ul>
@@ -911,6 +930,22 @@ export default function Home() {
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Mobile App
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      PWA
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Changelog 
                     </a>
                   </li>
                 </ul>

@@ -9,6 +9,12 @@ interface PricingCardProps {
   price: string
   yearlyPrice: string
   description: string
+
+
+  buttonText: string
+  popular?: boolean
+  isYearly?: boolean
+
   features: string[]
   buttonText: string
   popular?: boolen
@@ -16,9 +22,13 @@ interface PricingCardProps {
   onButtonClick?: () => void
 }
 
+
 export default function PricingCard({ title, price, yearlyPrice, description, features, buttonText, onButtonClick, isYearly, popular = false }: PricingCardProps) {
   const currentPrice = isYearly ? yearlyPrice : price
   const savings = isYearly && title !== "Starter" ? "Save 20%" : null
+
+
+export default function PricingCard({ title, price, yearlyPrice, description, bttonText, isYearly, features, buttonText, onButtonClick, popular = false }: PricingCardProps) {
 
   return (
     <div
