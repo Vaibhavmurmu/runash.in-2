@@ -68,7 +68,7 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <ThemeSelector />
+            <ThemeToggle />
             <Link href="/login">
               <Button
                 variant="ghost"
