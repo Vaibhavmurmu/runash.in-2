@@ -45,7 +45,7 @@ export default function Home() {
             RunAsh AI Live Streaming Platform 
           </h1>
           <p className=" text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The next generation of AI live streaming platform where the retailers build custom livestream 
+            The next generation of AI live streaming platform where the sellers build own livestream 
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -340,7 +340,7 @@ export default function Home() {
                       : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
                   }`}
                 >
-                 🇮🇳 INR
+                 🇺🇸 USD
                 </button>
                 <button
                   onClick={() => setCurrency("INR")}
@@ -350,7 +350,7 @@ export default function Home() {
                       : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
                   }`}
                 >
-                  🇺🇸 USD
+                  🇮🇳 INR
                 </button>
               </div>
             </div>
@@ -441,7 +441,7 @@ export default function Home() {
             <div className="lg:col-span-2">
               <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh AI</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                The most advanced AI live streaming platform for creators, sellers, and businesses.
+                RunAsh AI is an live streaming platform bulit specifically for creators, sellers, and businesses .
               </p>
               <div className="flex items-center gap-2 mb-4">
                 <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -672,7 +672,7 @@ export default function Home() {
 
           {/* Sitemap */}
           <div className="border-t border-gray-200 dark:border-gray-800 pt-8 mt-8">
-            <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Quick Links<SquareArrowDownRight className="ml-2 h-4 w-4" /></h3>
+            <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">RunAsh</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               <div>
                 <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Company</h4>
@@ -716,7 +716,7 @@ export default function Home() {
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
-                      href="/stream"
+                      href="/get-started"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Streaming
@@ -724,7 +724,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/get-started"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Multi-Host
@@ -824,18 +824,18 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/gdpr"
+                      href="/ai-policy"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      GDPR
+                      AI Policy 
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/ai-policy"
+                      href="/gdpr"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     AI Policy 
+                     GDPR
                     </a>
 
                   </li>
