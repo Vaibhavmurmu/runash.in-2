@@ -7,9 +7,10 @@ interface PricingCardProps {
   features: string[]
   buttonText: string
   popular?: boolean
+  onButtonClick?: () => void
 }
 
-export default function PricingCard({ title, price, features, buttonText, popular = false }: PricingCardProps) {
+export default function PricingCard({ title, price, features, buttonText, onButtonClick, popular = false }: PricingCardProps) {
   return (
     <div
       className={`
