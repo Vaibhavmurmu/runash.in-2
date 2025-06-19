@@ -359,7 +359,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <PricingCard
               title="Starter"
-              price="$19"
+              price={formatPrice(19)}
               features={[
                 "720p AI Enhancement",
                 "Basic Chat Moderation",
@@ -373,7 +373,7 @@ export default function Home() {
             />
             <PricingCard
               title="Professional"
-              price="$49"
+              price="{formatPrice(49)}
               features={[
                 "1080p AI Enhancement",
                 "Advanced Chat Moderation",
@@ -389,7 +389,7 @@ export default function Home() {
             />
             <PricingCard
               title="Enterprise"
-              price="$99"
+              price={formatPrice(99)}
               features={[
                 "4K AI Enhancement",
                 "Premium Chat Moderation",
