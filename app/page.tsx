@@ -45,7 +45,7 @@ export default function Home() {
             RunAsh AI Live Streaming Platform 
           </h1>
           <p className=" text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The next generation of AI live streaming platform where the sellers build own livestream 
+            The next generation of AI live streaming platform where the sellers build own live streaming 
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -66,10 +66,13 @@ export default function Home() {
           </div>     
          {/* Tech badges */}
           <div className="mt-12 flex flex-wrap justify-center gap-3">
-            <TechBadge label="Live Selling" />
-            <TechBadge label="Live Shopping " />
-            <TechBadge label="Live-on-demand" />
-            <TechBadge label="Live Chat" />
+            <TechBadge label="Real-time Streaming" />
+            <TechBadge label="Live Streaming Selling" />
+            <TechBadge label="Products Demonstration" />
+            <TechBadge label="Interactive Live Chat" />
+            <TechBadge label="Polls, or Q&A sessions" />
+            <TechBadge label="Post-Live Stream" />
+            <TechBadge label="Analytics" />
           </div>
         </div>
         <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
@@ -503,7 +506,7 @@ export default function Home() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="/stream"
+                    href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     RunAshStudio
@@ -852,7 +855,7 @@ export default function Home() {
                       href="/buyer"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Become a buyer 
+                     Buyer 
                     </a>
                   </li>
                   <li>
@@ -860,7 +863,7 @@ export default function Home() {
                       href="/farms"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Become a farms
+                     Farms
                     </a>
                   </li>
                   <li>
@@ -868,7 +871,7 @@ export default function Home() {
                       href="/creater"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Become a creater
+                     Creaters
                     </a>
                   </li>
                   <li>
