@@ -16,8 +16,7 @@ import { LanguageSelector } from "@/components/language-selector"
 import { CountrySelector } from "@/components/country-selector"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { LiveStreams } from "@/components/live-streams"
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+
 
 export default function Home() {
   const router = useRouter()
