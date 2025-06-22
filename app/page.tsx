@@ -71,7 +71,7 @@ export default function Home() {
             <TechBadge label="Live Streaming Selling" />
             <TechBadge label="Products Demonstration" />
             <TechBadge label="Interactive Live Chat" />
-            <TechBadge label="Polls, or Q&A sessions" />
+            <TechBadge label="Polls or Q&A sessions" />
             <TechBadge label="Post-Live Stream" />
             <TechBadge label="Analytics" />
           </div>
