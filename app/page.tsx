@@ -102,10 +102,10 @@ export default function Home() {
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-            RunAshChat AI Live Streaming Assistant for Retail Automation 
+            RunAshChat AI Assistant
           </h1>
           <p className=" text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            RunAshChat is a custom-built live streaming conversational AI model designed to assist with a wide range of tasks
+            Built specifically for live streaming conversational AI model designed to assist with a wide range of tasks
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -161,10 +161,10 @@ export default function Home() {
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-            RunAsh AI Live Streaming Shopping Experience 
+             Live Shopping Experience 
           </h1>
           <p className=" text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The next generation of AI Interactive Live Shopping ,LiveChat,VoiceChat, Asking Questions, Watch Live-on-demand
+            Watch live-on-demand streams and as questions in real-time 
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
