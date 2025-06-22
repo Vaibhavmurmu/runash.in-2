@@ -17,6 +17,7 @@ import { CountrySelector } from "@/components/country-selector"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
+
 export default function Home() {
   const router = useRouter()
   const [currency, setCurrency] = useState<"USD" | "INR">("USD")
@@ -45,7 +46,7 @@ export default function Home() {
             RunAsh AI Live Streaming Platform 
           </h1>
           <p className=" text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The next generation of AI live streaming platform where the sellers build own livestream 
+            The next generation of AI live streaming selling platform where the sellers build own live streaming 
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -66,10 +67,13 @@ export default function Home() {
           </div>     
          {/* Tech badges */}
           <div className="mt-12 flex flex-wrap justify-center gap-3">
-            <TechBadge label="Live Selling" />
-            <TechBadge label="Live Shopping " />
-            <TechBadge label="Live-on-demand" />
-            <TechBadge label="Live Chat" />
+            <TechBadge label="Real-time Streaming" />
+            <TechBadge label="Live Streaming Selling" />
+            <TechBadge label="Products Demonstration" />
+            <TechBadge label="Interactive Live Chat" />
+            <TechBadge label="Polls or Q&A sessions" />
+            <TechBadge label="Post-Live Stream" />
+            <TechBadge label="Analytics" />
           </div>
         </div>
         <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
@@ -81,13 +85,12 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <StatCounter value={150} label="100% Organic Certified Products" suffix="+" />
-            <StatCounter value={1000} label="Organic Farms" suffix="+" />
+            <StatCounter value={1000} label="100% Organic Certified Farms" suffix="+" />
             <StatCounter value={99.9} label="Sustainable" suffix="%" />
-            <StatCounter value={100} label="Organic Recipe" suffix="+" />
+            <StatCounter value={100} label="100% Organic Certified Recipe" suffix="+" />
           </div>
         </div>
-      </section> 
-
+      </section>
        {/* Hero Section with Video Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
@@ -149,7 +152,7 @@ export default function Home() {
       <section className="py-24 bg-gradient-to-b from-white to-orange-50 dark:from-gray-900 dark:to-gray-950">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orage-200 dark:border-orange-800/50">
               <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Powerful Features</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
@@ -288,13 +291,13 @@ export default function Home() {
               />
               <TestimonialCard
                 name="Nirali"
-                role="Fitness Instructor"
+                role="Seller Streamer"
                 image="/placeholder.svg?height=80&width=80"
-                quote="The AI video enhancement makes my fitness streams look professional without expensive equipment. My subscribers have increased by 200% since switching to RunAsh."
+                quote="The AI video enhancement makes my organic products streams look professional without expensive equipment. My subscribers have increased by 200% since switching to RunAsh."
               />
               <TestimonialCard
                 name="Jassi"
-                role="Tech Educator"
+                role="Seller Streamer"
                 image="/placeholder.svg?height=80&width=80"
                 quote="The audience analytics have helped me tailor my content to what my viewers actually want. The AI content suggestions are spot on and have helped me grow my channel."
               />
@@ -315,6 +318,7 @@ export default function Home() {
           </ScrollArea>
         </div>
       </section>
+      
       
       {/* Pricing */}
       <section className="py-24 bg-orange-50 dark:bg-gray-950 border-y border-orange-100 dark:border-orange-900/20">
@@ -503,7 +507,7 @@ export default function Home() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="/stream"
+                    href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     RunAshStudio
@@ -672,9 +676,9 @@ export default function Home() {
 
           {/* Sitemap */}
           <div className="border-t border-gray-200 dark:border-gray-800 pt-8 mt-8">
-            <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">RunAsh AI</h3>
+            <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white"></h3>
              <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Streaming Innovation Forward: Where AI Meets Live"
+                
               </p>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               <div>
@@ -772,10 +776,10 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/Sustainable Traker"
+                      href="/sustainable Traker"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      
+                     Sustainable Traker
                     </a>
                   </li>
                   <li>
@@ -849,18 +853,18 @@ export default function Home() {
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
-                      href="/sellers"
+                      href="/buyer"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Sellers 
+                     Become a buyer 
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/buyers"
+                      href="/farms"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Buyers
+                     Farms
                     </a>
                   </li>
                   <li>
@@ -868,7 +872,7 @@ export default function Home() {
                       href="/creater"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Creaters 
+                     Creater
                     </a>
                   </li>
                   <li>
