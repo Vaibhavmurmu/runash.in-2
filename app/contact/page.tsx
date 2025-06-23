@@ -160,7 +160,7 @@ export default function ContactPage() {
               hours="Mon-Fri: 9am-5pm GMT"
             />
             <OfficeLocation
-              city="Sngapore (Remote)"
+              city="Singapore (Remote)"
               address="New ton Road 307987"
               phone="+91 8987724121 "
               email="admin@runash.in"
