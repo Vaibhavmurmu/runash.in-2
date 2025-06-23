@@ -160,9 +160,17 @@ export default function ContactPage() {
               hours="Mon-Fri: 9am-5pm GMT"
             />
             <OfficeLocation
+              city="Sngapore (Remote)"
+              address="New ton Road 307987"
+              phone="+91 8987724121 "
+              email="admin@runash.in"
+              image="/placeholder.svg?height=200&width=400"
+              hours="Mon-Fri: 9am-5pm JST"
+            />
+            <OfficeLocation
               city="San Francisco (Remote)"
-              address="Stripe Atlas, Dalaware San Francisco, CA 19706"
-              phone="+1 (555) "
+              address="Stripe Atlas, Dalaware San Francisco, CA "
+              phone="+91 8987724121 "
               email="admin@runash.in"
               image="/placeholder.svg?height=200&width=400"
               hours="Mon-Fri: 9am-5pm JST"
@@ -185,12 +193,12 @@ export default function ContactPage() {
                         <span className="text-sm font-medium text-orange-600 dark:text-orange-400">Bharat</span>
                       </div>
                     </div>
-                    {/* Bharat (India)marker */}
+                    {/* Singapore marker */}
                     <div className="absolute left-[45%] top-[35%]">
                       <div className="w-4 h-4 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-orange-400 animate-ping absolute"></div>
                       <div className="w-4 h-4 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-orange-400 relative"></div>
                       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-                        <span className="text-sm font-medium text-yellow-600 dark:text-yellow-400">Ranchi</span>
+                        <span className="text-sm font-medium text-yellow-600 dark:text-yellow-400">Singapore</span>
                       </div>
                     </div>
                     {/* San Francisco marker */}
