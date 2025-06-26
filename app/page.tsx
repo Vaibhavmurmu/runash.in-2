@@ -909,7 +909,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     LLM
+                   Overview 
                     </a>
                   </li>
                   <li>
@@ -917,7 +917,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Computer Vision 
+                     Space 
                     </a>
                   </li>
                   <li>
@@ -925,7 +925,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Audio 
+                     Model
                     </a>
                   </li>
                   <li>
@@ -933,7 +933,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Reinforcement Learning 
+                      Dataset 
                     </a>
                   </li>
                   <li>
@@ -941,7 +941,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Multimodel
+                     Notebook 
                     </a>
                   </li>
                   <li>
@@ -949,7 +949,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                       VLM
+                       Task
                     </a>
                   </li>
                 </ul>
