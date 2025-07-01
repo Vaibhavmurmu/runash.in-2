@@ -1,9 +1,12 @@
 import { DashboardLayout } from "@/components/dashboard-layout"
+import { EmailVerificationBanner } from "@/components/email-verification-banner"
 
 export default function Dashboard() {
   return (
     <DashboardLayout>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+        <EmailVerificationBanner />
+
         <div className="grid auto-rows-min gap-4 md:grid-cols-3">
           <div className="aspect-video rounded-xl bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 flex items-center justify-center">
             <div className="text-center">

@@ -8,15 +8,19 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Camera, Save, Mail, Globe, MapPin, Calendar, Loader2 } from "lucide-react"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Camera, Save, Mail, Globe, MapPin, Calendar, Loader2, AlertCircle, CheckCircle } from "lucide-react"
 import { useUserProfile } from "@/hooks/use-user-data"
 import { useToast } from "@/hooks/use-toast"
+import { EmailVerificationBanner } from "@/components/email-verification-banner"
 
 export default function ProfilePage() {
   const { user, loading, error, updateUser } = useUserProfile()
   const { toast } = useToast()
   const [isEditing, setIsEditing] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
+  const [isChangingEmail, setIsChangingEmail] = useState(false)
+  const [newEmail, setNewEmail] = useState("")
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -34,6 +38,7 @@ export default function ProfilePage() {
         website: user.website || "",
         location: user.location || "",
       })
+      setNewEmail(user.email || "")
     }
   }, [user])
 
@@ -50,6 +55,46 @@ export default function ProfilePage() {
       toast({
         title: "Error",
         description: "Failed to update profile. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  const handleEmailChange = async () => {
+    if (newEmail === user?.email) {
+      setIsChangingEmail(false)
+      return
+    }
+
+    try {
+      setIsSaving(true)
+      const response = await fetch("/api/user/change-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newEmail }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        toast({
+          title: "Verification email sent",
+          description: `Please check ${newEmail} to verify your new email address.`,
+        })
+        setIsChangingEmail(false)
+      } else {
+        const data = await response.json()
+        toast({
+          title: "Error",
+          description: data.error || "Failed to change email address.",
+          variant: "destructive",
+        })
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to change email address. Please try again.",
         variant: "destructive",
       })
     } finally {
@@ -78,6 +123,8 @@ export default function ProfilePage() {
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+      <EmailVerificationBanner />
+
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Profile Settings</h1>
@@ -110,9 +157,9 @@ export default function ProfilePage() {
             <CardHeader className="text-center">
               <div className="relative mx-auto">
                 <Avatar className="h-24 w-24">
-                  <AvatarImage src={user.avatar || "/placeholder.svg"} alt={user.name} />
+                  <AvatarImage src={user.avatar_url || "/placeholder.svg"} alt={user.name} />
                   <AvatarFallback className="bg-gradient-to-br from-orange-400 to-orange-600 text-white text-xl">
-                    AJ
+                    {user.name?.charAt(0) || "U"}
                   </AvatarFallback>
                 </Avatar>
                 {isEditing && (
@@ -128,9 +175,22 @@ export default function ProfilePage() {
               <div className="space-y-1">
                 <h3 className="font-semibold">{user.name}</h3>
                 <p className="text-sm text-muted-foreground">@{user.username}</p>
-                <Badge variant="secondary" className="bg-gradient-to-r from-orange-100 to-orange-200 text-orange-700">
-                  Creator Plan
-                </Badge>
+                <div className="flex items-center justify-center gap-2">
+                  <Badge variant="secondary" className="bg-gradient-to-r from-orange-100 to-orange-200 text-orange-700">
+                    Creator Plan
+                  </Badge>
+                  {user.email_verified ? (
+                    <Badge variant="secondary" className="bg-green-100 text-green-700">
+                      <CheckCircle className="mr-1 h-3 w-3" />
+                      Verified
+                    </Badge>
+                  ) : (
+                    <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">
+                      <AlertCircle className="mr-1 h-3 w-3" />
+                      Unverified
+                    </Badge>
+                  )}
+                </div>
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -138,18 +198,25 @@ export default function ProfilePage() {
                 <Mail className="h-4 w-4" />
                 {user.email}
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4" />
-                {user.location}
-              </div>
+              {user.location && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <MapPin className="h-4 w-4" />
+                  {user.location}
+                </div>
+              )}
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Calendar className="h-4 w-4" />
-                Joined {user.joinDate}
+                Joined {new Date(user.created_at).toLocaleDateString()}
               </div>
               {user.website && (
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Globe className="h-4 w-4" />
-                  <a href={user.website} className="text-orange-600 hover:underline">
+                  <a
+                    href={user.website}
+                    className="text-orange-600 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {user.website}
                   </a>
                 </div>
@@ -185,10 +252,62 @@ export default function ProfilePage() {
                   />
                 </div>
               </div>
+
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" value={user.email} disabled={true} />
+                <div className="flex gap-2">
+                  <Input
+                    id="email"
+                    type="email"
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
+                    disabled={!isChangingEmail}
+                  />
+                  {!isChangingEmail ? (
+                    <Button variant="outline" onClick={() => setIsChangingEmail(true)} disabled={!user.email_verified}>
+                      Change
+                    </Button>
+                  ) : (
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={handleEmailChange}
+                        disabled={isSaving}
+                        size="sm"
+                        className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600"
+                      >
+                        {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : "Verify"}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          setIsChangingEmail(false)
+                          setNewEmail(user.email)
+                        }}
+                        size="sm"
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  )}
+                </div>
+                {!user.email_verified && (
+                  <Alert className="border-yellow-200 bg-yellow-50">
+                    <AlertCircle className="h-4 w-4 text-yellow-600" />
+                    <AlertDescription className="text-yellow-700">
+                      Please verify your current email address before changing it.
+                    </AlertDescription>
+                  </Alert>
+                )}
+                {user.pending_email && (
+                  <Alert className="border-blue-200 bg-blue-50">
+                    <Mail className="h-4 w-4 text-blue-600" />
+                    <AlertDescription className="text-blue-700">
+                      Pending email change to <strong>{user.pending_email}</strong>. Please check your email to verify.
+                    </AlertDescription>
+                  </Alert>
+                )}
               </div>
+
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="website">Website</Label>
