@@ -207,6 +207,38 @@ const data = {
         },
       ],
     },
+    {
+      title: "Account",
+      url: "#",
+      icon: User,
+      items: [
+        {
+          title: "Profile",
+          url: "/account/profile",
+          icon: User,
+        },
+        {
+          title: "Billing",
+          url: "/account/billing",
+          icon: CreditCard,
+        },
+        {
+          title: "Security",
+          url: "/account/security",
+          icon: Shield,
+        },
+        {
+          title: "Notifications",
+          url: "/account/notifications",
+          icon: Bell,
+        },
+        {
+          title: "Preferences",
+          url: "/account/preferences",
+          icon: Settings2,
+        },
+      ],
+    },
   ],
   projects: [
     {
