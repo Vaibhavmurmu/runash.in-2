@@ -1,5 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getCurrentUserId, isAuthenticated } from "@/lib/auth"
 import { aiSearchService } from "@/lib/ai-search"
 
 export async function GET(request: NextRequest) {
@@ -8,15 +7,14 @@ export async function GET(request: NextRequest) {
     const query = searchParams.get("q")
 
     if (!query) {
-      return NextResponse.json({ error: "Query parameter 'q' is required" }, { status: 400 })
+      return NextResponse.json([])
     }
 
-    const userId = isAuthenticated() ? getCurrentUserId() : undefined
-    const suggestions = await aiSearchService.getSmartSuggestions(query, userId)
+    const suggestions = await aiSearchService.getSuggestions(query)
 
-    return NextResponse.json({ suggestions })
+    return NextResponse.json(suggestions)
   } catch (error) {
-    console.error("Suggestions API error:", error)
+    console.error("Search suggestions API error:", error)
     return NextResponse.json({ error: "Failed to get suggestions" }, { status: 500 })
   }
 }
