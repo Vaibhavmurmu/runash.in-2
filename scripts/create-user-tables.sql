@@ -8,6 +8,9 @@ CREATE TABLE IF NOT EXISTS users (
     bio TEXT,
     website VARCHAR(255),
     location VARCHAR(255),
+    email_verified BOOLEAN DEFAULT false,
+    email_verified_at TIMESTAMP WITH TIME ZONE,
+    pending_email VARCHAR(255),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
