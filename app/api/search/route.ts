@@ -1,54 +1,80 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { aiSearchService } from "@/lib/ai-search"
-import type { SearchRequest } from "@/lib/search-types"
-
-export async function POST(request: NextRequest) {
-  try {
-    const body: SearchRequest = await request.json()
-
-    if (!body.query || body.query.trim().length === 0) {
-      return NextResponse.json({ error: "Query is required" }, { status: 400 })
-    }
-
-    const results = await aiSearchService.search(body)
-
-    return NextResponse.json(results)
-  } catch (error) {
-    console.error("Search API error:", error)
-    return NextResponse.json({ error: "Search failed" }, { status: 500 })
-  }
-}
+import type { SearchFilters } from "@/lib/search-types"
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const query = searchParams.get("q")
-    const type = (searchParams.get("type") as "semantic" | "keyword" | "hybrid") || "hybrid"
-    const contentType = searchParams.get("content_type")
-    const tags = searchParams.get("tags")
+    const query = searchParams.get("q") || ""
+    const searchType = (searchParams.get("type") || "hybrid") as "semantic" | "keyword" | "hybrid"
     const limit = Number.parseInt(searchParams.get("limit") || "20")
     const offset = Number.parseInt(searchParams.get("offset") || "0")
 
-    if (!query) {
-      return NextResponse.json({ error: 'Query parameter "q" is required' }, { status: 400 })
+    // Parse filters from query params
+    const filters: SearchFilters = {}
+    const contentType = searchParams.get("contentType")
+    if (contentType) {
+      filters.contentType = contentType.split(",")
     }
 
-    const searchRequest: SearchRequest = {
+    const tags = searchParams.get("tags")
+    if (tags) {
+      filters.tags = tags.split(",")
+    }
+
+    if (!query.trim()) {
+      return NextResponse.json({
+        results: [],
+        total: 0,
+        query: "",
+        searchType,
+        responseTime: 0,
+        suggestions: [],
+      })
+    }
+
+    const results = await aiSearchService.search({
       query,
-      type,
-      filters: {
-        ...(contentType && { content_type: [contentType] }),
-        ...(tags && { tags: tags.split(",") }),
-      },
+      filters,
+      searchType,
       limit,
       offset,
-    }
-
-    const results = await aiSearchService.search(searchRequest)
+    })
 
     return NextResponse.json(results)
   } catch (error) {
     console.error("Search API error:", error)
-    return NextResponse.json({ error: "Search failed" }, { status: 500 })
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json()
+    const { query, filters, searchType = "hybrid", limit = 20, offset = 0 } = body
+
+    if (!query?.trim()) {
+      return NextResponse.json({
+        results: [],
+        total: 0,
+        query: "",
+        searchType,
+        responseTime: 0,
+        suggestions: [],
+      })
+    }
+
+    const results = await aiSearchService.search({
+      query,
+      filters,
+      searchType,
+      limit,
+      offset,
+    })
+
+    return NextResponse.json(results)
+  } catch (error) {
+    console.error("Search API error:", error)
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }

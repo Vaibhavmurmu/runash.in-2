@@ -1,4 +1,14 @@
-import type { SearchRequest, SearchResponse, SearchDocument, SearchSuggestion } from "./search-types"
+import type {
+  SearchRequest,
+  SearchResponse,
+  SearchDocument,
+  SearchSuggestion,
+  SearchOptions,
+  SearchFilters,
+} from "./search-types"
+import { neon } from "@neondatabase/serverless"
+
+const sql = neon(process.env.DATABASE_URL!)
 
 export class AISearchService {
   private baseUrl: string
@@ -7,31 +17,17 @@ export class AISearchService {
     this.baseUrl = baseUrl
   }
 
-  async search(request: SearchRequest): Promise<SearchResponse> {
-    const startTime = Date.now()
+  async search(options: SearchOptions): Promise<SearchResponse> {
+    const { query, filters, searchType = "hybrid", limit = 20 } = options
 
-    try {
-      // Simulate AI-powered search logic
-      const results = await this.performSearch(request)
-      const suggestions = await this.generateSuggestions(request.query)
-      const facets = await this.generateFacets(results)
-
-      const response: SearchResponse = {
-        results,
-        total: results.length,
-        query_id: this.generateQueryId(),
-        response_time_ms: Date.now() - startTime,
-        suggestions,
-        facets,
-      }
-
-      // Log search query for analytics
-      await this.logSearchQuery(request, response)
-
-      return response
-    } catch (error) {
-      console.error("Search error:", error)
-      throw new Error("Search failed")
+    switch (searchType) {
+      case "semantic":
+        return this.semanticSearch(query, filters, limit)
+      case "keyword":
+        return this.keywordSearch(query, filters, limit)
+      case "hybrid":
+      default:
+        return this.hybridSearch(query, filters, limit)
     }
   }
 
@@ -59,130 +55,329 @@ export class AISearchService {
     return searchResults
   }
 
-  private async semanticSearch(query: string, filters: any, limit: number, offset: number) {
-    // Simulate semantic search using embeddings
-    // In a real implementation, this would use vector similarity search
-    const mockResults = [
-      {
-        id: "1",
-        query_id: "",
-        document_id: "doc-1",
-        rank: 1,
-        score: 0.95,
-        relevance_type: "semantic",
-        clicked: false,
-        created_at: new Date().toISOString(),
-        document: {
-          id: "doc-1",
-          index_id: "idx-1",
-          document_id: "stream-1",
-          content_type: "stream",
-          title: "React Best Practices 2024",
-          content: "Learn the latest React patterns and performance optimization techniques",
-          metadata: { category: "programming", duration: 3600, views: 1250 },
-          tags: ["react", "javascript", "tutorial", "programming"],
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        },
-      },
-    ]
+  // Semantic search using embeddings
+  async semanticSearch(query: string, filters?: SearchFilters, limit = 20): Promise<SearchResponse> {
+    const startTime = Date.now()
 
-    return mockResults.slice(offset, offset + limit)
-  }
+    try {
+      // Generate embedding for the query (mock implementation)
+      const queryEmbedding = await this.generateEmbedding(query)
 
-  private async keywordSearch(query: string, filters: any, limit: number, offset: number) {
-    // Simulate keyword-based search
-    const mockResults = [
-      {
-        id: "2",
-        query_id: "",
-        document_id: "doc-2",
-        rank: 1,
-        score: 0.85,
-        relevance_type: "keyword",
-        clicked: false,
-        created_at: new Date().toISOString(),
-        document: {
-          id: "doc-2",
-          index_id: "idx-2",
-          document_id: "user-1",
-          content_type: "user",
-          title: "John Doe",
-          content: "Full-stack developer passionate about React and Node.js",
-          metadata: { email: "john@example.com", location: "San Francisco", followers: 150 },
-          tags: ["developer", "react", "nodejs"],
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        },
-      },
-    ]
+      // Build the search query with filters
+      let searchQuery = `
+        SELECT 
+          sd.id,
+          sd.title,
+          sd.content,
+          sd.content_type,
+          sd.metadata,
+          sd.tags,
+          sd.created_at,
+          -- Calculate cosine similarity (mock calculation)
+          RANDOM() * 0.5 + 0.5 as relevance_score
+        FROM search_documents sd
+        WHERE 1=1
+      `
 
-    return mockResults.slice(offset, offset + limit)
-  }
+      const params: any[] = []
+      let paramIndex = 1
 
-  private mergeResults(semanticResults: any[], keywordResults: any[], limit: number) {
-    // Merge and deduplicate results, prioritizing semantic matches
-    const merged = [...semanticResults]
-
-    keywordResults.forEach((result) => {
-      if (!merged.find((r) => r.document_id === result.document_id)) {
-        merged.push(result)
+      if (filters?.contentType?.length) {
+        searchQuery += ` AND sd.content_type = ANY($${paramIndex})`
+        params.push(filters.contentType)
+        paramIndex++
       }
-    })
 
-    return merged.slice(0, limit)
-  }
-
-  private async generateSuggestions(query: string): Promise<string[]> {
-    // Simulate AI-generated suggestions
-    const suggestions = [
-      `${query} tutorial`,
-      `${query} best practices`,
-      `${query} examples`,
-      `advanced ${query}`,
-      `${query} guide`,
-    ]
-
-    return suggestions.slice(0, 3)
-  }
-
-  private async generateFacets(results: any[]) {
-    const contentTypes = new Map()
-    const tags = new Map()
-
-    results.forEach((result) => {
-      if (result.document) {
-        // Count content types
-        const type = result.document.content_type
-        contentTypes.set(type, (contentTypes.get(type) || 0) + 1)
-
-        // Count tags
-        result.document.tags?.forEach((tag: string) => {
-          tags.set(tag, (tags.get(tag) || 0) + 1)
-        })
+      if (filters?.tags?.length) {
+        searchQuery += ` AND sd.tags && $${paramIndex}`
+        params.push(filters.tags)
+        paramIndex++
       }
-    })
 
-    return {
-      content_types: Array.from(contentTypes.entries()).map(([value, count]) => ({ value, count })),
-      tags: Array.from(tags.entries())
-        .map(([value, count]) => ({ value, count }))
-        .slice(0, 10),
+      searchQuery += ` ORDER BY relevance_score DESC LIMIT $${paramIndex}`
+      params.push(limit)
+
+      const results = await sql(searchQuery, params)
+
+      const responseTime = Date.now() - startTime
+
+      // Log the search query
+      await this.logSearchQuery(query, filters, "semantic", results.length, responseTime)
+
+      return {
+        results: results.map((row: any) => ({
+          id: row.id,
+          title: row.title,
+          content: row.content,
+          contentType: row.content_type,
+          relevanceScore: row.relevance_score,
+          metadata: row.metadata || {},
+          tags: row.tags || [],
+          createdAt: new Date(row.created_at),
+        })),
+        total: results.length,
+        query,
+        searchType: "semantic",
+        responseTime,
+        suggestions: await this.generateSuggestions(query),
+      }
+    } catch (error) {
+      console.error("Semantic search error:", error)
+      return this.fallbackSearch(query, filters, limit)
     }
   }
 
-  private generateQueryId(): string {
-    return `query_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+  // Keyword search using full-text search
+  async keywordSearch(query: string, filters?: SearchFilters, limit = 20): Promise<SearchResponse> {
+    const startTime = Date.now()
+
+    try {
+      let searchQuery = `
+        SELECT 
+          sd.id,
+          sd.title,
+          sd.content,
+          sd.content_type,
+          sd.metadata,
+          sd.tags,
+          sd.created_at,
+          -- Simple relevance scoring based on matches
+          CASE 
+            WHEN LOWER(sd.title) LIKE LOWER($1) THEN 1.0
+            WHEN LOWER(sd.content) LIKE LOWER($1) THEN 0.8
+            ELSE 0.6
+          END as relevance_score
+        FROM search_documents sd
+        WHERE (
+          LOWER(sd.title) LIKE LOWER($1) OR 
+          LOWER(sd.content) LIKE LOWER($1) OR
+          EXISTS (SELECT 1 FROM unnest(sd.tags) tag WHERE LOWER(tag) LIKE LOWER($1))
+        )
+      `
+
+      const params: any[] = [`%${query}%`]
+      let paramIndex = 2
+
+      if (filters?.contentType?.length) {
+        searchQuery += ` AND sd.content_type = ANY($${paramIndex})`
+        params.push(filters.contentType)
+        paramIndex++
+      }
+
+      if (filters?.tags?.length) {
+        searchQuery += ` AND sd.tags && $${paramIndex}`
+        params.push(filters.tags)
+        paramIndex++
+      }
+
+      searchQuery += ` ORDER BY relevance_score DESC LIMIT $${paramIndex}`
+      params.push(limit)
+
+      const results = await sql(searchQuery, params)
+
+      const responseTime = Date.now() - startTime
+
+      // Log the search query
+      await this.logSearchQuery(query, filters, "keyword", results.length, responseTime)
+
+      return {
+        results: results.map((row: any) => ({
+          id: row.id,
+          title: row.title,
+          content: row.content,
+          contentType: row.content_type,
+          relevanceScore: row.relevance_score,
+          metadata: row.metadata || {},
+          tags: row.tags || [],
+          createdAt: new Date(row.created_at),
+        })),
+        total: results.length,
+        query,
+        searchType: "keyword",
+        responseTime,
+        suggestions: await this.generateSuggestions(query),
+      }
+    } catch (error) {
+      console.error("Keyword search error:", error)
+      return this.fallbackSearch(query, filters, limit)
+    }
   }
 
-  private async logSearchQuery(request: SearchRequest, response: SearchResponse) {
-    // Log search query for analytics (would typically save to database)
-    console.log("Search logged:", {
-      query: request.query,
-      type: request.type,
-      results_count: response.total,
-      response_time: response.response_time_ms,
-    })
+  // Hybrid search combining semantic and keyword
+  async hybridSearch(query: string, filters?: SearchFilters, limit = 20): Promise<SearchResponse> {
+    const startTime = Date.now()
+
+    try {
+      // Get results from both search methods
+      const [semanticResults, keywordResults] = await Promise.all([
+        this.semanticSearch(query, filters, Math.ceil(limit / 2)),
+        this.keywordSearch(query, filters, Math.ceil(limit / 2)),
+      ])
+
+      // Combine and deduplicate results
+      const combinedResults = new Map()
+
+      // Add semantic results with boosted scores
+      semanticResults.results.forEach((result) => {
+        combinedResults.set(result.id, {
+          ...result,
+          relevanceScore: result.relevanceScore * 0.7, // Boost semantic results
+        })
+      })
+
+      // Add keyword results, merging scores if duplicate
+      keywordResults.results.forEach((result) => {
+        if (combinedResults.has(result.id)) {
+          const existing = combinedResults.get(result.id)
+          existing.relevanceScore = Math.max(existing.relevanceScore, result.relevanceScore * 0.3)
+        } else {
+          combinedResults.set(result.id, {
+            ...result,
+            relevanceScore: result.relevanceScore * 0.3,
+          })
+        }
+      })
+
+      // Sort by combined relevance score
+      const finalResults = Array.from(combinedResults.values())
+        .sort((a, b) => b.relevanceScore - a.relevanceScore)
+        .slice(0, limit)
+
+      const responseTime = Date.now() - startTime
+
+      // Log the search query
+      await this.logSearchQuery(query, filters, "hybrid", finalResults.length, responseTime)
+
+      return {
+        results: finalResults,
+        total: finalResults.length,
+        query,
+        searchType: "hybrid",
+        responseTime,
+        suggestions: await this.generateSuggestions(query),
+      }
+    } catch (error) {
+      console.error("Hybrid search error:", error)
+      return this.fallbackSearch(query, filters, limit)
+    }
+  }
+
+  private async generateSuggestions(query: string): Promise<string[]> {
+    try {
+      const suggestions = await sql`
+        SELECT DISTINCT title
+        FROM search_documents
+        WHERE LOWER(title) LIKE LOWER(${`%${query}%`})
+        ORDER BY title
+        LIMIT 5
+      `
+
+      return suggestions.map((row: any) => row.title)
+    } catch (error) {
+      console.error("Error generating suggestions:", error)
+      return []
+    }
+  }
+
+  private async generateEmbedding(text: string): Promise<number[]> {
+    // Mock embedding generation - replace with actual AI service
+    return Array.from({ length: 1536 }, () => Math.random())
+  }
+
+  private async logSearchQuery(
+    query: string,
+    filters: SearchFilters | undefined,
+    searchType: string,
+    resultsCount: number,
+    responseTime: number,
+    userId?: string,
+  ): Promise<void> {
+    try {
+      await sql`
+        INSERT INTO search_queries (user_id, query, filters, search_type, results_count, response_time)
+        VALUES (${userId || null}, ${query}, ${JSON.stringify(filters || {})}, ${searchType}, ${resultsCount}, ${responseTime})
+      `
+    } catch (error) {
+      console.error("Error logging search query:", error)
+    }
+  }
+
+  private async fallbackSearch(query: string, filters?: SearchFilters, limit = 20): Promise<SearchResponse> {
+    try {
+      const results = await sql`
+        SELECT 
+          id, title, content, content_type, metadata, tags, created_at,
+          0.5 as relevance_score
+        FROM search_documents
+        WHERE LOWER(title) LIKE LOWER(${`%${query}%`})
+        ORDER BY created_at DESC
+        LIMIT ${limit}
+      `
+
+      return {
+        results: results.map((row: any) => ({
+          id: row.id,
+          title: row.title,
+          content: row.content,
+          contentType: row.content_type,
+          relevanceScore: row.relevance_score,
+          metadata: row.metadata || {},
+          tags: row.tags || [],
+          createdAt: new Date(row.created_at),
+        })),
+        total: results.length,
+        query,
+        searchType: "fallback",
+        responseTime: 0,
+        suggestions: [],
+      }
+    } catch (error) {
+      console.error("Fallback search error:", error)
+      return {
+        results: [],
+        total: 0,
+        query,
+        searchType: "error",
+        responseTime: 0,
+        suggestions: [],
+      }
+    }
+  }
+
+  async getSearchAnalytics(days = 7): Promise<any> {
+    try {
+      const analytics = await sql`
+        SELECT 
+          DATE(created_at) as date,
+          COUNT(*) as total_queries,
+          COUNT(DISTINCT user_id) as unique_users,
+          AVG(response_time) as avg_response_time
+        FROM search_queries
+        WHERE created_at >= NOW() - INTERVAL '${days} days'
+        GROUP BY DATE(created_at)
+        ORDER BY date DESC
+      `
+
+      const topQueries = await sql`
+        SELECT query, COUNT(*) as count
+        FROM search_queries
+        WHERE created_at >= NOW() - INTERVAL '${days} days'
+        GROUP BY query
+        ORDER BY count DESC
+        LIMIT 10
+      `
+
+      return {
+        dailyStats: analytics,
+        topQueries: topQueries.map((row: any) => ({
+          query: row.query,
+          count: row.count,
+        })),
+      }
+    } catch (error) {
+      console.error("Error getting search analytics:", error)
+      return { dailyStats: [], topQueries: [] }
+    }
   }
 
   async getSuggestions(query: string): Promise<SearchSuggestion[]> {

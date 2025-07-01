@@ -1,15 +1,15 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import type { SearchRequest, SearchResponse, SearchSuggestion } from "@/lib/search-types"
+import type { SearchOptions, SearchResponse } from "@/lib/search-types"
 
 export function useSearch() {
+  const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState<SearchResponse | null>(null)
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const search = useCallback(async (request: SearchRequest) => {
-    setLoading(true)
+  const search = useCallback(async (options: SearchOptions) => {
+    setIsLoading(true)
     setError(null)
 
     try {
@@ -18,19 +18,20 @@ export function useSearch() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(request),
+        body: JSON.stringify(options),
       })
 
       if (!response.ok) {
         throw new Error("Search failed")
       }
 
-      const data: SearchResponse = await response.json()
+      const data = await response.json()
       setResults(data)
     } catch (err) {
       setError(err instanceof Error ? err.message : "Search failed")
+      setResults(null)
     } finally {
-      setLoading(false)
+      setIsLoading(false)
     }
   }, [])
 
@@ -40,37 +41,37 @@ export function useSearch() {
   }, [])
 
   return {
-    results,
-    loading,
-    error,
     search,
     clearResults,
+    isLoading,
+    results,
+    error,
   }
 }
 
 export function useSearchSuggestions() {
-  const [suggestions, setSuggestions] = useState<SearchSuggestion[]>([])
-  const [loading, setLoading] = useState(false)
+  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
-  const getSuggestions = useCallback(async (query: string) => {
-    if (!query.trim()) {
+  const fetchSuggestions = useCallback(async (query: string) => {
+    if (!query.trim() || query.length < 2) {
       setSuggestions([])
       return
     }
 
-    setLoading(true)
+    setIsLoading(true)
 
     try {
       const response = await fetch(`/api/search/suggestions?q=${encodeURIComponent(query)}`)
-
       if (response.ok) {
         const data = await response.json()
-        setSuggestions(data)
+        setSuggestions(data.suggestions || [])
       }
     } catch (error) {
-      console.error("Failed to get suggestions:", error)
+      console.error("Error fetching suggestions:", error)
+      setSuggestions([])
     } finally {
-      setLoading(false)
+      setIsLoading(false)
     }
   }, [])
 
@@ -80,37 +81,41 @@ export function useSearchSuggestions() {
 
   return {
     suggestions,
-    loading,
-    getSuggestions,
+    isLoading,
+    fetchSuggestions,
     clearSuggestions,
   }
 }
 
 export function useSearchAnalytics() {
   const [analytics, setAnalytics] = useState<any>(null)
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const getAnalytics = useCallback(async (type?: string) => {
-    setLoading(true)
+  const fetchAnalytics = useCallback(async (days = 7) => {
+    setIsLoading(true)
+    setError(null)
 
     try {
-      const url = type ? `/api/search/analytics?type=${type}` : "/api/search/analytics"
-      const response = await fetch(url)
-
-      if (response.ok) {
-        const data = await response.json()
-        setAnalytics(data)
+      const response = await fetch(`/api/search/analytics?days=${days}`)
+      if (!response.ok) {
+        throw new Error("Failed to fetch analytics")
       }
-    } catch (error) {
-      console.error("Failed to get analytics:", error)
+
+      const data = await response.json()
+      setAnalytics(data)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to fetch analytics")
+      setAnalytics(null)
     } finally {
-      setLoading(false)
+      setIsLoading(false)
     }
   }, [])
 
   return {
     analytics,
-    loading,
-    getAnalytics,
+    isLoading,
+    error,
+    fetchAnalytics,
   }
 }

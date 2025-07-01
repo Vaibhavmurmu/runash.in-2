@@ -4,26 +4,13 @@ import { aiSearchService } from "@/lib/ai-search"
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const type = searchParams.get("type")
+    const days = Number.parseInt(searchParams.get("days") || "7")
 
-    let data
-    switch (type) {
-      case "popular":
-        data = await aiSearchService.getPopularQueries()
-        break
-      case "trending":
-        data = await aiSearchService.getTrendingContent()
-        break
-      default:
-        data = {
-          popular_queries: await aiSearchService.getPopularQueries(),
-          trending_content: await aiSearchService.getTrendingContent(),
-        }
-    }
+    const analytics = await aiSearchService.getSearchAnalytics(days)
 
-    return NextResponse.json(data)
+    return NextResponse.json(analytics)
   } catch (error) {
     console.error("Search analytics API error:", error)
-    return NextResponse.json({ error: "Failed to get analytics" }, { status: 500 })
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }

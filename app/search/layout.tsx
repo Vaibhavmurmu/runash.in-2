@@ -1,8 +1,10 @@
 import type React from "react"
+import { DashboardLayout } from "@/components/dashboard-layout"
+
 export default function SearchLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  return <div className="min-h-screen bg-background">{children}</div>
+  return <DashboardLayout>{children}</DashboardLayout>
 }
