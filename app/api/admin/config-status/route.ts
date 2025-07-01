@@ -6,7 +6,15 @@ export async function GET() {
     const status = getConfigStatus()
     return NextResponse.json(status)
   } catch (error) {
-    console.error("Error getting config status:", error)
-    return NextResponse.json({ error: "Failed to get configuration status" }, { status: 500 })
+    console.error("Config status API error:", error)
+    return NextResponse.json({
+      openaiConfigured: false,
+      databaseConfigured: !!process.env.DATABASE_URL,
+      vectorSearchEnabled: false,
+      semanticSearchEnabled: false,
+      aiSuggestionsEnabled: false,
+      configValid: false,
+      errors: ["Failed to check configuration status"],
+    })
   }
 }

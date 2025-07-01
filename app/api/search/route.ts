@@ -1,47 +1,55 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { aiSearchService } from "@/lib/ai-search"
-import type { SearchFilters } from "@/lib/search-types"
+import { isOpenAIAvailable } from "@/lib/openai"
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const query = searchParams.get("q") || ""
-    const searchType = (searchParams.get("type") || "hybrid") as "semantic" | "keyword" | "hybrid"
+    const query = searchParams.get("q") || searchParams.get("query")
+    const type = searchParams.get("type") || "hybrid"
     const limit = Number.parseInt(searchParams.get("limit") || "20")
-    const offset = Number.parseInt(searchParams.get("offset") || "0")
-
-    // Parse filters from query params
-    const filters: SearchFilters = {}
     const contentType = searchParams.get("contentType")
-    if (contentType) {
-      filters.contentType = contentType.split(",")
+
+    if (!query) {
+      return NextResponse.json({ error: "Query parameter is required" }, { status: 400 })
     }
 
-    const tags = searchParams.get("tags")
-    if (tags) {
-      filters.tags = tags.split(",")
+    // Log the search query
+    await aiSearchService.logSearchQuery(query, undefined, { type, contentType })
+
+    let results = []
+
+    // Choose search method based on type and availability
+    switch (type) {
+      case "semantic":
+        if (isOpenAIAvailable) {
+          results = await aiSearchService.semanticSearch(query, limit)
+        } else {
+          // Fallback to keyword search if OpenAI not available
+          results = await aiSearchService.keywordSearch(query, limit)
+        }
+        break
+      case "keyword":
+        results = await aiSearchService.keywordSearch(query, limit)
+        break
+      case "hybrid":
+      default:
+        results = await aiSearchService.hybridSearch(query, limit)
+        break
     }
 
-    if (!query.trim()) {
-      return NextResponse.json({
-        results: [],
-        total: 0,
-        query: "",
-        searchType,
-        responseTime: 0,
-        suggestions: [],
-      })
+    // Filter by content type if specified
+    if (contentType && contentType !== "all") {
+      results = results.filter((result) => result.contentType === contentType)
     }
 
-    const results = await aiSearchService.search({
+    return NextResponse.json({
       query,
-      filters,
-      searchType,
-      limit,
-      offset,
+      results,
+      total: results.length,
+      searchType: type,
+      openaiAvailable: isOpenAIAvailable,
     })
-
-    return NextResponse.json(results)
   } catch (error) {
     console.error("Search API error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
@@ -51,28 +59,47 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { query, filters, searchType = "hybrid", limit = 20, offset = 0 } = body
+    const { query, type = "hybrid", limit = 20, contentType, userId } = body
 
-    if (!query?.trim()) {
-      return NextResponse.json({
-        results: [],
-        total: 0,
-        query: "",
-        searchType,
-        responseTime: 0,
-        suggestions: [],
-      })
+    if (!query) {
+      return NextResponse.json({ error: "Query is required" }, { status: 400 })
     }
 
-    const results = await aiSearchService.search({
-      query,
-      filters,
-      searchType,
-      limit,
-      offset,
-    })
+    // Log the search query
+    await aiSearchService.logSearchQuery(query, userId, { type, contentType })
 
-    return NextResponse.json(results)
+    let results = []
+
+    // Choose search method based on type and availability
+    switch (type) {
+      case "semantic":
+        if (isOpenAIAvailable) {
+          results = await aiSearchService.semanticSearch(query, limit)
+        } else {
+          results = await aiSearchService.keywordSearch(query, limit)
+        }
+        break
+      case "keyword":
+        results = await aiSearchService.keywordSearch(query, limit)
+        break
+      case "hybrid":
+      default:
+        results = await aiSearchService.hybridSearch(query, limit)
+        break
+    }
+
+    // Filter by content type if specified
+    if (contentType && contentType !== "all") {
+      results = results.filter((result) => result.contentType === contentType)
+    }
+
+    return NextResponse.json({
+      query,
+      results,
+      total: results.length,
+      searchType: type,
+      openaiAvailable: isOpenAIAvailable,
+    })
   } catch (error) {
     console.error("Search API error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

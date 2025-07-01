@@ -1,12 +1,23 @@
 import OpenAI from "openai"
 
-// Initialize OpenAI client
-export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+// Initialize OpenAI client only if API key is available
+export const openai = process.env.OPENAI_API_KEY
+  ? new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    })
+  : null
+
+// Check if OpenAI is available
+export const isOpenAIAvailable = !!process.env.OPENAI_API_KEY
 
 // Generate embeddings for text
 export async function generateEmbedding(text: string): Promise<number[]> {
+  if (!openai || !isOpenAIAvailable) {
+    console.warn("OpenAI not configured, returning mock embedding")
+    // Return a consistent mock embedding for development
+    return Array.from({ length: 1536 }, (_, i) => Math.sin(i * 0.1) * 0.1)
+  }
+
   try {
     const response = await openai.embeddings.create({
       model: "text-embedding-3-small",
@@ -18,12 +29,24 @@ export async function generateEmbedding(text: string): Promise<number[]> {
   } catch (error) {
     console.error("Error generating embedding:", error)
     // Return a mock embedding as fallback
-    return Array.from({ length: 1536 }, () => Math.random())
+    return Array.from({ length: 1536 }, (_, i) => Math.sin(i * 0.1) * 0.1)
   }
 }
 
 // Generate search suggestions using GPT
 export async function generateSearchSuggestions(query: string, context?: string[]): Promise<string[]> {
+  if (!openai || !isOpenAIAvailable) {
+    // Return basic suggestions based on query
+    const basicSuggestions = [
+      `${query} tutorial`,
+      `${query} guide`,
+      `${query} tips`,
+      `how to ${query}`,
+      `${query} examples`,
+    ]
+    return basicSuggestions.slice(0, 3)
+  }
+
   try {
     const contextText = context?.length ? `\nContext: ${context.join(", ")}` : ""
 
@@ -62,12 +85,18 @@ export async function generateSearchSuggestions(query: string, context?: string[
     return []
   } catch (error) {
     console.error("Error generating search suggestions:", error)
-    return []
+    // Return basic fallback suggestions
+    return [`${query} tutorial`, `${query} guide`, `how to ${query}`]
   }
 }
 
 // Enhance search query using GPT
 export async function enhanceSearchQuery(query: string): Promise<string> {
+  if (!openai || !isOpenAIAvailable) {
+    // Return original query if OpenAI not available
+    return query
+  }
+
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",

@@ -11,6 +11,13 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(analytics)
   } catch (error) {
     console.error("Search analytics API error:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    const days = 7 // Declaring the variable before using it
+    return NextResponse.json({
+      totalQueries: 0,
+      uniqueUsers: 0,
+      avgResponseTime: 0,
+      topQueries: [],
+      period: days,
+    })
   }
 }
