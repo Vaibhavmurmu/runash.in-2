@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { sql } from "@/lib/database"
-import { getCurrentUserId, isAuthenticated } from "@/lib/auth"
+import { getCurrentUserId, isAuthenticated, isValidUUID } from "@/lib/auth"
 
 export async function GET() {
   try {
@@ -9,21 +9,26 @@ export async function GET() {
     }
 
     const userId = getCurrentUserId()
-    const [security] = await sql`
-      SELECT * FROM user_security WHERE user_id = ${userId}
-    `
 
-    if (!security) {
-      // Create default security settings if they don't exist
-      const [newSecurity] = await sql`
-        INSERT INTO user_security (user_id) 
-        VALUES (${userId}) 
-        RETURNING *
-      `
-      return NextResponse.json(newSecurity)
+    if (!isValidUUID(userId)) {
+      return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 })
     }
 
-    return NextResponse.json(security)
+    const security = await sql`
+      SELECT * FROM user_security WHERE user_id = ${userId}::uuid
+    `
+
+    if (security.length === 0) {
+      // Create default security settings if they don't exist
+      const newSecurity = await sql`
+        INSERT INTO user_security (user_id) 
+        VALUES (${userId}::uuid) 
+        RETURNING *
+      `
+      return NextResponse.json(newSecurity[0])
+    }
+
+    return NextResponse.json(security[0])
   } catch (error) {
     console.error("Error fetching user security:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
@@ -37,9 +42,14 @@ export async function PUT(request: NextRequest) {
     }
 
     const userId = getCurrentUserId()
+
+    if (!isValidUUID(userId)) {
+      return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 })
+    }
+
     const body = await request.json()
 
-    const [updatedSecurity] = await sql`
+    const updatedSecurity = await sql`
       UPDATE user_security 
       SET 
         two_factor_enabled = ${body.two_factor_enabled || false},
@@ -47,11 +57,15 @@ export async function PUT(request: NextRequest) {
         session_timeout = ${body.session_timeout !== undefined ? body.session_timeout : true},
         suspicious_activity_alerts = ${body.suspicious_activity_alerts !== undefined ? body.suspicious_activity_alerts : true},
         updated_at = NOW()
-      WHERE user_id = ${userId}
+      WHERE user_id = ${userId}::uuid
       RETURNING *
     `
 
-    return NextResponse.json(updatedSecurity)
+    if (updatedSecurity.length === 0) {
+      return NextResponse.json({ error: "User security settings not found" }, { status: 404 })
+    }
+
+    return NextResponse.json(updatedSecurity[0])
   } catch (error) {
     console.error("Error updating user security:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

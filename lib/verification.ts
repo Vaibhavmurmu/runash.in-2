@@ -1,5 +1,6 @@
 import { sql } from "@/lib/database"
 import { emailService } from "@/lib/email"
+import { isValidUUID } from "@/lib/auth"
 import crypto from "crypto"
 
 export interface VerificationToken {
@@ -36,6 +37,10 @@ export class VerificationService {
     email: string,
     type: "email_verification" | "email_change" | "password_reset",
   ): Promise<string> {
+    if (!isValidUUID(userId)) {
+      throw new Error("Invalid user ID format")
+    }
+
     const token = this.generateToken()
     const expiresAt = this.getExpirationTime(type)
 
@@ -43,25 +48,25 @@ export class VerificationService {
     await sql`
       UPDATE email_verification_tokens 
       SET used_at = NOW() 
-      WHERE user_id = ${userId} AND token_type = ${type} AND used_at IS NULL
+      WHERE user_id = ${userId}::uuid AND token_type = ${type} AND used_at IS NULL
     `
 
     // Create new token
     await sql`
       INSERT INTO email_verification_tokens (user_id, email, token, token_type, expires_at)
-      VALUES (${userId}, ${email}, ${token}, ${type}, ${expiresAt})
+      VALUES (${userId}::uuid, ${email}, ${token}, ${type}, ${expiresAt})
     `
 
     return token
   }
 
   async verifyToken(token: string): Promise<VerificationToken | null> {
-    const [verificationToken] = await sql`
+    const verificationTokens = await sql`
       SELECT * FROM email_verification_tokens 
       WHERE token = ${token} AND used_at IS NULL AND expires_at > NOW()
     `
 
-    return verificationToken || null
+    return verificationTokens.length > 0 ? verificationTokens[0] : null
   }
 
   async markTokenAsUsed(token: string): Promise<void> {
@@ -118,7 +123,7 @@ export class VerificationService {
       await sql`
         UPDATE users 
         SET email_verified = true, email_verified_at = NOW() 
-        WHERE id = ${verificationToken.user_id}
+        WHERE id = ${verificationToken.user_id}::uuid
       `
 
       // Mark token as used
@@ -151,7 +156,7 @@ export class VerificationService {
           pending_email = NULL,
           email_verified = true,
           email_verified_at = NOW()
-        WHERE id = ${verificationToken.user_id}
+        WHERE id = ${verificationToken.user_id}::uuid
       `
 
       // Mark token as used

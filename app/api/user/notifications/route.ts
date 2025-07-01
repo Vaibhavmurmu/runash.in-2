@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { sql } from "@/lib/database"
-import { getCurrentUserId, isAuthenticated } from "@/lib/auth"
+import { getCurrentUserId, isAuthenticated, isValidUUID } from "@/lib/auth"
 
 export async function GET() {
   try {
@@ -9,21 +9,26 @@ export async function GET() {
     }
 
     const userId = getCurrentUserId()
-    const [notifications] = await sql`
-      SELECT * FROM user_notifications WHERE user_id = ${userId}
-    `
 
-    if (!notifications) {
-      // Create default notifications if they don't exist
-      const [newNotifications] = await sql`
-        INSERT INTO user_notifications (user_id) 
-        VALUES (${userId}) 
-        RETURNING *
-      `
-      return NextResponse.json(newNotifications)
+    if (!isValidUUID(userId)) {
+      return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 })
     }
 
-    return NextResponse.json(notifications)
+    const notifications = await sql`
+      SELECT * FROM user_notifications WHERE user_id = ${userId}::uuid
+    `
+
+    if (notifications.length === 0) {
+      // Create default notifications if they don't exist
+      const newNotifications = await sql`
+        INSERT INTO user_notifications (user_id) 
+        VALUES (${userId}::uuid) 
+        RETURNING *
+      `
+      return NextResponse.json(newNotifications[0])
+    }
+
+    return NextResponse.json(notifications[0])
   } catch (error) {
     console.error("Error fetching user notifications:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
@@ -37,9 +42,14 @@ export async function PUT(request: NextRequest) {
     }
 
     const userId = getCurrentUserId()
+
+    if (!isValidUUID(userId)) {
+      return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 })
+    }
+
     const body = await request.json()
 
-    const [updatedNotifications] = await sql`
+    const updatedNotifications = await sql`
       UPDATE user_notifications 
       SET 
         email_stream_start = ${body.email_stream_start !== undefined ? body.email_stream_start : true},
@@ -61,11 +71,15 @@ export async function PUT(request: NextRequest) {
         notification_sounds = ${body.notification_sounds !== undefined ? body.notification_sounds : true},
         chat_sounds = ${body.chat_sounds || false},
         updated_at = NOW()
-      WHERE user_id = ${userId}
+      WHERE user_id = ${userId}::uuid
       RETURNING *
     `
 
-    return NextResponse.json(updatedNotifications)
+    if (updatedNotifications.length === 0) {
+      return NextResponse.json({ error: "User notifications not found" }, { status: 404 })
+    }
+
+    return NextResponse.json(updatedNotifications[0])
   } catch (error) {
     console.error("Error updating user notifications:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

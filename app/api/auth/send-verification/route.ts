@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { sql } from "@/lib/database"
 import { verificationService } from "@/lib/verification"
-import { getCurrentUserId, isAuthenticated } from "@/lib/auth"
+import { getCurrentUserId, isAuthenticated, isValidUUID } from "@/lib/auth"
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,18 +10,24 @@ export async function POST(request: NextRequest) {
     }
 
     const userId = getCurrentUserId()
+
+    if (!isValidUUID(userId)) {
+      return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 })
+    }
+
     const body = await request.json()
     const { type = "email_verification" } = body
 
     // Get user information
-    const [user] = await sql`
-      SELECT * FROM users WHERE id = ${userId}
+    const users = await sql`
+      SELECT * FROM users WHERE id = ${userId}::uuid
     `
 
-    if (!user) {
+    if (users.length === 0) {
       return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
 
+    const user = users[0]
     let success = false
     let message = ""
 

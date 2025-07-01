@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { sql } from "@/lib/database"
 import { verificationService } from "@/lib/verification"
-import { getCurrentUserId, isAuthenticated } from "@/lib/auth"
+import { getCurrentUserId, isAuthenticated, isValidUUID } from "@/lib/auth"
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,6 +10,11 @@ export async function POST(request: NextRequest) {
     }
 
     const userId = getCurrentUserId()
+
+    if (!isValidUUID(userId)) {
+      return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 })
+    }
+
     const body = await request.json()
     const { newEmail } = body
 
@@ -18,28 +23,30 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if email is already in use
-    const [existingUser] = await sql`
-      SELECT id FROM users WHERE email = ${newEmail} AND id != ${userId}
+    const existingUsers = await sql`
+      SELECT id FROM users WHERE email = ${newEmail} AND id != ${userId}::uuid
     `
 
-    if (existingUser) {
+    if (existingUsers.length > 0) {
       return NextResponse.json({ error: "Email already in use" }, { status: 400 })
     }
 
     // Get current user
-    const [user] = await sql`
-      SELECT * FROM users WHERE id = ${userId}
+    const users = await sql`
+      SELECT * FROM users WHERE id = ${userId}::uuid
     `
 
-    if (!user) {
+    if (users.length === 0) {
       return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
+
+    const user = users[0]
 
     // Set pending email
     await sql`
       UPDATE users 
       SET pending_email = ${newEmail}
-      WHERE id = ${userId}
+      WHERE id = ${userId}::uuid
     `
 
     // Send verification email

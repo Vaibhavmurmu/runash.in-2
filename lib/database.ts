@@ -6,6 +6,12 @@ if (!process.env.DATABASE_URL) {
 
 export const sql = neon(process.env.DATABASE_URL)
 
+// Helper function to ensure proper UUID formatting
+export function formatUUID(uuid: string): string {
+  // Remove any extra quotes or formatting
+  return uuid.replace(/['"]/g, "")
+}
+
 // Database types
 export interface User {
   id: string
@@ -16,6 +22,9 @@ export interface User {
   bio?: string
   website?: string
   location?: string
+  email_verified?: boolean
+  email_verified_at?: string
+  pending_email?: string
   created_at: string
   updated_at: string
 }

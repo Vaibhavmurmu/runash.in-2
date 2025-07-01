@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { sql } from "@/lib/database"
-import { getCurrentUserId, isAuthenticated } from "@/lib/auth"
+import { getCurrentUserId, isAuthenticated, isValidUUID } from "@/lib/auth"
 
 export async function GET() {
   try {
@@ -9,21 +9,26 @@ export async function GET() {
     }
 
     const userId = getCurrentUserId()
-    const [preferences] = await sql`
-      SELECT * FROM user_preferences WHERE user_id = ${userId}
-    `
 
-    if (!preferences) {
-      // Create default preferences if they don't exist
-      const [newPreferences] = await sql`
-        INSERT INTO user_preferences (user_id) 
-        VALUES (${userId}) 
-        RETURNING *
-      `
-      return NextResponse.json(newPreferences)
+    if (!isValidUUID(userId)) {
+      return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 })
     }
 
-    return NextResponse.json(preferences)
+    const preferences = await sql`
+      SELECT * FROM user_preferences WHERE user_id = ${userId}::uuid
+    `
+
+    if (preferences.length === 0) {
+      // Create default preferences if they don't exist
+      const newPreferences = await sql`
+        INSERT INTO user_preferences (user_id) 
+        VALUES (${userId}::uuid) 
+        RETURNING *
+      `
+      return NextResponse.json(newPreferences[0])
+    }
+
+    return NextResponse.json(preferences[0])
   } catch (error) {
     console.error("Error fetching user preferences:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
@@ -37,9 +42,14 @@ export async function PUT(request: NextRequest) {
     }
 
     const userId = getCurrentUserId()
+
+    if (!isValidUUID(userId)) {
+      return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 })
+    }
+
     const body = await request.json()
 
-    const [updatedPreferences] = await sql`
+    const updatedPreferences = await sql`
       UPDATE user_preferences 
       SET 
         theme = ${body.theme || "system"},
@@ -64,11 +74,15 @@ export async function PUT(request: NextRequest) {
         auto_adjust_quality = ${body.auto_adjust_quality !== undefined ? body.auto_adjust_quality : true},
         hardware_acceleration = ${body.hardware_acceleration !== undefined ? body.hardware_acceleration : true},
         updated_at = NOW()
-      WHERE user_id = ${userId}
+      WHERE user_id = ${userId}::uuid
       RETURNING *
     `
 
-    return NextResponse.json(updatedPreferences)
+    if (updatedPreferences.length === 0) {
+      return NextResponse.json({ error: "User preferences not found" }, { status: 404 })
+    }
+
+    return NextResponse.json(updatedPreferences[0])
   } catch (error) {
     console.error("Error updating user preferences:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

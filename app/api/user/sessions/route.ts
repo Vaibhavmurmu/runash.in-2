@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { sql } from "@/lib/database"
-import { getCurrentUserId, isAuthenticated } from "@/lib/auth"
+import { getCurrentUserId, isAuthenticated, isValidUUID } from "@/lib/auth"
 
 export async function GET() {
   try {
@@ -9,9 +9,14 @@ export async function GET() {
     }
 
     const userId = getCurrentUserId()
+
+    if (!isValidUUID(userId)) {
+      return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 })
+    }
+
     const sessions = await sql`
       SELECT * FROM user_sessions 
-      WHERE user_id = ${userId}
+      WHERE user_id = ${userId}::uuid
       ORDER BY last_active DESC
     `
 
@@ -29,20 +34,30 @@ export async function DELETE(request: Request) {
     }
 
     const userId = getCurrentUserId()
+
+    if (!isValidUUID(userId)) {
+      return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 })
+    }
+
     const { searchParams } = new URL(request.url)
     const sessionId = searchParams.get("sessionId")
 
     if (sessionId) {
+      // Validate session ID is also a UUID
+      if (!isValidUUID(sessionId)) {
+        return NextResponse.json({ error: "Invalid session ID format" }, { status: 400 })
+      }
+
       // Delete specific session
       await sql`
         DELETE FROM user_sessions 
-        WHERE id = ${sessionId} AND user_id = ${userId} AND is_current = false
+        WHERE id = ${sessionId}::uuid AND user_id = ${userId}::uuid AND is_current = false
       `
     } else {
       // Delete all other sessions (keep current)
       await sql`
         DELETE FROM user_sessions 
-        WHERE user_id = ${userId} AND is_current = false
+        WHERE user_id = ${userId}::uuid AND is_current = false
       `
     }
 
