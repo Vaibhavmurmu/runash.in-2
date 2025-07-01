@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { OpenAISetupGuide } from "@/components/openai-setup-guide"
+import { ContentIndexingPanel } from "@/components/content-indexing-panel"
 import { CheckCircle, XCircle, AlertCircle, Database, Zap, Search, Brain } from "lucide-react"
 
 interface ConfigStatus {
@@ -121,8 +121,9 @@ export default function AdminSetupPage() {
         </div>
 
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="indexing">Content Indexing</TabsTrigger>
             <TabsTrigger value="openai">OpenAI Setup</TabsTrigger>
             <TabsTrigger value="database">Database</TabsTrigger>
             <TabsTrigger value="testing">Testing</TabsTrigger>
@@ -279,8 +280,50 @@ export default function AdminSetupPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="openai">
-            <OpenAISetupGuide />
+          <TabsContent value="indexing">
+            <ContentIndexingPanel />
+          </TabsContent>
+
+          <TabsContent value="openai" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>OpenAI Configuration</CardTitle>
+                <CardDescription>Set up OpenAI API for AI-powered search features</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Alert>
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    You need an OpenAI API key to enable semantic search and AI suggestions.
+                  </AlertDescription>
+                </Alert>
+
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold mb-2">1. Get OpenAI API Key</h4>
+                    <p className="text-sm text-muted-foreground mb-2">Visit OpenAI Platform to create an API key</p>
+                    <Button
+                      onClick={() => window.open("https://platform.openai.com/api-keys", "_blank")}
+                      variant="outline"
+                    >
+                      Open OpenAI Platform
+                    </Button>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold mb-2">2. Add Environment Variable</h4>
+                    <div className="bg-muted p-3 rounded font-mono text-sm">OPENAI_API_KEY=sk-your-api-key-here</div>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold mb-2">3. Restart Application</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Restart your application to load the new environment variable
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="database" className="space-y-6">
@@ -308,15 +351,17 @@ export default function AdminSetupPage() {
                   </div>
 
                   <div>
-                    <h4 className="font-semibold mb-2">2. Create Search Tables</h4>
+                    <h4 className="font-semibold mb-2">2. Run Vector Support Script</h4>
                     <div className="bg-muted p-3 rounded font-mono text-sm">
-                      -- Run scripts/create-search-tables.sql
+                      -- Execute scripts/add-vector-support.sql
                     </div>
                   </div>
 
                   <div>
-                    <h4 className="font-semibold mb-2">3. Add Sample Data</h4>
-                    <div className="bg-muted p-3 rounded font-mono text-sm">-- Run scripts/seed-search-data.sql</div>
+                    <h4 className="font-semibold mb-2">3. Create Search Tables</h4>
+                    <div className="bg-muted p-3 rounded font-mono text-sm">
+                      -- Execute scripts/create-search-tables.sql
+                    </div>
                   </div>
                 </div>
               </CardContent>
