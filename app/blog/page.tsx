@@ -408,8 +408,9 @@ export default function BlogPage() {
                 </Button>
               </div>
             </div>
-          </div>
-        </div>
+          
+        
+    
      {/* Footer */}
       <footer className="py-12 bg-white dark:bg-gray-950 border-t border-orange-200/50 dark:border-orange-900/30">
         <div className="container mx-auto px-4">
