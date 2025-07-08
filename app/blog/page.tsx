@@ -294,8 +294,9 @@ export default function BlogPage() {
             </div>
           </div>
         </div>
+        
       </section>
-      
+      </div>
       <div className="container mx-auto px-4 py-8">
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
