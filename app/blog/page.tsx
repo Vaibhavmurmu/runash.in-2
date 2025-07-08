@@ -8,8 +8,8 @@ import { BlogPostCard } from "@/components/blog/blog-post-card"
 import { CategoryFilter } from "@/components/blog/category-filter"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import ThemeToggle from "@/components/theme-toggle"
-//* import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs" *//
-//* import { Card, CardContent } from "@/components/ui/card" *//
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs" 
+import { Card, CardContent } from "@/components/ui/card" 
 
 interface BlogPost {
   id: string
@@ -261,9 +261,9 @@ export default function BlogPage() {
         </div>
       </div>  
 
-       {/* <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white"> */}
+        
       {/* Hero Section */}
-       {/* <section className="relative py-24 overflow-hidden">
+        <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-orange-50/30 to-white dark:from-gray-950 dark:via-orange-950/30 dark:to-gray-950"></div>
         <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-center opacity-5 dark:opacity-10"></div>
 
@@ -296,7 +296,7 @@ export default function BlogPage() {
         </div>
         
       </section>
-      */}
+      
       
       <div className="container mx-auto px-4 py-8">
         {/* Featured Posts */}
