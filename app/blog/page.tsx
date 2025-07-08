@@ -390,7 +390,34 @@ export default function BlogPage() {
           </div>
         </div>
       </div>
-     
+       {/* Newsletter Signup */}
+            <div className="mt-16 p-8 rounded-xl bg-gradient-to-br from-orange-100 to-yellow-100 dark:from-orange-900/30 dark:to-yellow-900/30 border border-orange-200 dark:border-orange-800/30">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold mb-2 text-orange-800 dark:text-orange-300">Stay Updated</h3>
+                <p className="text-gray-700 dark:text-gray-300">
+                  Subscribe to our newsletter for the latest updates, tutorials, and insights.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <Input
+                  placeholder="Enter your email"
+                  className="bg-white dark:bg-gray-900 border-orange-200 dark:border-orange-800/30"
+                />
+                <Button className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white">
+                  Subscribe
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+     {/* Footer */}
+      <footer className="py-12 bg-white dark:bg-gray-950 border-t border-orange-200/50 dark:border-orange-900/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center text-gray-500">
+            <p>© {new Date().getFullYear()} RunAsh AI. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
