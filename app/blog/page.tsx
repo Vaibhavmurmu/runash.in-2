@@ -49,22 +49,22 @@ export default function BlogPage() {
   const mockPosts: BlogPost[] = [
     {
       id: "1",
-      title: "The Future of AI-Powered Live Streaming: Transforming Digital Commerce",
-      slug: "future-ai-live-streaming-digital-commerce",
+      title: "The Future of AI-Powered Live Streaming:",
+      slug: "future-ai-live-streaming transforming-digital-commerce",
       excerpt:
         "Discover how AI is revolutionizing live streaming and creating new opportunities for sellers and creators worldwide.",
       author: {
-        name: "Sarah Chen",
-        avatar: "/placeholder.svg?height=100&width=100",
+        name: "Ram Murmu",
+        avatar: "/gradient.svg?height=100&width=100",
       },
       category: "AI Technology",
-      publishedAt: "2024-01-15",
+      publishedAt: "2023-01-15",
       readingTime: 8,
-      views: 15420,
-      likes: 342,
+      views: 0,
+      likes: 0,
       comments: 28,
       featured: true,
-      image: "/placeholder.svg?height=400&width=800",
+      image: "/gradient.svg?height=400&width=800",
     },
     {
       id: "2",
@@ -73,14 +73,14 @@ export default function BlogPage() {
       excerpt:
         "Learn how live streaming can help organic product sellers build credibility and trust with their customers.",
       author: {
-        name: "Mike Johnson",
+        name: "Ram Murmu",
         avatar: "/placeholder.svg?height=100&width=100",
       },
       category: "Organic Products",
-      publishedAt: "2024-01-12",
+      publishedAt: "2023-01-12",
       readingTime: 6,
-      views: 8930,
-      likes: 156,
+      views: 0,
+      likes: 0,
       comments: 15,
       featured: false,
       image: "/placeholder.svg?height=400&width=800",
@@ -92,14 +92,14 @@ export default function BlogPage() {
       excerpt:
         "Discover proven strategies to increase viewer engagement and boost sales during live streaming sessions.",
       author: {
-        name: "Emma Rodriguez",
+        name: "Ram Murmu",
         avatar: "/placeholder.svg?height=100&width=100",
       },
       category: "Best Practices",
       publishedAt: "2024-01-10",
       readingTime: 7,
-      views: 12100,
-      likes: 289,
+      views: 0,
+      likes: 0,
       comments: 22,
       featured: false,
       image: "/placeholder.svg?height=400&width=800",
@@ -111,14 +111,14 @@ export default function BlogPage() {
       excerpt:
         "Explore how organic farmers are using technology to connect directly with consumers and tell their stories.",
       author: {
-        name: "David Park",
+        name: "Vaibhav Murmu",
         avatar: "/placeholder.svg?height=100&width=100",
       },
       category: "Organic Products",
       publishedAt: "2024-01-08",
       readingTime: 5,
-      views: 6750,
-      likes: 98,
+      views: 0,
+      likes: 0,
       comments: 12,
       featured: false,
       image: "/placeholder.svg?height=400&width=800",
@@ -130,14 +130,14 @@ export default function BlogPage() {
       excerpt:
         "Understanding the psychological factors that drive purchasing decisions during live streaming sessions.",
       author: {
-        name: "Dr. Lisa Wang",
+        name: " Vaibhav Murmu",
         avatar: "/placeholder.svg?height=100&width=100",
       },
       category: "Psychology",
       publishedAt: "2024-01-05",
       readingTime: 9,
-      views: 18200,
-      likes: 445,
+      views: 0,
+      likes: 0,
       comments: 35,
       featured: true,
       image: "/placeholder.svg?height=400&width=800",
@@ -149,14 +149,14 @@ export default function BlogPage() {
       excerpt:
         "Everything you need to know to start your live streaming journey, from equipment to engagement strategies.",
       author: {
-        name: "Alex Thompson",
+        name: "Ram Murmu",
         avatar: "/placeholder.svg?height=100&width=100",
       },
       category: "Getting Started",
       publishedAt: "2024-01-03",
       readingTime: 12,
-      views: 22500,
-      likes: 567,
+      views: 0,
+      likes: 0,
       comments: 48,
       featured: false,
       image: "/placeholder.svg?height=400&width=800",
@@ -164,11 +164,15 @@ export default function BlogPage() {
   ]
 
   const mockCategories: Category[] = [
+    { id: "ai-research", name: "AI Research", count: 1 },
     { id: "ai-technology", name: "AI Technology", count: 1 },
+    { id: "tutorial", name: "Tutorial", count: 1 },
+    { id: "product-updates", name: "Product Updates", count: 1 },
     { id: "organic-products", name: "Organic Products", count: 2 },
     { id: "best-practices", name: "Best Practices", count: 1 },
     { id: "psychology", name: "Psychology", count: 1 },
     { id: "getting-started", name: "Getting Started", count: 1 },
+    { id: "community", name: "Community", count: 2 },
   ]
 
   useEffect(() => {
