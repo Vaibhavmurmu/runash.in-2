@@ -94,10 +94,10 @@ export default function LoginPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex items-center justify-center p-6">
+      <main className="flex-1 flex items-center justify-center p-6">
         <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Centre - Welcome Message */}
-          <div className="space-y-8">
+          <div className="space-y-8 flex items-center justify-center">
             <div className="space-y-4">
               <h1 className="text-2xl lg:text-4xl font-bold leading-tight">
                 Welcome back to{" "}
