@@ -106,11 +106,38 @@ export default function LoginPage() {
                 </span>
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-                Sign in to continue your AI-powered streaming journey and unlock powerful features
+                Sign in to continue your AI live streaming journey and unlock powerful features
               </p>
             </div>
           
-        
+        <div className="mx-auto grid w-full max-w-[1200px] grid-cols-1 gap-4 p-4 md:grid-cols-2 md:gap-8">
+          <div className="flex flex-col justify-center space-y-4">
+            <div className="space-y-2">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Welcome back to RunAsh AI</h1>
+              <p className="text-muted-foreground md:text-xl">
+                Sign in to your account to continue your AI-powered streaming journey
+              </p>
+            </div>
+            
+            <div className="hidden md:block">
+              <div className="relative h-[400px] w-full overflow-hidden rounded-lg bg-gradient-to-br from-orange-500 to-amber-300 p-1">
+                
+                <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-30"></div>
+                
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="max-w-md text-center text-white">
+                    
+                    <div className="mb-4 text-4xl font-bold">Elevate Your Streams</div>
+                    <p className="text-lg">Access your dashboard, manage streams, and connect with your audience</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+          
+            
+          
 
             {/* Feature Highlights */}
       {/*  <div className="space-y-4">
