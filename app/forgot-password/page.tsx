@@ -68,7 +68,7 @@ export default function ForgotPasswordPage() {
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center p-6">
-         <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"> */}
           {/* Left Side - Information */}
            {/* <div className="space-y-8">
             <div className="space-y-4">
@@ -109,8 +109,8 @@ export default function ForgotPasswordPage() {
                   </p>
                 </div>
               </div>
-            </div> */}
-          </div> 
+            </div> 
+          </div> */}
 
           {/* Right Side - Reset Form */}
           <div className="flex justify-center lg:justify-end">
