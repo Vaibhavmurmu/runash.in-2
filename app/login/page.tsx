@@ -106,7 +106,7 @@ export default function LoginPage() {
                 </span>
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-                Sign in to continue your AI live streaming journey and unlock powerful features
+                Continue your AI live streaming journey 
               </p>
             </div>
           </div> 
