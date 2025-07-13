@@ -68,49 +68,8 @@ export default function ForgotPasswordPage() {
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Side - Information */}
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
-                Reset your{" "}
-                <span className="bg-gradient-to-r from-orange-600 to-amber-600 text-transparent bg-clip-text">
-                  password
-                </span>
-              </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-                Don't worry, it happens to the best of us. Enter your email address and we'll send you a link to reset
-                your password.
-              </p>
-            </div>
-
-            {/* Security Features */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-4 p-4 rounded-lg bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border border-orange-200/50 dark:border-orange-900/30">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center">
-                  <span className="text-white font-bold">🔒</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">Secure Reset</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Your reset link expires in 1 hour for security
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 p-4 rounded-lg bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border border-orange-200/50 dark:border-orange-900/30">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center">
-                  <span className="text-white font-bold">📧</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">Email Verification</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    We'll only send reset links to verified accounts
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"> 
+          
 
           {/* Right Side - Reset Form */}
           <div className="flex justify-center lg:justify-end">
