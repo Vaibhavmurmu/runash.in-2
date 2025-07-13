@@ -28,18 +28,7 @@ export async function middleware(request: NextRequest) {
     "/cookies",
     "/roadmap",
     "/status",
-    "/dashboard",
-    "/analytic",
-    "/admin",
-    "/stream",
-    "/recording",
-    "/becomeseller",
-    "/docs",
-    "/grocery",
-    "/chat",
-    "/live",
-    "/recording",
-    "/upload",
+    
   ]
 
   // API routes that don't require authentication
@@ -56,26 +45,26 @@ export async function middleware(request: NextRequest) {
   }
 
   // Protect dashboard routes
-  if (pathname.startsWith("/") && !token) {
+  if (pathname.startsWith("/dashboard") && !token) {
     return NextResponse.redirect(new URL("/login", request.url))
   }
 
   // Protect streaming routes
   if (
-    (pathname.startsWith("/") || pathname.startsWith("/") || pathname.startsWith("/")) &&
+    (pathname.startsWith("/streaming") || pathname.startsWith("/") || pathname.startsWith("/")) &&
     !token
   ) {
     return NextResponse.redirect(new URL("/login", request.url))
   }
 
   // Protect admin routes
-  if (pathname.startsWith("/") && token?.role !== "admin") {
-    return NextResponse.redirect(new URL("/", request.url))
+  if (pathname.startsWith("/admin") && token?.role !== "admin") {
+    return NextResponse.redirect(new URL("/dashboard", request.url))
   }
 
   // Redirect authenticated users away from auth pages
   if (token && (pathname === "/login" || pathname === "/get-started")) {
-    return NextResponse.redirect(new URL("/", request.url))
+    return NextResponse.redirect(new URL("/dashboard", request.url))
   }
 
   return NextResponse.next()
