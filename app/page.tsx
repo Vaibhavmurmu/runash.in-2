@@ -37,7 +37,7 @@ export default function Home() {
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
         <div className="container relative z-10 mx-auto px-4 text-center">
-          <div className="inline-block mt-8 mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
             <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
               Introducing 
             </span>
@@ -66,7 +66,7 @@ export default function Home() {
             </Button>
           </div>     
          {/* Tech badges */}
-          <div className="mt-18 flex flex-wrap justify-center gap-3">
+          <div className="mt-12 flex flex-wrap justify-center gap-3">
             <TechBadge label="Real-time Streaming" />
             <TechBadge label="Live Streaming Selling" />
             <TechBadge label="Live Streaming Shopping" />
