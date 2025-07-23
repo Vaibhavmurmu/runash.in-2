@@ -588,7 +588,7 @@ export default function Home() {
                 <h4 className="font-medium text-sm mb-3 text-gray-700 dark:text-gray-300">Follow us</h4>
                 <div className="flex flex-wrap gap-4">
                   <a
-                    href="https://x.com.runash.in"
+                    href="https://x.runash.in"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
@@ -649,7 +649,7 @@ export default function Home() {
                     <span>YouTube</span>
                   </a>
                   <a
-                    href="https://instagram.com.runash.in"
+                    href="https://instagram.runash.in"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
