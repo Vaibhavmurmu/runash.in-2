@@ -1010,7 +1010,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/runas-pay"
+                      href="/runash-pay"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       RunAshPay
