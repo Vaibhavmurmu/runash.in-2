@@ -94,15 +94,15 @@ export default function GetStartedPage() {
       {/* Header */}
       <header className="w-full py-6 px-6 flex justify-between items-center">
         <Link href="/" className="flex items-center group">
-          <div className="relative mr-3 h-10 w-10 overflow-hidden rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 shadow-lg group-hover:shadow-xl transition-all duration-300">
-            {/* <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-lg">R</div> */}
-          </div>
+          {/* <div className="relative mr-3 h-10 w-10 overflow-hidden md-hidden rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 shadow-lg group-hover:shadow-xl transition-all duration-300"> 
+             <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-lg">R</div> 
+          </div> */}
           <span className="text-2xl font-bold bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 dark:from-orange-400 dark:via-orange-300 dark:to-amber-300 text-transparent bg-clip-text">
             RunAsh AI 
           </span>
         </Link>
         <div className="flex items-center gap-4">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <Link
             href="/login"
             className="text-sm text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
@@ -154,7 +154,7 @@ export default function GetStartedPage() {
                   Create your account
                 </CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-400">
-                  Start your AI-powered streaming journey
+                  Start your RunAsh AI live streaming journey
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -169,7 +169,7 @@ export default function GetStartedPage() {
                     <Mail className="mr-3 h-5 w-5 text-red-500" />
                     Continue with Google
                   </Button>
-                  <Button
+          {/*      <Button
                     onClick={() => handleOAuthSignIn("github")}
                     variant="outline"
                     className="w-full h-12 border-orange-200 hover:border-orange-300 hover:bg-orange-50 dark:border-orange-800 dark:hover:bg-orange-950/20"
@@ -177,7 +177,7 @@ export default function GetStartedPage() {
                   >
                     <Github className="mr-3 h-5 w-5" />
                     Continue with GitHub
-                  </Button>
+                  </Button> */}
                 </div>
 
                 <div className="relative">
@@ -239,7 +239,7 @@ export default function GetStartedPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-2">
+              {/*   <div className="space-y-2">
                     <Label htmlFor="confirmPassword">Confirm Password</Label>
                     <Input
                       id="confirmPassword"
@@ -250,7 +250,7 @@ export default function GetStartedPage() {
                       required
                       className="h-12 border-orange-200 focus:border-orange-400 dark:border-orange-800"
                     />
-                  </div>
+                  </div> */}
 
                   <div className="flex items-start space-x-3 pt-2">
                     <Checkbox id="terms" required className="mt-1" />
