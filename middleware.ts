@@ -33,6 +33,26 @@ export async function middleware(request: NextRequest) {
     "/admin",
     "/stream",
     "/recording",
+    "/grocery",
+    "/grocery-live",
+    "/grocery-recordings",
+    "/upload",
+    "/chat",
+    "/creator",
+    "/business",
+    "/partner",
+    "/changelog",
+    "/forum",
+    "/community",
+    "/pro",
+    "/enterprise",
+    "/ai-overview",
+    "/models",
+    "/checkout",
+    "/seller-dashboard",
+    "/live",
+    "/mobile",
+    
   ]
 
   // API routes that don't require authentication
