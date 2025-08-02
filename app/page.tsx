@@ -668,23 +668,23 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
+                      AI Assistant 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
                       Live Selling 
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/grocery/live"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Live Shopping 
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/"
-                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      AI Assistant 
                     </a>
                   </li>
                   <li>
@@ -848,18 +848,18 @@ export default function Home() {
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
-                      href="/ai-overview"
+                      href="/models"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                   Overview 
+                   Models
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/models"
+                      href="/ai-overview"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Models
+                     Overview 
                     </a>
                   </li>
                   <li>
@@ -867,7 +867,7 @@ export default function Home() {
                       href="/https://ai.runash.in"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Live Generatior 
+                     Generatior 
                     </a>
                   </li>
                   <li>
@@ -962,7 +962,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="https://ai.runash.in/try"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Editor 
