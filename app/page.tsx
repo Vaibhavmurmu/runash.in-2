@@ -42,7 +42,7 @@ export default function Home() {
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-            Live Streaming Platform 
+            Live Streaming <br />Platform 
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
             The next generation of AI live streaming platform for creators, sellers, and businesses
@@ -546,7 +546,7 @@ export default function Home() {
                     >
                       <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
                     </svg>
-                    <span>Twitter</span>
+                    <span>X</span>
                   </a>
                   <a
                     href="https://discord.com/runash.ai"
@@ -566,7 +566,7 @@ export default function Home() {
                     >
                       <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
                     </svg>
-                    <span>Discord</span>
+                    <span>Join our Discord</span>
                   </a>
                   <a
                     href="https://youtube.com/runash_ai"
@@ -867,7 +867,7 @@ export default function Home() {
                       href="/https://ai.runash.in"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Generatior 
+                     Live Generator 
                     </a>
                   </li>
                   <li>
