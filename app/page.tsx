@@ -36,7 +36,7 @@ export default function Home() {
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
         <div className="container relative z-10 mx-auto px-4 text-center">
-          <div className="inline-block mt-4 mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+          <div className="inline-block  mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
             <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
               Introducing RunAsh AI 
             </span>
@@ -445,7 +445,7 @@ export default function Home() {
             </div>
 
             <div>
-              <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Product</h3>
+              <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Applications</h3>
               <ul className="space-y-2">
                 <li>
                   <a
@@ -514,7 +514,7 @@ export default function Home() {
                     href="/community"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    Documents
+                    Documentation 
                   </a>
                 </li>
               </ul>
