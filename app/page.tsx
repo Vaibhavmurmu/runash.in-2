@@ -33,7 +33,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-white">
-{/* <Banner /> */}
+      {/* <Banner /> */}
       <Navbar />
        {/* Hero Section with Video Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
@@ -54,7 +54,7 @@ export default function Home() {
             <Button
               size="lg"
               className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10"
-              onClick={() => router.push("/stream")}
+              onClick={() => router.push("/get-started")}
             >
               Start Streaming <Play className="ml-2 h-4 w-4" />
             </Button>
@@ -361,7 +361,7 @@ export default function Home() {
       {/* CTA */}
       <section className="py-24 bg-gradient-to-r from-orange-600 to-yellow-500 dark:from-orange-700 dark:to-yellow-600">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Ready to Transform Your Streams?</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Transform Your Streams?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto text-white/90">
             Join thousands of content creators who are elevating their streaming with RunAsh AI. Start your free trial 
             today.
@@ -422,7 +422,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/live"
+                    href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     Live
@@ -430,7 +430,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/chat"
+                    href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                    RunAshChat
@@ -438,7 +438,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/become-seller"
+                    href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     Become a seller 
@@ -452,7 +452,7 @@ export default function Home() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="/stream"
+                    href="/get-started"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     Studio
@@ -514,7 +514,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/community"
+                    href="/docs"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     Documentation 
@@ -552,7 +552,7 @@ export default function Home() {
                     <span>X</span>
                   </a>
                   <a
-                    href="https://discord.com/runash.ai"
+                    href="https://discord.com/runash-ai"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
@@ -572,7 +572,7 @@ export default function Home() {
                     <span>Join our Discord</span>
                   </a>
                   <a
-                    href="https://youtube.com/runash_ai"
+                    href="https://youtube.com/runash-ai"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
@@ -639,7 +639,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/mailto:contact@runash.in"
+                      href="/contact"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Contact 
@@ -752,7 +752,7 @@ export default function Home() {
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
-                      href="/tos"
+                      href="/term"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       TOS
@@ -760,7 +760,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/ai-policy"
+                      href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       AI Policy 
@@ -814,7 +814,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/enterprise"
+                      href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                      Enterprise 
@@ -904,7 +904,7 @@ export default function Home() {
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
-                      href="mailto:admin@runash.in"
+                      href="mailto:hi@runash.in"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                      Grants
@@ -912,7 +912,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/credit based-pricing"
+                      href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                      Buy Credit 
@@ -965,7 +965,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="https://ai.runash.in/try"
+                      href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Editor 
