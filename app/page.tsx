@@ -447,7 +447,7 @@ export default function Home() {
             </div>
 
             <div>
-              <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Applications</h3>
+              <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Products</h3>
               <ul className="space-y-2">
                 <li>
                   <a
@@ -663,7 +663,7 @@ export default function Home() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Products</h4>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300"> AI Products</h4>
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
@@ -683,7 +683,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/grocery/live"
+                      href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Live Shopping 
@@ -720,7 +720,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/https://Huggingface.com/runash_ai"
+                      href="/https://Huggingface.com/runash-ai"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                      Hugging Face 
@@ -877,7 +877,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      
+                    Agent 
                     </a>
                   </li>
                   <li>
