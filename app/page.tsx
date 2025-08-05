@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Banner } from "@/components/banner"
-import { Badge } from "@/components/badge"
+import { Badge } from "@/components/ui/badge"
 import { Play, Zap, Users, Shield, ArrowRight, ChevronRight, Star, BarChart, Globe,SquareArrowDownRight } from "lucide-react"
 import VideoBackground from "@/components/video-background"
 import FeatureCard from "@/components/feature-card"
@@ -1023,8 +1023,8 @@ export default function Home() {
                   className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
                 >
                   Agent 
+                <Badge varient="secondary" className="bg-green-700 text-green-300 dark:bg-green-700 text-xs">New</Badge>
                 </a>
-                <Badge className="text-xs">New</Badge>
                 <a
                   href="/help"
                   className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
