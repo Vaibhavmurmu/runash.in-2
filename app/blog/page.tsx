@@ -3,10 +3,13 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Search, TrendingUp, Clock, Star } from "lucide-react"
+import { Search, TrendingUp, Clock, Star, ArrowRight, Calendar, User } from "lucide-react"
 import { BlogPostCard } from "@/components/blog/blog-post-card"
 import { CategoryFilter } from "@/components/blog/category-filter"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import ThemeToggle from "@/components/theme-toggle"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs" 
+import { Card, CardContent } from "@/components/ui/card" 
 
 interface BlogPost {
   id: string
@@ -46,20 +49,20 @@ export default function BlogPage() {
   const mockPosts: BlogPost[] = [
     {
       id: "1",
-      title: "The Future of AI-Powered Live Streaming: Transforming Digital Commerce",
-      slug: "future-ai-live-streaming-digital-commerce",
+      title: "The Future of AI-Powered Live Streaming:",
+      slug: "future-ai-live-streaming transforming-digital-commerce",
       excerpt:
         "Discover how AI is revolutionizing live streaming and creating new opportunities for sellers and creators worldwide.",
       author: {
-        name: "Sarah Chen",
+        name: "Ram Murmu",
         avatar: "/placeholder.svg?height=100&width=100",
       },
       category: "AI Technology",
-      publishedAt: "2024-01-15",
+      publishedAt: "2023-01-15",
       readingTime: 8,
-      views: 15420,
-      likes: 342,
-      comments: 28,
+      views: 0,
+      likes: 0,
+      comments: 0,
       featured: true,
       image: "/placeholder.svg?height=400&width=800",
     },
@@ -70,15 +73,15 @@ export default function BlogPage() {
       excerpt:
         "Learn how live streaming can help organic product sellers build credibility and trust with their customers.",
       author: {
-        name: "Mike Johnson",
+        name: "Ram Murmu",
         avatar: "/placeholder.svg?height=100&width=100",
       },
       category: "Organic Products",
-      publishedAt: "2024-01-12",
+      publishedAt: "2023-01-12",
       readingTime: 6,
-      views: 8930,
-      likes: 156,
-      comments: 15,
+      views: 0,
+      likes: 0,
+      comments: 0,
       featured: false,
       image: "/placeholder.svg?height=400&width=800",
     },
@@ -89,15 +92,15 @@ export default function BlogPage() {
       excerpt:
         "Discover proven strategies to increase viewer engagement and boost sales during live streaming sessions.",
       author: {
-        name: "Emma Rodriguez",
+        name: "Ram Murmu",
         avatar: "/placeholder.svg?height=100&width=100",
       },
       category: "Best Practices",
       publishedAt: "2024-01-10",
       readingTime: 7,
-      views: 12100,
-      likes: 289,
-      comments: 22,
+      views: 0,
+      likes: 0,
+      comments: 0,
       featured: false,
       image: "/placeholder.svg?height=400&width=800",
     },
@@ -108,15 +111,15 @@ export default function BlogPage() {
       excerpt:
         "Explore how organic farmers are using technology to connect directly with consumers and tell their stories.",
       author: {
-        name: "David Park",
+        name: "Vaibhav Murmu",
         avatar: "/placeholder.svg?height=100&width=100",
       },
       category: "Organic Products",
       publishedAt: "2024-01-08",
       readingTime: 5,
-      views: 6750,
-      likes: 98,
-      comments: 12,
+      views: 0,
+      likes: 0,
+      comments: 0,
       featured: false,
       image: "/placeholder.svg?height=400&width=800",
     },
@@ -127,15 +130,15 @@ export default function BlogPage() {
       excerpt:
         "Understanding the psychological factors that drive purchasing decisions during live streaming sessions.",
       author: {
-        name: "Dr. Lisa Wang",
+        name: " Vaibhav Murmu",
         avatar: "/placeholder.svg?height=100&width=100",
       },
       category: "Psychology",
       publishedAt: "2024-01-05",
       readingTime: 9,
-      views: 18200,
-      likes: 445,
-      comments: 35,
+      views: 0,
+      likes: 0,
+      comments: 0,
       featured: true,
       image: "/placeholder.svg?height=400&width=800",
     },
@@ -146,26 +149,30 @@ export default function BlogPage() {
       excerpt:
         "Everything you need to know to start your live streaming journey, from equipment to engagement strategies.",
       author: {
-        name: "Alex Thompson",
+        name: "Ram Murmu",
         avatar: "/placeholder.svg?height=100&width=100",
       },
       category: "Getting Started",
       publishedAt: "2024-01-03",
       readingTime: 12,
-      views: 22500,
-      likes: 567,
-      comments: 48,
+      views: 0,
+      likes: 0,
+      comments: 0,
       featured: false,
       image: "/placeholder.svg?height=400&width=800",
     },
   ]
 
   const mockCategories: Category[] = [
+    { id: "ai-research", name: "AI Research", count: 1 },
     { id: "ai-technology", name: "AI Technology", count: 1 },
+    { id: "tutorials", name: "Tutorials", count: 1 },
+    { id: "product-updates", name: "Product Updates", count: 1 },
     { id: "organic-products", name: "Organic Products", count: 2 },
     { id: "best-practices", name: "Best Practices", count: 1 },
     { id: "psychology", name: "Psychology", count: 1 },
     { id: "getting-started", name: "Getting Started", count: 1 },
+    { id: "community", name: "Community", count: 2 },
   ]
 
   useEffect(() => {
@@ -236,35 +243,112 @@ export default function BlogPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900">
+     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">    
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-600 to-yellow-500 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">RunAsh Blog</h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            Insights, tips, and stories from the world of AI-powered live streaming and organic commerce
-          </p>
-          <div className="max-w-md mx-auto">
-            <div className="relative">
+        <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-orange-50/30 to-white dark:from-gray-950 dark:via-orange-950/30 dark:to-gray-950"></div>
+        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-center opacity-5 dark:opacity-10"></div>
+
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="flex justify-end mb-4">
+            <ThemeToggle />
+          </div>
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-block mb-6 px-6 py-2 border border-orange-500/30 rounded-full bg-orange-500/10 backdrop-blur-sm">
+              <span className="text-orange-600 dark:text-orange-400">RunAsh Blog</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+              Insights & Updates
+            </h1>
+            <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">
+              Stay up to date with the latest news, tutorials,and insights from the RunAsh AI team.
+            </p>
+
+            {/* Search */}
+            <div className="max-w-md mx-auto relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               <Input
                 placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-white text-gray-900"
+                className="pl-10 bg-white/50 dark:bg-gray-900/50 border-orange-200 dark:border-orange-800/30 focus:border-orange-500/70"
               />
             </div>
           </div>
         </div>
-      </div>
+        
+      </section>
+  {/* Blog Content */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <Tabs defaultValue="all" className="mb-8">
+              <TabsList className="bg-orange-100/50 dark:bg-orange-900/20">
+                <TabsTrigger value="all">All Posts</TabsTrigger>
+                <TabsTrigger value="tutorials">Tutorials</TabsTrigger>
+                <TabsTrigger value="product">Product Updates</TabsTrigger>
+                <TabsTrigger value="ai">AI Research</TabsTrigger>
+                <TabsTrigger value="community">Community</TabsTrigger>
+              </TabsList>
 
+              <TabsContent value="all" className="mt-8">
+                {/* Featured Post */}
+                <div className="mb-12">
+                  <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Featured Article</h2>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div className="aspect-video overflow-hidden rounded-xl">
+                      <img
+                        src="/placeholder.svg?height=400&width=600"
+                        alt="Featured article"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-sm font-medium rounded-full">
+                          AI Research
+                        </span>
+                        <span className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 text-sm font-medium rounded-full">
+                          Featured
+                        </span>
+                      </div>
+                      <h3 className="text-3xl font-bold mb-4">The Future of AI-Powered Live Streaming</h3>
+                      <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg">
+                        Explore how artificial intelligence is revolutionizing the live streaming industry and what it
+                        means for content creators worldwide.
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
+                        <div className="flex items-center gap-1">
+                          <User className="h-4 w-4" />
+                          <span>Ram Murmu</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Calendar className="h-4 w-4" />
+                          <span>Jun 06 2025</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="h-4 w-4" />
+                          <span>8 min read</span>
+                        </div>
+                      </div>
+                      <Button className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white">
+                        Read Full Article <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
+              </Tabs>
+            </div>
+          </div>
+        </section> 
       <div className="container mx-auto px-4 py-8">
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
           <div className="mb-12">
             <div className="flex items-center space-x-2 mb-6">
               <Star className="h-6 w-6 text-orange-500" />
-              <h2 className="text-2xl font-bold">Featured Articles</h2>
+              <h2 className="text-2xl font-bold">Latest Articles</h2>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {featuredPosts.map((post) => (
@@ -350,6 +434,35 @@ export default function BlogPage() {
           </div>
         </div>
       </div>
+       {/* Newsletter Signup */}
+            <div className="mt-16 p-8 rounded-xl bg-gradient-to-br from-orange-100 to-yellow-100 dark:from-orange-900/30 dark:to-yellow-900/30 border border-orange-200 dark:border-orange-800/30">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold mb-2 text-orange-800 dark:text-orange-300">Stay Updated</h3>
+                <p className="text-gray-700 dark:text-gray-300">
+                  Subscribe to our newsletter for the latest updates, tutorials, and insights.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <Input
+                  placeholder="Enter your email"
+                  className="bg-white dark:bg-gray-900 border-orange-200 dark:border-orange-800/30"
+                />
+                <Button className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white">
+                  Subscribe
+                </Button>
+              </div>
+            </div>
+          
+        
+    
+     {/* Footer */}
+      <footer className="py-12 bg-white dark:bg-gray-950 border-t border-orange-200/50 dark:border-orange-900/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center text-gray-500">
+            <p>© {new Date().getFullYear()} RunAsh AI. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
-}
+  }
