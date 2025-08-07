@@ -18,7 +18,7 @@ export default function About() {
         </h1>
 
         <p className="mt-14 text-2xl">
-        We build a live streaming platform for retaile businesses
+        We build a live streaming platform for retail businesses
         </p>
         <button className="bg-orange-500 hover:bg-black text-white font-bold py-3 px-16 rounded mt-12">
           <Link href="sigin">
