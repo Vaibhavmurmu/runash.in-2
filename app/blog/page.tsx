@@ -557,13 +557,7 @@ export default function BlogPage() {
                 </div>
               </TabsContent>
             </Tabs>
-          </div>
-        
-          {/* </Tabs> */}
-              
-            </div>
-          </div>
-        </section> 
+          
       <div className="container mx-auto px-4 py-8">
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
