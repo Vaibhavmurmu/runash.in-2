@@ -556,9 +556,7 @@ export default function BlogPage() {
                   />
                 </div>
               </TabsContent>
-            </div>
-        </section>
-       </div>
+            
     
           
       <div className="container mx-auto px-4 py-8">
