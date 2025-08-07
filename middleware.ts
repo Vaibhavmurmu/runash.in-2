@@ -54,6 +54,10 @@ export async function middleware(request: NextRequest) {
     "/mobile",
     "/payment",
     "/payment/dashboard",
+    "/company",
+    "/faq",
+    "/docs",
+    "/become-seller",
     
   ]
 
