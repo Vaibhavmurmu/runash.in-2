@@ -260,7 +260,7 @@ export default function BecomeSellerPage() {
               
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-yellow-500"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-yellow-400"></div>
         <div className="relative container mx-auto px-4 text-center text-white">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">Become a Seller</h1>
@@ -296,15 +296,15 @@ export default function BecomeSellerPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl md:text-4xl font-bold text-orange-600 mb-2">10K+</div>
+              <div className="text-3xl md:text-4xl font-bold text-orange-600 mb-2">1K+</div>
               <div className="text-gray-600 dark:text-gray-400">Active Sellers</div>
             </div>
             <div>
-              <div className="text-3xl md:text-4xl font-bold text-orange-600 mb-2">$2M+</div>
+              <div className="text-3xl md:text-4xl font-bold text-orange-600 mb-2">$1M+</div>
               <div className="text-gray-600 dark:text-gray-400">Monthly Sales</div>
             </div>
             <div>
-              <div className="text-3xl md:text-4xl font-bold text-orange-600 mb-2">500K+</div>
+              <div className="text-3xl md:text-4xl font-bold text-orange-600 mb-2">1K+</div>
               <div className="text-gray-600 dark:text-gray-400">Happy Customers</div>
             </div>
             <div>
