@@ -55,7 +55,7 @@ export default function AIOverviewPage() {
     {
       icon: <BarChart3 className="h-6 w-6" />,
       title: "Predictive Analytics",
-      description: "AI-powered insights for audience engagement and growth",
+      description: "AI insights for audience engagement and growth",
       features: ["Audience prediction", "Engagement optimization", "Revenue forecasting", "Trend analysis"],
       accuracy: 92.7,
       color: "from-orange-500 to-red-500",
@@ -202,7 +202,7 @@ ai.stream.onAudioChunk((audio) => {
             {technicalSpecs.map((spec, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 mb-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 mb-4">
                     {spec.icon}
                   </div>
                   <h3 className="font-semibold mb-2">{spec.label}</h3>
@@ -272,7 +272,7 @@ ai.stream.onAudioChunk((audio) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {useCases.map((useCase, index) => (
               <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="aspect-video bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 flex items-center justify-center">
+                <div className="aspect-video bg-gradient-to-br from-orange-100 to-orange-100 dark:from-orange-900/20 dark:to-orange-900/20 flex items-center justify-center">
                   <img
                     src={useCase.image || "/placeholder.svg"}
                     alt={useCase.title}
@@ -316,7 +316,7 @@ ai.stream.onAudioChunk((audio) => {
                 <Card>
                   <CardHeader>
                     <div className="flex items-center gap-4">
-                      <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+                      <div className="w-8 h-8 rounded-full bg-orange-600 text-white flex items-center justify-center font-bold">
                         {step.step}
                       </div>
                       <div>
