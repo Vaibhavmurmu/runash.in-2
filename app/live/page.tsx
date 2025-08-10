@@ -18,7 +18,7 @@ export default function LivePage() {
       title: "Ultra-Low Latency Streaming",
       description: "Sub-second latency for real-time interaction with your audience",
       metrics: "< 500ms latency",
-      color: "from-red-500 to-pink-500",
+      color: "from-orange-600 to-orange-500",
     },
     {
       id: "quality",
@@ -149,7 +149,7 @@ export default function LivePage() {
   ]
 
   const liveStats = [
-    { label: "Active Streams", value: "12,847", change: "+15%" },
+    { label: "Active Streams", value: "1.1K", change: "+15%" },
     { label: "Total Viewers", value: "2.4M", change: "+23%" },
     { label: "Peak Concurrent", value: "156K", change: "+8%" },
     { label: "Avg Stream Quality", value: "1440p", change: "Stable" },
@@ -158,27 +158,27 @@ export default function LivePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-red-50 dark:from-gray-950 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-white">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-red-600/10 to-pink-600/10 dark:from-red-600/5 dark:to-pink-600/5" />
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-600/10 to-orange-500/10 dark:from-orange-600/5 dark:to-orange-500/5" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-sm font-medium mb-6">
               <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
               LIVE NOW
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-red-600 via-pink-600 to-orange-500 text-transparent bg-clip-text">
-              Professional Live Streaming Platform
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+              RunAsh Live 
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-              Stream to multiple platforms simultaneously with ultra-low latency, 4K quality, and AI-powered
-              enhancements. Built for creators, by creators.
+            <p className="text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
+              Stream to multiple platforms simultaneously with ultra-low latency, 4K quality, and AI
+              enhancements.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white"
+                className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10"
                 onClick={() => router.push("/stream")}
               >
                 <Play className="mr-2 h-4 w-4" />
@@ -194,7 +194,7 @@ export default function LivePage() {
       </section>
 
       {/* Live Stats */}
-      <section className="py-12 bg-white dark:bg-gray-900 border-y border-red-100 dark:border-red-900/20">
+      <section className="py-12 bg-white dark:bg-gray-900 border-y border-orange-100 dark:border-orange-900/20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold mb-2">Live Platform Statistics</h2>
@@ -253,7 +253,7 @@ export default function LivePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center justify-between">
-                    <Badge variant="secondary" className="bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300">
+                    <Badge variant="secondary" className="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300">
                       {feature.metrics}
                     </Badge>
                     <Button size="sm" variant="ghost">
@@ -319,7 +319,7 @@ export default function LivePage() {
               <Card key={index}>
                 <CardHeader>
                   <CardTitle className="text-xl flex items-center gap-2">
-                    {category.category === "Video" && <Video className="h-5 w-5 text-red-500" />}
+                    {category.category === "Video" && <Video className="h-5 w-5 text-orange-500" />}
                     {category.category === "Audio" && <Mic className="h-5 w-5 text-green-500" />}
                     {category.category === "Network" && <Wifi className="h-5 w-5 text-blue-500" />}
                     {category.category}
@@ -354,10 +354,10 @@ export default function LivePage() {
             {pricingPlans.map((plan, index) => (
               <Card
                 key={index}
-                className={`relative overflow-hidden ${plan.popular ? "ring-2 ring-red-500 scale-105" : ""}`}
+                className={`relative overflow-hidden ${plan.popular ? "ring-2 ring-orange-500 scale-105" : ""}`}
               >
                 {plan.popular && (
-                  <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-red-600 to-pink-600 text-white text-center py-2 text-sm font-medium">
+                  <div className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10">
                     Most Popular
                   </div>
                 )}
@@ -393,7 +393,7 @@ export default function LivePage() {
                     <Button
                       className={`w-full ${
                         plan.popular
-                          ? "bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700"
+                          ? "bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10"
                           : ""
                       }`}
                       variant={plan.popular ? "default" : "outline"}
@@ -409,7 +409,7 @@ export default function LivePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-red-600 to-pink-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-orange-600 to-yellow-500 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Go Live?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
@@ -418,7 +418,7 @@ export default function LivePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-white text-red-600 hover:bg-gray-100"
+              className="bg-white text-orange-600 hover:bg-gray-100"
               onClick={() => router.push("/stream")}
             >
               <Play className="mr-2 h-4 w-4" />
@@ -433,7 +433,7 @@ export default function LivePage() {
               Contact Sales
             </Button>
           </div>
-          <p className="mt-4 text-sm opacity-75">14-day free trial • No credit card required • Cancel anytime</p>
+          <p className="mt-4 text-sm opacity-75">Start free trial • No credit card required • Cancel anytime</p>
         </div>
       </section>
     </div>
