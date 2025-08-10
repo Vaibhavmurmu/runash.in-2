@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button"
 import { Github, Menu, X, Bell } from "lucide-react"
 import Link from "next/link"
-import { useState } from "react"
 
 export default function Banner() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -29,7 +28,6 @@ export default function Banner() {
             <X className="w-4 h-4" />
           </button>
         </div>
-      )
-    }
+      )}
     )
 }
