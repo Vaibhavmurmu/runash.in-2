@@ -161,9 +161,9 @@ function GroceryStoreContent() {
                 </div>
                 <div>
                   <h1 className="text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-500 text-transparent bg-clip-text">
-                    RunAsh Organic Store
+                    RunAsh Store
                   </h1>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Fresh • Organic • Sustainable</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Fresh • Organic </p>
                 </div>
               </div>
             </div>
