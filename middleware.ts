@@ -58,6 +58,7 @@ export async function middleware(request: NextRequest) {
     "/faq",
     "/docs",
     "/become-seller",
+    "/ai",
     
   ]
 
