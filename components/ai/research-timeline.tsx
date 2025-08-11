@@ -13,13 +13,13 @@ export default function ResearchTimeline() {
   const milestones = [
     {
       year: 2021,
-      title: "RunAsh AI Research Founded",
+      title: "AI Research Founded",
       description: "Established dedicated AI research team focused on streaming technology.",
     },
     {
       year: 2022,
       title: "Building Foundation AI",
-      description: "Building a custom RunAsh AI Model.",
+      description: "Building a foundational RunAsh AI Model.",
     },
     {
       year: 2023,
@@ -28,7 +28,7 @@ export default function ResearchTimeline() {
     },
     {
       year: 2024,
-      title: "Multi-modal Understanding",
+      title: "Multi-modal",
       description: "Advanced research in combining video, visual, and text data for holistic content understanding.",
     },
     {
