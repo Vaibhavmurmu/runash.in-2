@@ -4,8 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { signIn, getSession } from "next-auth/react"
-import { Eye, EyeOff, Github, Loader2, Mail } from "lucide-react"
+import { Eye, EyeOff, Github, Loader2, Mail, User, UserCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,15 +13,19 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from "@/components/ui/separator"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useToast } from "@/hooks/use-toast"
+import { signIn } from "next-auth/react"
 
-export function LoginForm() {
+export function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState("")
+  const [success, setSuccess] = useState(false)
   const [formData, setFormData] = useState({
+    name: "",
+    username: "",
     email: "",
     password: "",
-    remember: false,
+    acceptTerms: false,
   })
   const router = useRouter()
   const { toast } = useToast()
@@ -32,28 +35,43 @@ export function LoginForm() {
     setIsLoading(true)
     setError("")
 
+    if (!formData.acceptTerms) {
+      setError("Please accept the terms and conditions")
+      setIsLoading(false)
+      return
+    }
+
     try {
-      const result = await signIn("credentials", {
-        email: formData.email,
-        password: formData.password,
-        redirect: false,
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        }),
       })
 
-      if (result?.error) {
-        setError("Invalid email or password")
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(data.message || "Registration failed")
         return
       }
 
-      // Get updated session
-      const session = await getSession()
-
+      setSuccess(true)
       toast({
-        title: "Welcome back!",
-        description: `Signed in as ${session?.user?.name || formData.email}`,
+        title: "Account created!",
+        description: "Please check your email to verify your account.",
       })
 
-      router.push("/dashboard")
-      router.refresh()
+      // Redirect to login after 3 seconds
+      setTimeout(() => {
+        router.push("/login")
+      }, 3000)
     } catch (error) {
       setError("An error occurred. Please try again.")
     } finally {
@@ -67,10 +85,37 @@ export function LoginForm() {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to sign in with " + provider,
+        description: "Failed to sign up with " + provider,
         variant: "destructive",
       })
     }
+  }
+
+  if (success) {
+    return (
+      <div className="w-full max-w-md mx-auto">
+        <Card className="relative overflow-hidden border-0 shadow-2xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
+          <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-green-600/5" />
+          <CardContent className="relative pt-6">
+            <div className="text-center space-y-4">
+              <div className="mx-auto w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center">
+                <UserCheck className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold">Account Created!</h3>
+                <p className="text-muted-foreground mt-2">
+                  We've sent a verification email to <strong>{formData.email}</strong>. Please check your inbox and
+                  click the verification link to activate your account.
+                </p>
+              </div>
+              <Button asChild className="w-full">
+                <Link href="/login">Continue to Login</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
   return (
@@ -79,9 +124,9 @@ export function LoginForm() {
         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-orange-600/5" />
         <CardHeader className="relative space-y-1 text-center">
           <CardTitle className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
-            Welcome Back
+            Create Account
           </CardTitle>
-          <CardDescription className="text-base">Sign in to your account to continue</CardDescription>
+          <CardDescription className="text-base">Join us and start your journey today</CardDescription>
         </CardHeader>
         <CardContent className="relative">
           {error && (
@@ -91,6 +136,42 @@ export function LoginForm() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <Label htmlFor="name" className="text-sm font-medium">
+                  Full Name
+                </Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="John Doe"
+                    required
+                    autoComplete="name"
+                    className="pl-10 h-12 border-2 focus:border-orange-500 transition-colors"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="username" className="text-sm font-medium">
+                  Username
+                </Label>
+                <Input
+                  id="username"
+                  type="text"
+                  placeholder="johndoe"
+                  required
+                  autoComplete="username"
+                  className="h-12 border-2 focus:border-orange-500 transition-colors"
+                  value={formData.username}
+                  onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                />
+              </div>
+            </div>
+
             <div className="space-y-2">
               <Label htmlFor="email" className="text-sm font-medium">
                 Email
@@ -111,24 +192,16 @@ export function LoginForm() {
             </div>
 
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-sm font-medium">
-                  Password
-                </Label>
-                <Link
-                  href="/forgot-password"
-                  className="text-xs text-orange-600 hover:text-orange-700 hover:underline transition-colors"
-                >
-                  Forgot password?
-                </Link>
-              </div>
+              <Label htmlFor="password" className="text-sm font-medium">
+                Password
+              </Label>
               <div className="relative">
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   required
-                  autoComplete="current-password"
+                  autoComplete="new-password"
                   className="pr-12 h-12 border-2 focus:border-orange-500 transition-colors"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -148,16 +221,27 @@ export function LoginForm() {
                   <span className="sr-only">{showPassword ? "Hide password" : "Show password"}</span>
                 </Button>
               </div>
+              <p className="text-xs text-muted-foreground">
+                Must be at least 8 characters with uppercase, lowercase, number, and special character
+              </p>
             </div>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-start space-x-2">
               <Checkbox
-                id="remember"
-                checked={formData.remember}
-                onCheckedChange={(checked) => setFormData({ ...formData, remember: !!checked })}
+                id="terms"
+                checked={formData.acceptTerms}
+                onCheckedChange={(checked) => setFormData({ ...formData, acceptTerms: !!checked })}
+                className="mt-1"
               />
-              <Label htmlFor="remember" className="text-sm font-normal">
-                Remember me for 30 days
+              <Label htmlFor="terms" className="text-sm font-normal leading-5">
+                I agree to the{" "}
+                <Link href="/terms" className="text-orange-600 hover:text-orange-700 hover:underline">
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link href="/privacy" className="text-orange-600 hover:text-orange-700 hover:underline">
+                  Privacy Policy
+                </Link>
               </Label>
             </div>
 
@@ -169,10 +253,10 @@ export function LoginForm() {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Signing in...
+                  Creating account...
                 </>
               ) : (
-                "Sign in"
+                "Create account"
               )}
             </Button>
           </form>
@@ -224,12 +308,12 @@ export function LoginForm() {
         </CardContent>
         <CardFooter className="relative flex flex-col items-center justify-center space-y-2">
           <div className="text-sm text-muted-foreground">
-            Don't have an account?{" "}
+            Already have an account?{" "}
             <Link
-              href="/signup"
+              href="/login"
               className="text-orange-600 hover:text-orange-700 hover:underline font-medium transition-colors"
             >
-              Sign up
+              Sign in
             </Link>
           </div>
         </CardFooter>

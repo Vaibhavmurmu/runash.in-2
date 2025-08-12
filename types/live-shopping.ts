@@ -59,3 +59,115 @@ export interface RecordingControls {
   saveToCloud: boolean
   createHighlights: boolean
 }
+
+export interface LiveStream {
+  id: string
+  title: string
+  description?: string
+  thumbnailUrl?: string
+  streamUrl: string
+  status: "scheduled" | "live" | "ended" | "cancelled"
+  startTime: string // ISO date string
+  endTime?: string // ISO date string
+  viewerCount: number
+  maxViewers: number
+  hostId: string
+  hostName: string
+  hostAvatar?: string
+  products: LiveStreamProduct[]
+  messages: LiveStreamMessage[]
+  stats: LiveStreamStats
+  isRecording: boolean
+  recordingUrl?: string
+  tags: string[]
+  category: string
+  language: string
+  isPublic: boolean
+  allowChat: boolean
+  allowProducts: boolean
+  moderators: string[]
+}
+
+export interface LiveStreamStats {
+  totalViews: number
+  peakViewers: number
+  averageViewTime: number // in seconds
+  totalMessages: number
+  totalProducts: number
+  totalSales: number
+  revenue: number
+  engagementRate: number // percentage
+  newFollowers: number
+  likes: number
+  shares: number
+  clickThroughRate: number // percentage
+}
+
+export interface LiveStreamProduct {
+  id: string
+  name: string
+  description?: string
+  price: number
+  originalPrice?: number
+  currency: string
+  imageUrl: string
+  productUrl: string
+  category: string
+  brand?: string
+  inStock: boolean
+  stockCount?: number
+  featured: boolean
+  featuredAt?: string // ISO date string
+  clickCount: number
+  purchaseCount: number
+  addedAt: string // ISO date string
+  tags: string[]
+}
+
+export interface LiveStreamMessage {
+  id: string
+  streamId: string
+  userId: string
+  username: string
+  userAvatar?: string
+  message: string
+  timestamp: string // ISO date string
+  type: "message" | "product" | "system" | "moderator"
+  productId?: string // if type is "product"
+  isHighlighted: boolean
+  isPinned: boolean
+  likes: number
+  replies: LiveStreamMessage[]
+  parentId?: string
+  isDeleted: boolean
+  moderatedBy?: string
+  moderationReason?: string
+}
+
+export interface StreamSchedule {
+  id: string
+  title: string
+  description?: string
+  scheduledStart: string // ISO date string
+  scheduledEnd?: string // ISO date string
+  hostId: string
+  hostName: string
+  thumbnailUrl?: string
+  category: string
+  tags: string[]
+  isRecurring: boolean
+  recurrencePattern?: {
+    frequency: "daily" | "weekly" | "monthly"
+    interval: number
+    daysOfWeek?: number[] // 0-6, Sunday = 0
+    endDate?: string // ISO date string
+  }
+  remindersSent: number
+  expectedViewers: number
+  products: LiveStreamProduct[]
+  status: "scheduled" | "cancelled" | "completed"
+  actualStartTime?: string // ISO date string
+  actualEndTime?: string // ISO date string
+  createdAt: string // ISO date string
+  updatedAt: string // ISO date string
+}

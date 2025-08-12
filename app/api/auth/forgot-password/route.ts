@@ -1,40 +1,51 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { createPasswordResetToken } from "@/lib/auth-utils"
+import { sendPasswordResetEmail } from "@/lib/email"
+import { rateLimit } from "@/lib/rate-limit"
 import { neon } from "@neondatabase/serverless"
+import { z } from "zod"
 
 const sql = neon(process.env.DATABASE_URL!)
 
+const forgotPasswordSchema = z.object({
+  email: z.string().email("Invalid email address"),
+})
+
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json()
-
-    if (!email) {
-      return NextResponse.json({ message: "Email is required" }, { status: 400 })
+    const rateLimitResult = await rateLimit(request, "forgot-password", 3, 900) // 3 attempts per 15 minutes
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { message: "Too many password reset attempts. Please try again later." },
+        { status: 429 },
+      )
     }
 
-    // Find user by email
+    const body = await request.json()
+
+    const validationResult = forgotPasswordSchema.safeParse(body)
+    if (!validationResult.success) {
+      return NextResponse.json({ message: "Invalid email address" }, { status: 400 })
+    }
+
+    const { email } = validationResult.data
+
     const [user] = await sql`
       SELECT id, email, name FROM users WHERE email = ${email}
     `
 
     if (!user) {
-      // Don't reveal if user exists or not for security
       return NextResponse.json({
         message: "If an account with that email exists, we've sent a password reset link.",
       })
     }
 
-    // Create password reset token
     const token = await createPasswordResetToken(user.id)
 
-    // In a real application, you would send an email here
-    // For now, we'll just log the token (remove this in production)
-    console.log(`Password reset token for ${email}: ${token}`)
-    console.log(`Reset URL: ${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`)
+    await sendPasswordResetEmail(user.email, user.name, token)
 
     return NextResponse.json({
       message: "If an account with that email exists, we've sent a password reset link.",
-      // Remove this in production - only for development
       ...(process.env.NODE_ENV === "development" && {
         resetUrl: `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`,
       }),

@@ -1,5 +1,5 @@
 import { neon } from "@neondatabase/serverless"
-import { hash } from "bcryptjs"
+import { hash, compare } from "bcryptjs"
 import { randomBytes } from "crypto"
 
 const sql = neon(process.env.DATABASE_URL!)
@@ -79,5 +79,185 @@ export async function resetPassword(token: string, newPassword: string) {
   } catch (error) {
     console.error("Error resetting password:", error)
     throw new Error("Failed to reset password")
+  }
+}
+
+export async function createEmailVerificationToken(userId: number) {
+  try {
+    const token = randomBytes(32).toString("hex")
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours from now
+
+    await sql`
+      INSERT INTO email_verification_tokens (user_id, token, expires_at)
+      VALUES (${userId}, ${token}, ${expiresAt})
+    `
+
+    return token
+  } catch (error) {
+    console.error("Error creating email verification token:", error)
+    throw new Error("Failed to create email verification token")
+  }
+}
+
+export async function verifyEmailToken(token: string) {
+  try {
+    const [verificationToken] = await sql`
+      SELECT * FROM email_verification_tokens 
+      WHERE token = ${token} AND expires_at > NOW() AND used = false
+    `
+
+    if (!verificationToken) {
+      return null
+    }
+
+    // Mark token as used and verify user email
+    await sql`
+      UPDATE email_verification_tokens 
+      SET used = true 
+      WHERE token = ${token}
+    `
+
+    await sql`
+      UPDATE users 
+      SET email_verified = true, email_verified_at = NOW()
+      WHERE id = ${verificationToken.user_id}
+    `
+
+    return verificationToken
+  } catch (error) {
+    console.error("Error verifying email token:", error)
+    return null
+  }
+}
+
+export async function getUserByEmail(email: string) {
+  try {
+    const [user] = await sql`
+      SELECT * FROM users WHERE email = ${email}
+    `
+    return user
+  } catch (error) {
+    console.error("Error getting user by email:", error)
+    return null
+  }
+}
+
+export async function getUserById(id: number) {
+  try {
+    const [user] = await sql`
+      SELECT * FROM users WHERE id = ${id}
+    `
+    return user
+  } catch (error) {
+    console.error("Error getting user by id:", error)
+    return null
+  }
+}
+
+export async function updateUserPassword(userId: number, newPassword: string) {
+  try {
+    const passwordHash = await hash(newPassword, 12)
+
+    await sql`
+      UPDATE users 
+      SET password_hash = ${passwordHash}, updated_at = NOW()
+      WHERE id = ${userId}
+    `
+
+    return true
+  } catch (error) {
+    console.error("Error updating user password:", error)
+    throw new Error("Failed to update password")
+  }
+}
+
+export async function changePassword(userId: number, currentPassword: string, newPassword: string) {
+  try {
+    // First verify the current password
+    const user = await getUserById(userId)
+    if (!user) {
+      throw new Error("User not found")
+    }
+
+    const isCurrentPasswordValid = await compare(currentPassword, user.password_hash)
+
+    if (!isCurrentPasswordValid) {
+      throw new Error("Current password is incorrect")
+    }
+
+    // Update to new password
+    await updateUserPassword(userId, newPassword)
+
+    // Log the password change for security
+    await sql`
+      INSERT INTO audit_logs (user_id, action, details, ip_address, user_agent, created_at)
+      VALUES (${userId}, 'password_changed', 'User changed their password', '', '', NOW())
+    `
+
+    return true
+  } catch (error) {
+    console.error("Error changing password:", error)
+    throw error
+  }
+}
+
+export async function generateEmailVerificationToken(userId: number) {
+  try {
+    // Delete any existing verification tokens for this user
+    await sql`
+      DELETE FROM email_verification_tokens 
+      WHERE user_id = ${userId} AND used = false
+    `
+
+    // Create new verification token
+    const token = await createEmailVerificationToken(userId)
+
+    return token
+  } catch (error) {
+    console.error("Error generating email verification token:", error)
+    throw new Error("Failed to generate email verification token")
+  }
+}
+
+export async function createUserSession(userId: number, sessionToken: string, expires: Date) {
+  try {
+    await sql`
+      INSERT INTO user_sessions (user_id, session_token, expires_at)
+      VALUES (${userId}, ${sessionToken}, ${expires})
+    `
+    return true
+  } catch (error) {
+    console.error("Error creating user session:", error)
+    throw new Error("Failed to create session")
+  }
+}
+
+export async function deleteUserSession(sessionToken: string) {
+  try {
+    await sql`
+      DELETE FROM user_sessions WHERE session_token = ${sessionToken}
+    `
+    return true
+  } catch (error) {
+    console.error("Error deleting user session:", error)
+    throw new Error("Failed to delete session")
+  }
+}
+
+export async function cleanupExpiredTokens() {
+  try {
+    await sql`
+      DELETE FROM password_reset_tokens WHERE expires_at < NOW()
+    `
+    await sql`
+      DELETE FROM email_verification_tokens WHERE expires_at < NOW()
+    `
+    await sql`
+      DELETE FROM user_sessions WHERE expires_at < NOW()
+    `
+    return true
+  } catch (error) {
+    console.error("Error cleaning up expired tokens:", error)
+    return false
   }
 }

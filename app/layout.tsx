@@ -7,6 +7,8 @@ import { Toaster } from "@/components/ui/toaster"
 import { CartProvider } from "@/contexts/cart-context"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SessionProvider } from "next-auth/react"
+import { Suspense } from "react"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,11 +30,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <CartProvider>
-            {children}
-            <Toaster />
-          </CartProvider>
+          <SessionProvider>
+            <CartProvider>
+              <Suspense fallback={null}>{children}</Suspense>
+              <Toaster />
+            </CartProvider>
+          </SessionProvider>
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
