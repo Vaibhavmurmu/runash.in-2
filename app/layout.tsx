@@ -4,10 +4,9 @@ import "./globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
-import { CartProvider } from "@/contexts/cart-context"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { SessionProvider } from "next-auth/react"
+import { Providers } from "@/components/providers"
 import { Suspense } from "react"
 
 const inter = Inter({
@@ -30,12 +29,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <SessionProvider>
-            <CartProvider>
-              <Suspense fallback={null}>{children}</Suspense>
-              <Toaster />
-            </CartProvider>
-          </SessionProvider>
+          <Providers>
+            <Suspense fallback={null}>{children}</Suspense>
+            <Toaster />
+          </Providers>
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />
