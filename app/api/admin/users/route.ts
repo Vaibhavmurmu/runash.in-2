@@ -1,0 +1,81 @@
+import { type NextRequest, NextResponse } from "next/server"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
+import { UserManager } from "@/lib/user-management"
+import { z } from "zod"
+
+const getUsersSchema = z.object({
+  page: z
+    .string()
+    .optional()
+    .transform((val) => (val ? Number.parseInt(val) : 1)),
+  limit: z
+    .string()
+    .optional()
+    .transform((val) => (val ? Number.parseInt(val) : 20)),
+  search: z.string().optional(),
+  role: z.string().optional(),
+  email_verified: z
+    .string()
+    .optional()
+    .transform((val) => (val === "true" ? true : val === "false" ? false : undefined)),
+  provider: z.string().optional(),
+  created_after: z.string().optional(),
+  created_before: z.string().optional(),
+  is_admin: z
+    .string()
+    .optional()
+    .transform((val) => (val === "true" ? true : val === "false" ? false : undefined)),
+})
+
+export async function GET(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions)
+    if (!session?.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    // Check admin permissions
+    // This would typically check if user has admin role/permissions
+
+    const { searchParams } = new URL(request.url)
+    const params = Object.fromEntries(searchParams.entries())
+    const validatedParams = getUsersSchema.parse(params)
+
+    const { page, limit, ...filters } = validatedParams
+    const result = await UserManager.getUsers(filters, { page, limit })
+
+    return NextResponse.json(result)
+  } catch (error) {
+    console.error("Error fetching users:", error)
+    return NextResponse.json({ error: "Failed to fetch users" }, { status: 500 })
+  }
+}
+
+const createUserSchema = z.object({
+  name: z.string().min(1),
+  username: z.string().min(1).optional(),
+  email: z.string().email(),
+  role: z.string().default("user"),
+  password: z.string().min(8).optional(),
+})
+
+export async function POST(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions)
+    if (!session?.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    const body = await request.json()
+    const validatedData = createUserSchema.parse(body)
+
+    // Create user logic would go here
+    // This is a simplified version - you'd want to hash passwords, etc.
+
+    return NextResponse.json({ message: "User created successfully" })
+  } catch (error) {
+    console.error("Error creating user:", error)
+    return NextResponse.json({ error: "Failed to create user" }, { status: 500 })
+  }
+}

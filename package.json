@@ -63,6 +63,7 @@
     "embla-carousel-react": "latest",
     "framer-motion": "latest",
     "input-otp": "latest",
+    "ioredis": "latest",
     "jose": "latest",
     "lucide-react": "^0.454.0",
     "moment": "latest",

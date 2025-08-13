@@ -1,6 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { getToken } from "next-auth/jwt"
 import { RBACManager } from "./rbac"
+import { neon } from "@neondatabase/serverless"
+
+const sql = neon(process.env.DATABASE_URL!)
 
 export interface AuthMiddlewareOptions {
   requiredPermissions?: string[]
@@ -59,5 +62,25 @@ export function requireAuth(options: AuthMiddlewareOptions = {}) {
     }
     // If auth passes, continue to the actual handler
     return null
+  }
+}
+
+export async function requirePermission(userId: string, permission: string): Promise<boolean> {
+  try {
+    return await RBACManager.hasPermission(Number.parseInt(userId), permission)
+  } catch (error) {
+    console.error("Permission check error:", error)
+    return false
+  }
+}
+
+export async function logAdminActivity(userId: string, action: string, details: any, ipAddress: string): Promise<void> {
+  try {
+    await sql`
+      INSERT INTO admin_activity_logs (admin_user_id, action, details, ip_address)
+      VALUES (${userId}, ${action}, ${JSON.stringify(details)}, ${ipAddress})
+    `
+  } catch (error) {
+    console.error("Failed to log admin activity:", error)
   }
 }
