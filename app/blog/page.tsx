@@ -7,7 +7,7 @@ import { ArrowRight, Calendar, Clock, Search, User } from "lucide-react"
 import ThemeToggle from "@/components/theme-toggle"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/router"
 
 const BlogPost = ({
   title,
