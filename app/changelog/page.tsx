@@ -336,7 +336,7 @@ export default function ChangelogPage() {
   )
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
+    <div className="min-h-full bg-gradient-to-br from-orange-50 via-white to-orange-100 dark:from-gray-950 dark:to-gray-900 dark:to-orange-950/20">
       {/* Header */}
       <section className="relative bg-gradient-to-br from-orange-50 via-white to-orange-100 dark:from-gray-950 dark:via-gray-900 dark:to-orange-950/20">
         <div className="container mx-auto px-4 absolute inset-0 bg-gradient-to-r from-orange-500/10 via-transparent to-orange-600/10 backdrop-blur-3xl">
@@ -503,7 +503,7 @@ export default function ChangelogPage() {
               Never miss an update. Subscribe to our changelog to stay informed and be the first to know about new features and
               improvements.
             </p>
-           <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+           <div className="flex flex-col mb-2 sm:flex-row gap-4 justify-center max-w-md mx-auto">
             <Input
               placeholder="Enter your email"
               className="bg-white/10 border-white/20 text-white placeholder:text-white/70"
