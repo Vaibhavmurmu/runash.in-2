@@ -209,10 +209,10 @@ function ActivityItem({ activity }: { activity: any }) {
             </Avatar>
             <div className="space-y-1">
               <h4 className="text-sm font-semibold">{activity.user.name}</h4>
-              <p className="text-sm text-muted-foreground">Active viewer since March 2023</p>
+              <p className="text-sm text-muted-foreground">Active viewer since August 2025</p>
               <div className="flex items-center pt-2">
                 <Calendar className="mr-2 h-4 w-4 opacity-70" />
-                <span className="text-xs text-muted-foreground">Joined March 2023</span>
+                <span className="text-xs text-muted-foreground">Joined August 2025</span>
               </div>
             </div>
           </div>
@@ -246,31 +246,31 @@ export function EnhancedDashboard() {
   const stats = [
     {
       title: "Total Views",
-      value: "24.5K",
+      value: "00.0K",
       icon: <Eye />,
       description: "from last month",
-      trend: { value: 12, isPositive: true },
+      trend: { value: 0, isPositive: true },
     },
     {
       title: "Followers",
-      value: "2,345",
+      value: "20",
       icon: <Users />,
       description: "from last month",
-      trend: { value: 8, isPositive: true },
+      trend: { value: 0, isPositive: true },
     },
     {
       title: "Live Streams",
-      value: "45",
+      value: "0",
       icon: <Video />,
       description: "this month",
-      trend: { value: 5, isPositive: true },
+      trend: { value: 0, isPositive: true },
     },
     {
       title: "Revenue",
-      value: "$1,234",
+      value: "$0",
       icon: <DollarSign />,
       description: "this month",
-      trend: { value: 15, isPositive: true },
+      trend: { value: 0, isPositive: true },
     },
   ]
 
@@ -280,7 +280,7 @@ export function EnhancedDashboard() {
       title: "Getting Started with RunAsh AI - Complete Tutorial",
       date: "Today",
       duration: "2h 15m",
-      viewers: 1245,
+      viewers: 0,
       status: "live",
     },
     {
@@ -288,15 +288,15 @@ export function EnhancedDashboard() {
       title: "AI-Powered Content Creation Workshop",
       date: "Yesterday",
       duration: "1h 30m",
-      viewers: 876,
+      viewers: 0,
       status: "ended",
     },
     {
       id: "3",
       title: "Advanced Streaming Techniques & Best Practices",
-      date: "Apr 20, 2023",
+      date: "August 20, 2025",
       duration: "2h 45m",
-      viewers: 1532,
+      viewers: 0,
       status: "ended",
     },
   ]
@@ -304,7 +304,7 @@ export function EnhancedDashboard() {
   const activities = [
     {
       id: "1",
-      user: { name: "Alex Johnson", avatar: "/placeholder.svg" },
+      user: { name: "V Murmu", avatar: "/placeholder.svg" },
       action: "commented on your stream",
       target: "Getting Started with RunAsh AI",
       time: "5 minutes ago",
@@ -312,7 +312,7 @@ export function EnhancedDashboard() {
     },
     {
       id: "2",
-      user: { name: "Sarah Miller" },
+      user: { name: "Nirali Murmu" },
       action: "followed you",
       target: "",
       time: "15 minutes ago",
@@ -320,7 +320,7 @@ export function EnhancedDashboard() {
     },
     {
       id: "3",
-      user: { name: "David Chen" },
+      user: { name: "V Murmu" },
       action: "subscribed to your channel",
       target: "",
       time: "1 hour ago",
@@ -329,7 +329,7 @@ export function EnhancedDashboard() {
     {
       id: "4",
       user: { name: "Emma Wilson" },
-      action: "donated $25 to your stream",
+      action: "donated $0 to your stream",
       target: "AI-Powered Content Creation",
       time: "3 hours ago",
       type: "donation",
@@ -349,9 +349,9 @@ export function EnhancedDashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
-            Dashboard
+            
           </h1>
-          <p className="text-muted-foreground">Welcome back! Here's what's happening with your streams.</p>
+          <p className="text-muted-foreground">Welcome back!</p>
         </div>
         <div className="flex items-center gap-2">
           <Sheet>
@@ -407,10 +407,10 @@ export function EnhancedDashboard() {
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Category</label>
                   <select className="w-full px-3 py-2 border rounded-md">
-                    <option>Gaming</option>
-                    <option>Education</option>
-                    <option>Technology</option>
-                    <option>Entertainment</option>
+                    <option>Seller</option>
+                    <option>Creater</option>
+                    <option>Buyer</option>
+                    <option>Business</option>
                   </select>
                 </div>
                 <Button
@@ -583,14 +583,14 @@ export function EnhancedDashboard() {
                   <span>Streaming Hours</span>
                   <span className="text-muted-foreground">45/60 hours</span>
                 </div>
-                <Progress value={75} className="h-2" />
+                <Progress value={0} className="h-2" />
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
                   <span>New Followers</span>
                   <span className="text-muted-foreground">234/300</span>
                 </div>
-                <Progress value={78} className="h-2" />
+                <Progress value={0} className="h-2" />
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
