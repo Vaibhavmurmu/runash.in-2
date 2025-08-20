@@ -88,7 +88,7 @@ export default function Home() {
             <StatCounter value={1000} label="Active Streamers" suffix="+" />
             <StatCounter value={1000} label="Monthly Viewers" suffix="+" />
             <StatCounter value={99.9} label="Uptime Percentage" suffix="%" />
-            <StatCounter value={2} label="Countries Reached" suffix="+" />
+            <StatCounter value={6} label="Countries Reached" suffix="+" />
           </div>
         </div>
       </section>
@@ -455,7 +455,7 @@ export default function Home() {
                     href="/get-started"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    Studio
+                    AI Studio
                   </a>
                 </li>
                 <li>
@@ -679,7 +679,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Live Selling 
+                     AI Live Selling 
                     </a>
                   </li>
                   <li>
@@ -687,7 +687,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Live Shopping 
+                    AI Live shopping 
                     </a>
                   </li>
                   <li>
@@ -968,7 +968,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Editor 
+                      AI Editor 
                     </a>
                   </li>
                   <li>
@@ -1020,7 +1020,7 @@ export default function Home() {
               <div className="flex space-x-6">
                 <a
                   href="/"
-                  className="text-gray-600  dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
+                  className="text-gray-600  mr-2 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
                 >
                   Agent 
                 <Badge varient="secondary" className="bg-green-600 text-white gap-2 space-x-1 dark:bg-green-500 animate-pulse text-xs">New</Badge>
