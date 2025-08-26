@@ -47,29 +47,38 @@ First, run the development server:
 
 1. Clone the repository
 2. Install dependencies:
-   \`\`\`bash
+
+   ```bash
+   
    npm install
    # or
    yarn install
    # or
    pnpm install
-   \`\`\`
 
-3. Set up your environment variables:
+   ```
+
+4. Set up your environment variables:
    - Copy `.env.example` to `.env.local`:
-     \`\`\`bash
+   
+     ```bash
+     
      cp .env.example .env.local
-     \`\`\`
+     
+     ```
    - Update the `API_KEY` in `.env.local` with your runash.ai API key
 
-4. Run the development server:
-   \`\`\`bash
+5. Run the development server:
+
+   ```bash
+   
    npm run dev
    # or
    yarn dev
    # or
    pnpm dev
-   \`\`\`
+
+   ```
 
  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
