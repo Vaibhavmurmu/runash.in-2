@@ -336,24 +336,15 @@ export default function ChangelogPage() {
   )
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-100 dark:from-gray-950 dark:to-gray-900 dark:to-orange-950/20">
+      <div className="min-h-screen bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
       {/* Header */}
-      <section className="py-16 relative bg-gradient-to-br from-orange-50 via-white to-orange-100 dark:from-gray-950 dark:via-gray-900 dark:to-orange-950/20">
-        <div className="container mx-auto px-4 absolute inset-0 bg-gradient-to-r from-orange-500/10 via-transparent to-orange-600/10 backdrop-blur-3xl">
+      <section className="py-16 bg-gradient-to-r from-orange-500/10 to-orange-600/10 dark:from-orange-600/5 dark:to-orange-500/5">
+        <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="relative container mx-auto px-4 py-24 lg:py-32">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge
-              variant="secondary"
-              className="mb-6 bg-orange-100 text-orange-800 dark:bg-orange-950 dark:text-orange-200"
-            >
-              <GitCommit className="w-4 h-4 mr-2" />
-              Product Updates
-            </Badge>
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-orange-600 to-gray-900 dark:from-white dark:via-orange-400 dark:to-white bg-clip-text text-transparent leading-tight">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-orange-600 text-transparent bg-clip-text">
               Changelog
             </h1>
-            <p className="ext-xl lg:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
               Stay up to date with the latest features, improvements, and fixes in RunAsh
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
@@ -366,12 +357,10 @@ export default function ChangelogPage() {
                   className="pl-10"
                 />
               </div>
-              <Button variant="outline" ClassaName="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+              <Button variant="outline">
                 <Bell className="h-4 w-4 mr-2" />
-                Subscribe to Updates 
+                Subscribe
               </Button>
-              </div>
-            </div>
             </div>
           </div>
         </div>
