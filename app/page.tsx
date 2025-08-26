@@ -45,10 +45,10 @@ export default function Home() {
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-            AI Live Streaming Platform 
+            Live Retail Streaming Automation Platform 
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The next generation of AI live streaming platform for creators, sellers, and businesses
+            The next generation of AI live retail streaming automation platform for creators, sellers, and businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
