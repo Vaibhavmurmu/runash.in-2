@@ -127,6 +127,17 @@ export class PaymentService {
       supportedCurrencies: ["INR"],
     },
     {
+      id: "runashpay-upi",
+      name: "RunAsh Pay",
+      type: "upi",
+      provider: "runashpay",
+      icon: "🔍",
+      enabled: true,
+      processingFee: 0.5,
+      description: "RunAsh Pay UPI",
+      supportedCurrencies: ["INR"],
+    },
+    {
       id: "amazonpay-wallet",
       name: "Amazon Pay",
       type: "wallet",
