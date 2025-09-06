@@ -395,10 +395,10 @@ export default function GetStartedPage() {
                     <Check className="h-10 w-10 text-white" />
                   </div>
                   <h1 className="text-3xl font-bold mb-3 bg-gradient-to-r from-orange-600 to-amber-600 text-transparent bg-clip-text">
-                    Welcome to RunAsh!
+                    Welcome to RunAsh AI!
                   </h1>
                   <p className="text-gray-600 dark:text-gray-400 text-lg">
-                    Your AI-powered streaming journey starts now
+                    Your AI streaming journey starts now
                   </p>
                 </div>
 
@@ -412,7 +412,7 @@ export default function GetStartedPage() {
                   <TabsContent value="explore" className="mt-6">
                     <div className="space-y-4">
                       {[
-                        { icon: Sparkles, title: "AI Features", desc: "Discover AI-powered streaming tools" },
+                        { icon: Sparkles, title: "AI Features", desc: "Discover AI streaming tools" },
                         { icon: Zap, title: "Dashboard", desc: "View your analytics and insights" },
                         { icon: Play, title: "Start Streaming", desc: "Go live with enhanced features" },
                       ].map((item, index) => (
