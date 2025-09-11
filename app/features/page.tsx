@@ -143,7 +143,7 @@ export default function FeaturesPage() {
                   <FeatureShowcase
                     title="AI Video Enhancement"
                     description="Our advanced neural networks analyze and enhance your video in real-time, improving quality even in challenging lighting conditions."
-                    image="/placeholder.svg?height=500&width=800"
+                    image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGYYafpIyGtZ5RkbiuU1y4Tl6VAPwKnM03CeQg?height=500&width=800"
                     imageAlt="AI Video Enhancement Demonstration"
                     features={[
                       "Automatic lighting correction",
@@ -165,7 +165,7 @@ export default function FeaturesPage() {
                   <FeatureShowcase
                     title="Smart Content Protection"
                     description="Keep your streams safe and compliant with our AI-powered content moderation system that works in real-time."
-                    image="/placeholder.svg?height=500&width=800"
+                    image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGGIpZQtxnfQWi6oyb4NYIh2J0HLXuVsdvqkec?height=500&width=800"
                     imageAlt="Content Protection Demonstration"
                     features={[
                       "Automatic content moderation",
@@ -188,7 +188,7 @@ export default function FeaturesPage() {
                   <FeatureShowcase
                     title="AI-Powered Audience Engagement"
                     description="Boost viewer interaction and grow your community with smart engagement tools that analyze chat and viewer behavior."
-                    image="/placeholder.svg?height=500&width=800"
+                    image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmG4LWsk7zAe1a6oIVjOT4tXMhGnlY2bJqyf7mu?height=500&width=800"
                     imageAlt="Audience Engagement Demonstration"
                     features={[
                       "Smart chat moderation",
@@ -210,7 +210,7 @@ export default function FeaturesPage() {
                   <FeatureShowcase
                     title="Performance Optimization"
                     description="Our platform automatically optimizes your stream for maximum quality and stability, regardless of your internet connection."
-                    image="/placeholder.svg?height=500&width=800"
+                    image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmG3hI6rw2aoRnqA8ITbtSzOdEiGpPFx1geWwVK?height=500&width=800"
                     imageAlt="Performance Optimization Demonstration"
                     features={[
                       "Adaptive bitrate streaming",
