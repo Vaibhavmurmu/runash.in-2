@@ -357,29 +357,6 @@ export default function RunAshChatPage() {
               </HoverCardContent>
              </HoverCard>
             </div>
-          
-      
-          
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="outline" size="sm">
-                  <Video className="h-4 w-4 mr-2" />
-                  Join Live Stream
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Join Live Stream</DialogTitle>
-                  <DialogDescription>
-                    Watch our organic farmers showcase fresh produce and sustainable farming practices.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="bg-muted aspect-video rounded-md flex items-center justify-center">
-                  <Button onClick={startStreaming}>Start Watching</Button>
-                </div>
-              </DialogContent>
-            </Dialog>
-          
         
             <div className="flex items-center space-x-2">
               <CartDrawer />
