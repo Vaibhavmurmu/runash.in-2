@@ -139,7 +139,7 @@ export default function BlogPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                     <div className="aspect-video overflow-hidden rounded-xl">
                       <img
-                        src="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGH6b59uE8j3XVPfqwyF91ABSNMCxigK4LzEca?height=300&width=500"
+                        src="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGH6b59uE8j3XVPfqwyF91ABSNMCxigK4LzEca?height=100&width=100"
                         alt="Featured article"
                         className="w-full h-full object-cover"
                       />
