@@ -148,7 +148,7 @@ export default function ContactPage() {
               address="310 RunAsh AI Corporate Avenue, Bokaro, JH 827014"
               phone="+91 (06542) 253096"
               email="contact@runash.in"
-              image="/placeholder.svg?height=200&width=400"
+              image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGo4jzCsrE8Em2aVUNQpXWFrqz7HTyivdPk4bc?height=200&width=400"
               hours="Mon-Fri: 9am-5pm PST"
             />
             <OfficeLocation
@@ -156,7 +156,7 @@ export default function ContactPage() {
               address=" RunAsh AI Tech Avenue, Ranchi, JH 834001"
               phone="+91 8987724121"
               email="contact@runash.in"
-              image="/placeholder.svg?height=200&width=400"
+              image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGFUNhkoB1m9HraS0L3yeRkDq2JXWg7npQGKiB?height=200&width=400"
               hours="Mon-Fri: 9am-5pm GMT"
             />
             <OfficeLocation
@@ -164,7 +164,7 @@ export default function ContactPage() {
               address="New ton Road 307987"
               phone="+91 8987724121 "
               email="singapore@runash.in"
-              image="/placeholder.svg?height=200&width=400"
+              image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmG8RR9HCAbMKAItFVy6qg7sljSCmQH98rhkPfb?height=200&width=400"
               hours="Mon-Fri: 9am-5pm JST"
             />
             <OfficeLocation
@@ -172,7 +172,7 @@ export default function ContactPage() {
               address="Stripe Atlas, Dalaware San Francisco, CA "
               phone="+91 8987724121 "
               email="sf@runash.in"
-              image="/placeholder.svg?height=200&width=400"
+              image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGqbu5nYdR6vXFMQ4Jzs58KY2bNOCatdiWceV9?height=200&width=400"
               hours="Mon-Fri: 9am-5pm JST"
             />
           </div>
