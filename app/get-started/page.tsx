@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
@@ -14,20 +13,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ArrowRight, Check, ChevronRight, Play, Sparkles, Zap, Github, Mail, Eye, EyeOff, Loader2 } from "lucide-react"
 import { signIn } from "next-auth/react"
 import ThemeToggle from "@/components/theme-toggle"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
-import { useSession } from "next-auth/react"
-import { Separator } from "@/components/ui/separator"
-import { Phone, Building2, KeyRound, ShieldCheck } from "lucide-react"
-import { ShoppingCart } from "lucide-react"
-
-const dashboardByType: Record<string, string> = {
-  creator: "/dashboard",
-  seller: "/seller/dashboard",
-  buyer: "/grocery",
-  enterprise: "/business",
-}
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { SSOLogin } from "@/components/auth/sso-login"
+import { MagicLinkForm } from "@/components/auth/magic-link-form"
+import { OTPForm } from "@/components/auth/otp-form"
+import { PasskeyLoginForm } from "@/components/auth/passkey-form"
+import { Building2, Smartphone, Shield, KeyRound } from "lucide-react"
 
 export default function GetStartedPage() {
   const [step, setStep] = useState(1)
@@ -43,21 +35,22 @@ export default function GetStartedPage() {
     contentTypes: [] as string[],
   })
   const router = useRouter()
-  const { data: session, status } = useSession()
-  const [userType, setUserType] = useState<"creator" | "seller" | "buyer" | "enterprise" | null>(null)
-  const [emailForOtp, setEmailForOtp] = useState("")
-  const [smsForOtp, setSmsForOtp] = useState("")
-  const [otpCode, setOtpCode] = useState("")
-  const [otpDialogOpen, setOtpDialogOpen] = useState<null | "email" | "sms">(null)
-  const [resendMsg, setResendMsg] = useState<string | null>(null)
-  const [passkeyEmail, setPasskeyEmail] = useState("")
+  const [selectedRole, setSelectedRole] = useState<"creator" | "seller" | "buyer" | "enterprise" | null>(null)
 
   useEffect(() => {
-    if (status === "authenticated") {
-      const target = userType ? dashboardByType[userType] : "/dashboard"
-      router.replace(target)
+    const stored = typeof window !== "undefined" ? window.localStorage.getItem("runash_user_type") : null
+    if (stored && !selectedRole) {
+      setSelectedRole(stored as any)
     }
-  }, [status, userType, router])
+  }, [])
+
+  useEffect(() => {
+    if (selectedRole) {
+      try {
+        window.localStorage.setItem("runash_user_type", selectedRole)
+      } catch {}
+    }
+  }, [selectedRole])
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -118,201 +111,9 @@ export default function GetStartedPage() {
     }
   }
 
-  const sendMagic = async () => {
-    if (!formData.email) return
-    setIsLoading(true)
-    try {
-      const res = await fetch("/api/auth/magic-link", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: formData.email }),
-      })
-      const j = await res.json()
-      if (!res.ok) throw new Error(j.error || j.message || "Failed")
-      alert(j.message || "Magic link sent!")
-    } catch (e: any) {
-      console.error("[v0] magic link error:", e?.message)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const resendVerification = async () => {
-    if (!formData.email) return
-    setIsLoading(true)
-    setResendMsg(null)
-    try {
-      const res = await fetch("/api/auth/resend-verification", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: formData.email }),
-      })
-      const j = await res.json()
-      setResendMsg(j.message || "If an account exists, a link was sent.")
-    } catch (e) {
-      setResendMsg("Please try again later.")
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const sendEmailOtp = async () => {
-    if (!emailForOtp) return
-    setIsLoading(true)
-    try {
-      const res = await fetch("/api/auth/otp/email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: emailForOtp, purpose: "login" }),
-      })
-      const j = await res.json()
-      if (!j.success) throw new Error(j.message)
-      setOtpDialogOpen("email")
-    } catch (e) {
-      console.error("[v0] email otp send error:", e)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const verifyEmailOtp = async () => {
-    if (!emailForOtp || otpCode.length !== 6) return
-    setIsLoading(true)
-    try {
-      const res = await fetch("/api/auth/otp/email", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: emailForOtp, code: otpCode, purpose: "login" }),
-      })
-      const j = await res.json()
-      if (!j.success) throw new Error(j.message)
-      alert("Email verified. Please continue with magic link or set a password.")
-      setOtpDialogOpen(null)
-    } catch (e: any) {
-      alert(e.message || "Failed to verify code")
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const sendSmsOtp = async () => {
-    if (!smsForOtp) return
-    setIsLoading(true)
-    try {
-      const res = await fetch("/api/auth/otp/sms", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phoneNumber: smsForOtp, purpose: "login" }),
-      })
-      const j = await res.json()
-      if (!j.success) throw new Error(j.message)
-      setOtpDialogOpen("sms")
-    } catch (e) {
-      console.error("[v0] sms otp send error:", e)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const verifySmsOtp = async () => {
-    if (!smsForOtp || otpCode.length !== 6) return
-    setIsLoading(true)
-    try {
-      const res = await fetch("/api/auth/otp/sms", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phoneNumber: smsForOtp, code: otpCode, purpose: "login" }),
-      })
-      const j = await res.json()
-      if (!j.success) throw new Error(j.message)
-      alert("Mobile verified. Please continue with magic link or OAuth.")
-      setOtpDialogOpen(null)
-    } catch (e: any) {
-      alert(e.message || "Failed to verify code")
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const loginWithPasskey = async () => {
-    try {
-      setIsLoading(true)
-      const optsRes = await fetch(
-        `/api/auth/passkey/authenticate${passkeyEmail ? `?email=${encodeURIComponent(passkeyEmail)}` : ""}`,
-      )
-      const options = await optsRes.json()
-      const publicKey: PublicKeyCredentialRequestOptions = {
-        ...options,
-        challenge: Uint8Array.from(atob(options.challenge.replace(/-/g, "+").replace(/_/g, "/")), (c) =>
-          c.charCodeAt(0),
-        ),
-        allowCredentials: options.allowCredentials?.map((c: any) => ({
-          ...c,
-          id: Uint8Array.from(atob(c.id.replace(/-/g, "+").replace(/_/g, "/")), (ch) => ch.charCodeAt(0)),
-        })),
-      }
-      const cred = (await navigator.credentials.get({ publicKey })) as PublicKeyCredential
-      const response = {
-        id: cred.id,
-        rawId: btoa(String.fromCharCode(...new Uint8Array(cred.rawId as ArrayBuffer)))
-          .replace(/\+/g, "-")
-          .replace(/\//g, "_")
-          .replace(/=+$/, ""),
-        response: {
-          clientDataJSON: btoa(String.fromCharCode(...new Uint8Array(cred.response.clientDataJSON as ArrayBuffer)))
-            .replace(/\+/g, "-")
-            .replace(/\//g, "_")
-            .replace(/=+$/, ""),
-          authenticatorData: btoa(
-            String.fromCharCode(...new Uint8Array((cred.response as any).authenticatorData as ArrayBuffer)),
-          )
-            .replace(/\+/g, "-")
-            .replace(/\//g, "_")
-            .replace(/=+$/, ""),
-          signature: btoa(String.fromCharCode(...new Uint8Array((cred.response as any).signature as ArrayBuffer)))
-            .replace(/\+/g, "-")
-            .replace(/\//g, "_")
-            .replace(/=+$/, ""),
-          userHandle: (cred.response as any).userHandle
-            ? btoa(String.fromCharCode(...new Uint8Array((cred.response as any).userHandle as ArrayBuffer)))
-                .replace(/\+/g, "-")
-                .replace(/\//g, "_")
-                .replace(/=+$/, "")
-            : null,
-        },
-        type: cred.type as "public-key",
-      }
-      const verifyRes = await fetch("/api/auth/passkey/authenticate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ response, expectedChallenge: options.challenge }),
-      })
-      if (!verifyRes.ok) throw new Error("Passkey verification failed")
-      const target = userType ? dashboardByType[userType] : "/dashboard"
-      router.replace(target)
-    } catch (e) {
-      console.error("[v0] passkey auth error:", e)
-      alert("Passkey login failed. Try another method.")
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50 dark:from-orange-950/20 dark:via-gray-950 dark:to-amber-950/20 text-gray-900 dark:text-white flex flex-col">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "RunAsh AI",
-            applicationCategory: "Multimedia",
-            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-            url: (typeof window !== "undefined" && window.location.origin) || "https://runash.in",
-          }),
-        }}
-      />
+      {/* Header */}
       <header className="w-full py-6 px-6 flex justify-between items-center">
         <Link href="/" className="flex items-center group">
           <div className="relative mr-3 h-10 w-10 overflow-hidden rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 shadow-lg group-hover:shadow-xl transition-all duration-300">
@@ -333,34 +134,10 @@ export default function GetStartedPage() {
         </div>
       </header>
 
+      {/* Main Content */}
       <main className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-4xl">
-          <div className="mb-6">
-            <h2 className="sr-only">Select user type</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {[
-                { key: "creator", label: "Creator", icon: Sparkles },
-                { key: "seller", label: "Seller", icon: Zap },
-                { key: "buyer", label: "Buyer", icon: ShoppingCart },
-                { key: "enterprise", label: "Enterprise", icon: Building2 },
-              ].map((t) => (
-                <button
-                  key={t.key}
-                  onClick={() => setUserType(t.key as any)}
-                  className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors ${
-                    userType === t.key
-                      ? "border-orange-500 bg-orange-50 dark:bg-orange-900/20"
-                      : "border-gray-200 dark:border-gray-800 hover:border-orange-300"
-                  }`}
-                  aria-pressed={userType === t.key}
-                >
-                  <t.icon className="h-4 w-4 text-orange-600 dark:text-orange-400" />
-                  <span>{t.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
+        <div className="w-full max-w-5xl">
+          {/* Progress Steps */}
           <div className="mb-12">
             <div className="flex items-center justify-between max-w-md mx-auto">
               {[1, 2, 3].map((stepNumber) => (
@@ -391,17 +168,19 @@ export default function GetStartedPage() {
             </div>
           </div>
 
+          {/* Step 1: Create Account */}
           {step === 1 && (
-            <Card className="max-w-md mx-auto shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+            <Card className="max-w-2xl mx-auto shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
               <CardHeader className="text-center pb-6">
                 <CardTitle className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 text-transparent bg-clip-text">
                   Create your account
                 </CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-400">
-                  Start your AI-powered streaming journey
+                  Start your AI-powered journey with tailored access by role
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-8">
+                {/* OAuth Buttons */}
                 <div className="space-y-3">
                   <Button
                     onClick={() => handleOAuthSignIn("google")}
@@ -431,6 +210,74 @@ export default function GetStartedPage() {
                     <span className="px-4 bg-white dark:bg-gray-900 text-gray-500">Or continue with email</span>
                   </div>
                 </div>
+
+                <Collapsible>
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-medium text-muted-foreground">More sign-in options</h3>
+                    <CollapsibleTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-8 px-2">
+                        Show
+                      </Button>
+                    </CollapsibleTrigger>
+                  </div>
+                  <CollapsibleContent className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" className="h-12 w-full bg-transparent">
+                          <Shield className="mr-2 h-4 w-4" /> Email Magic Link
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[480px]">
+                        <DialogHeader>
+                          <DialogTitle>Magic Link Sign In</DialogTitle>
+                        </DialogHeader>
+                        <MagicLinkForm />
+                      </DialogContent>
+                    </Dialog>
+
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" className="h-12 w-full bg-transparent">
+                          <Smartphone className="mr-2 h-4 w-4" /> Email / SMS OTP
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[480px]">
+                        <DialogHeader>
+                          <DialogTitle>One-Time Passcode</DialogTitle>
+                        </DialogHeader>
+                        <OTPForm purpose="login" />
+                      </DialogContent>
+                    </Dialog>
+
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" className="h-12 w-full bg-transparent">
+                          <KeyRound className="mr-2 h-4 w-4" /> Passkey (WebAuthn)
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[480px]">
+                        <DialogHeader>
+                          <DialogTitle>Passkey Sign In</DialogTitle>
+                        </DialogHeader>
+                        <PasskeyLoginForm />
+                      </DialogContent>
+                    </Dialog>
+
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" className="h-12 w-full bg-transparent">
+                          <Building2 className="mr-2 h-4 w-4" /> Enterprise SSO
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[520px]">
+                        <DialogHeader>
+                          <DialogTitle>Enterprise SSO</DialogTitle>
+                        </DialogHeader>
+                        <SSOLogin />
+                      </DialogContent>
+                    </Dialog>
+                  </CollapsibleContent>
+                </Collapsible>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
@@ -533,200 +380,71 @@ export default function GetStartedPage() {
                     )}
                   </Button>
                 </form>
-
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="enterprise-sso">
-                    <AccordionTrigger>
-                      <div className="flex items-center gap-2">
-                        <ShieldCheck className="h-4 w-4 text-orange-600 dark:text-orange-400" />
-                        Enterprise SSO (SAML/OIDC)
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="space-y-3">
-                        <Label htmlFor="enterprise-email">Work Email</Label>
-                        <Input
-                          id="enterprise-email"
-                          type="email"
-                          placeholder="you@company.com"
-                          onChange={(e) => handleInputChange("email", e.target.value)}
-                          value={formData.email}
-                        />
-                        <Button
-                          variant="outline"
-                          onClick={async () => {
-                            try {
-                              setIsLoading(true)
-                              const res = await fetch("/api/auth/sso/check", {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({ email: formData.email }),
-                              })
-                              const j = await res.json()
-                              if (j.hasSSO && j.redirectUrl) {
-                                window.location.href = j.redirectUrl
-                              } else if (j.ssoUrl) {
-                                window.location.href = j.ssoUrl
-                              } else {
-                                alert("No SSO found for this domain. Try OAuth or email.")
-                              }
-                            } finally {
-                              setIsLoading(false)
-                            }
-                          }}
-                        >
-                          Continue with SSO
-                        </Button>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="passkeys">
-                    <AccordionTrigger>
-                      <div className="flex items-center gap-2">
-                        <KeyRound className="h-4 w-4 text-orange-600 dark:text-orange-400" />
-                        Passkeys (passwordless)
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="space-y-3">
-                        <Label htmlFor="passkey-email">Email (optional)</Label>
-                        <Input
-                          id="passkey-email"
-                          type="email"
-                          value={passkeyEmail}
-                          onChange={(e) => setPasskeyEmail(e.target.value)}
-                          placeholder="you@example.com"
-                        />
-                        <Button onClick={loginWithPasskey} disabled={isLoading} className="w-full">
-                          Use Passkey
-                        </Button>
-                        <p className="text-xs text-muted-foreground">
-                          Tip: Register a passkey after sign-in from your account security settings.
-                        </p>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="magic-link">
-                    <AccordionTrigger>
-                      <div className="flex items-center gap-2">
-                        <Mail className="h-4 w-4 text-orange-600 dark:text-orange-400" />
-                        Magic Link
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="space-y-3">
-                        <Label htmlFor="ml-email">Email</Label>
-                        <Input
-                          id="ml-email"
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => handleInputChange("email", e.target.value)}
-                          placeholder="you@example.com"
-                        />
-                        <div className="flex items-center gap-2">
-                          <Button variant="outline" onClick={sendMagic} disabled={isLoading}>
-                            Send Magic Link
-                          </Button>
-                          <Button variant="ghost" size="sm" onClick={resendVerification} disabled={isLoading}>
-                            Resend verification
-                          </Button>
-                        </div>
-                        {resendMsg && <p className="text-xs text-muted-foreground">{resendMsg}</p>}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="email-otp">
-                    <AccordionTrigger>Email OTP</AccordionTrigger>
-                    <AccordionContent>
-                      <div className="space-y-3">
-                        <Label htmlFor="otp-email">Email</Label>
-                        <Input
-                          id="otp-email"
-                          type="email"
-                          value={emailForOtp}
-                          onChange={(e) => setEmailForOtp(e.target.value)}
-                          placeholder="you@example.com"
-                        />
-                        <Button variant="outline" onClick={sendEmailOtp} disabled={isLoading}>
-                          Send Code
-                        </Button>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="sms-otp">
-                    <AccordionTrigger className="flex items-center gap-2">
-                      <Phone className="h-4 w-4 text-orange-600 dark:text-orange-400" />
-                      Mobile OTP
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="space-y-3">
-                        <Label htmlFor="otp-sms">Mobile (E.164)</Label>
-                        <Input
-                          id="otp-sms"
-                          type="tel"
-                          value={smsForOtp}
-                          onChange={(e) => setSmsForOtp(e.target.value)}
-                          placeholder="+11234567890"
-                        />
-                        <Button variant="outline" onClick={sendSmsOtp} disabled={isLoading}>
-                          Send Code
-                        </Button>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-
-                <Separator />
               </CardContent>
             </Card>
           )}
 
-          <Dialog open={otpDialogOpen !== null} onOpenChange={(open) => !open && setOtpDialogOpen(null)}>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Enter verification code</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4">
-                <InputOTP maxLength={6} value={otpCode} onChange={setOtpCode}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                  </InputOTPGroup>
-                </InputOTP>
-                <p className="text-xs text-muted-foreground">
-                  We sent a 6-digit code to {otpDialogOpen === "email" ? emailForOtp : smsForOtp}.
-                </p>
-              </div>
-              <DialogFooter>
-                <Button
-                  onClick={otpDialogOpen === "email" ? verifyEmailOtp : verifySmsOtp}
-                  disabled={otpCode.length !== 6 || isLoading}
-                >
-                  Verify
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-
+          {/* Step 2: Profile Setup */}
           {step === 2 && (
-            <Card className="max-w-md mx-auto shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+            <Card className="max-w-2xl mx-auto shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
               <CardHeader className="text-center pb-6">
                 <CardTitle className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 text-transparent bg-clip-text">
                   Set up your profile
                 </CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-400">
-                  Tell us about your streaming preferences
+                  Choose your primary use case to personalize your experience
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-8">
+                <div>
+                  <Label className="mb-3 block">Who are you?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {(
+                      [
+                        {
+                          key: "creator",
+                          title: "Creator",
+                          desc: "Go live, manage streams, engage your audience",
+                          href: "/live",
+                        },
+                        {
+                          key: "seller",
+                          title: "Seller",
+                          desc: "Set up store, manage orders, run live shopping",
+                          href: "/seller/dashboard",
+                        },
+                        {
+                          key: "buyer",
+                          title: "Buyer",
+                          desc: "Shop groceries, track orders, chat for help",
+                          href: "/grocery",
+                        },
+                        {
+                          key: "enterprise",
+                          title: "Enterprise",
+                          desc: "SSO, admin controls, org analytics",
+                          href: "/business",
+                        },
+                      ] as const
+                    ).map((r) => (
+                      <button
+                        key={r.key}
+                        type="button"
+                        onClick={() => setSelectedRole(r.key)}
+                        className={`text-left rounded-lg border p-4 transition-colors ${
+                          selectedRole === r.key
+                            ? "border-orange-400 bg-orange-50 dark:bg-orange-950/20"
+                            : "border-orange-200 dark:border-orange-800 hover:bg-orange-50/50 dark:hover:bg-orange-950/10"
+                        }`}
+                        aria-pressed={selectedRole === r.key}
+                      >
+                        <div className="font-semibold">{r.title}</div>
+                        <div className="text-sm text-muted-foreground">{r.desc}</div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <Label htmlFor="username">Username</Label>
@@ -807,8 +525,9 @@ export default function GetStartedPage() {
             </Card>
           )}
 
+          {/* Step 3: Complete */}
           {step === 3 && (
-            <Card className="max-w-lg mx-auto shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+            <Card className="max-w-3xl mx-auto shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
               <CardContent className="pt-8">
                 <div className="text-center mb-8">
                   <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
@@ -830,7 +549,7 @@ export default function GetStartedPage() {
                   </TabsList>
 
                   <TabsContent value="explore" className="mt-6">
-                    <div className="space-y-4">
+                    <div className="grid gap-4 md:grid-cols-2">
                       {[
                         { icon: Sparkles, title: "AI Features", desc: "Discover AI-powered streaming tools" },
                         { icon: Zap, title: "Dashboard", desc: "View your analytics and insights" },
@@ -852,6 +571,24 @@ export default function GetStartedPage() {
                           </CardContent>
                         </Card>
                       ))}
+                      <Card
+                        className="border-orange-200/50 dark:border-orange-900/30 hover:border-orange-300 dark:hover:border-orange-700 transition-colors cursor-pointer"
+                        onClick={() => router.push("/chat")}
+                      >
+                        <CardContent className="p-4">
+                          <h3 className="font-semibold">RunAshChat</h3>
+                          <p className="text-sm text-muted-foreground">Ask anything and explore AI assistance</p>
+                        </CardContent>
+                      </Card>
+                      <Card
+                        className="border-orange-200/50 dark:border-orange-900/30 hover:border-orange-300 dark:hover:border-orange-700 transition-colors cursor-pointer"
+                        onClick={() => router.push("/grocery")}
+                      >
+                        <CardContent className="p-4">
+                          <h3 className="font-semibold">RunAsh Store</h3>
+                          <p className="text-sm text-muted-foreground">Discover sustainable grocery products</p>
+                        </CardContent>
+                      </Card>
                     </div>
                   </TabsContent>
 
@@ -874,12 +611,22 @@ export default function GetStartedPage() {
 
                 <Button
                   onClick={() => {
-                    const target = userType ? dashboardByType[userType] : "/dashboard"
-                    router.push(target)
+                    const role =
+                      selectedRole ||
+                      (typeof window !== "undefined" ? (window.localStorage.getItem("runash_user_type") as any) : null)
+                    const route =
+                      role === "seller"
+                        ? "/seller/dashboard"
+                        : role === "buyer"
+                          ? "/grocery"
+                          : role === "enterprise"
+                            ? "/business"
+                            : "/dashboard"
+                    router.push(route)
                   }}
                   className="w-full h-12 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  Go to {userType ? userType.charAt(0).toUpperCase() + userType.slice(1) : "Dashboard"}
+                  Continue
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </CardContent>
@@ -888,6 +635,7 @@ export default function GetStartedPage() {
         </div>
       </main>
 
+      {/* Footer */}
       <footer className="py-8">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">

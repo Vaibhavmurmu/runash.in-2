@@ -13,7 +13,7 @@ importers:
         version: 2.0.42(zod@4.1.11)
       '@auth/core':
         specifier: latest
-        version: 0.40.0(@simplewebauthn/browser@13.1.2)(@simplewebauthn/server@13.1.2)(nodemailer@7.0.6)
+        version: 0.40.0(@simplewebauthn/browser@13.2.0)(@simplewebauthn/server@13.2.1)(nodemailer@7.0.6)
       '@aws-sdk/client-s3':
         specifier: latest
         version: 3.901.0
@@ -117,13 +117,13 @@ importers:
         specifier: latest
         version: 2.17.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.0.2)
       '@simplewebauthn/browser':
-        specifier: 13.1.2
-        version: 13.1.2
+        specifier: latest
+        version: 13.2.0
       '@simplewebauthn/server':
-        specifier: 13.1.2
-        version: 13.1.2
+        specifier: latest
+        version: 13.2.1
       '@simplewebauthn/types':
-        specifier: 12.0.0
+        specifier: latest
         version: 12.0.0
       '@sveltejs/kit':
         specifier: latest
@@ -132,8 +132,8 @@ importers:
         specifier: latest
         version: 3.3.7(@types/react@19.0.0)
       '@upstash/redis':
-        specifier: 1.35.3
-        version: 1.35.3
+        specifier: latest
+        version: 1.35.4
       '@vercel/analytics':
         specifier: latest
         version: 1.5.0(@remix-run/react@2.17.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.0.2))(@sveltejs/kit@2.43.7(@opentelemetry/api@1.9.0)(@sveltejs/vite-plugin-svelte@5.1.0(svelte@5.39.8)(vite@7.0.0(@types/node@22.15.34)(jiti@1.21.7)(yaml@2.8.0)))(svelte@5.39.8)(vite@7.0.0(@types/node@22.15.34)(jiti@1.21.7)(yaml@2.8.0)))(next@15.2.4(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(svelte@5.39.8)(vue-router@4.5.1(vue@3.5.22(typescript@5.0.2)))(vue@3.5.22(typescript@5.0.2))
@@ -168,7 +168,7 @@ importers:
         specifier: latest
         version: 8.6.0(react@19.0.0)
       events:
-        specifier: 3.3.0
+        specifier: latest
         version: 3.3.0
       framer-motion:
         specifier: latest
@@ -177,10 +177,10 @@ importers:
         specifier: latest
         version: 1.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       ioredis:
-        specifier: 5.7.0
-        version: 5.7.0
+        specifier: latest
+        version: 5.8.0
       jose:
-        specifier: 6.1.0
+        specifier: latest
         version: 6.1.0
       lucide-react:
         specifier: ^0.454.0
@@ -193,7 +193,7 @@ importers:
         version: 15.2.4(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next-auth:
         specifier: latest
-        version: 4.24.11(@auth/core@0.40.0(@simplewebauthn/browser@13.1.2)(@simplewebauthn/server@13.1.2)(nodemailer@7.0.6))(next@15.2.4(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(nodemailer@7.0.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 4.24.11(@auth/core@0.40.0(@simplewebauthn/browser@13.2.0)(@simplewebauthn/server@13.2.1)(nodemailer@7.0.6))(next@15.2.4(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(nodemailer@7.0.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next-themes:
         specifier: latest
         version: 0.4.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -201,7 +201,7 @@ importers:
         specifier: latest
         version: 7.0.6
       qrcode:
-        specifier: 1.5.4
+        specifier: latest
         version: 1.5.4
       react:
         specifier: ^19
@@ -246,16 +246,16 @@ importers:
         specifier: latest
         version: 2.0.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       speakeasy:
-        specifier: 2.0.0
+        specifier: latest
         version: 2.0.0
       stripe:
-        specifier: 18.5.0
-        version: 18.5.0(@types/node@22.15.34)
+        specifier: latest
+        version: 19.0.0(@types/node@22.15.34)
       svelte:
         specifier: latest
         version: 5.39.8
       swr:
-        specifier: 2.3.6
+        specifier: latest
         version: 2.3.6(react@19.0.0)
       tailwind-merge:
         specifier: ^2.5.5
@@ -264,7 +264,7 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
       types:
-        specifier: 0.1.1
+        specifier: latest
         version: 0.1.1
       vaul:
         specifier: latest
@@ -850,8 +850,8 @@ packages:
   '@internationalized/string@3.2.7':
     resolution: {integrity: sha512-D4OHBjrinH+PFZPvfCXvG28n2LSykWcJ7GIioQL+ok0LON15SdfoUssoHzzOUmVZLbRoREsQXVzA6r8JKsbP6A==}
 
-  '@ioredis/commands@1.3.0':
-    resolution: {integrity: sha512-M/T6Zewn7sDaBQEqIZ8Rb+i9y8qfGmq+5SDFSf9sA2lUZTmdDLVdOiQaeDp+Q4wElZ9HG1GAX5KhDaidp6LQsQ==}
+  '@ioredis/commands@1.4.0':
+    resolution: {integrity: sha512-aFT2yemJJo+TZCmieA7qnYGQooOS7QfNmYrzGtsYd3g9j5iDP8AimYYAesf79ohjbLG12XxC4nG5DyEnC88AsQ==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -1529,17 +1529,50 @@ packages:
   '@peculiar/asn1-android@2.4.0':
     resolution: {integrity: sha512-YFueREq97CLslZZBI8dKzis7jMfEHSLxM+nr0Zdx1POiXFLjqqwoY5s0F1UimdBiEw/iKlHey2m56MRDv7Jtyg==}
 
+  '@peculiar/asn1-cms@2.5.0':
+    resolution: {integrity: sha512-p0SjJ3TuuleIvjPM4aYfvYw8Fk1Hn/zAVyPJZTtZ2eE9/MIer6/18ROxX6N/e6edVSfvuZBqhxAj3YgsmSjQ/A==}
+
+  '@peculiar/asn1-csr@2.5.0':
+    resolution: {integrity: sha512-ioigvA6WSYN9h/YssMmmoIwgl3RvZlAYx4A/9jD2qaqXZwGcNlAxaw54eSx2QG1Yu7YyBC5Rku3nNoHrQ16YsQ==}
+
   '@peculiar/asn1-ecc@2.4.0':
     resolution: {integrity: sha512-fJiYUBCJBDkjh347zZe5H81BdJ0+OGIg0X9z06v8xXUoql3MFeENUX0JsjCaVaU9A0L85PefLPGYkIoGpTnXLQ==}
+
+  '@peculiar/asn1-ecc@2.5.0':
+    resolution: {integrity: sha512-t4eYGNhXtLRxaP50h3sfO6aJebUCDGQACoeexcelL4roMFRRVgB20yBIu2LxsPh/tdW9I282gNgMOyg3ywg/mg==}
+
+  '@peculiar/asn1-pfx@2.5.0':
+    resolution: {integrity: sha512-Vj0d0wxJZA+Ztqfb7W+/iu8Uasw6hhKtCdLKXLG/P3kEPIQpqGI4P4YXlROfl7gOCqFIbgsj1HzFIFwQ5s20ug==}
+
+  '@peculiar/asn1-pkcs8@2.5.0':
+    resolution: {integrity: sha512-L7599HTI2SLlitlpEP8oAPaJgYssByI4eCwQq2C9eC90otFpm8MRn66PpbKviweAlhinWQ3ZjDD2KIVtx7PaVw==}
+
+  '@peculiar/asn1-pkcs9@2.5.0':
+    resolution: {integrity: sha512-UgqSMBLNLR5TzEZ5ZzxR45Nk6VJrammxd60WMSkofyNzd3DQLSNycGWSK5Xg3UTYbXcDFyG8pA/7/y/ztVCa6A==}
 
   '@peculiar/asn1-rsa@2.4.0':
     resolution: {integrity: sha512-6PP75voaEnOSlWR9sD25iCQyLgFZHXbmxvUfnnDcfL6Zh5h2iHW38+bve4LfH7a60x7fkhZZNmiYqAlAff9Img==}
 
+  '@peculiar/asn1-rsa@2.5.0':
+    resolution: {integrity: sha512-qMZ/vweiTHy9syrkkqWFvbT3eLoedvamcUdnnvwyyUNv5FgFXA3KP8td+ATibnlZ0EANW5PYRm8E6MJzEB/72Q==}
+
   '@peculiar/asn1-schema@2.4.0':
     resolution: {integrity: sha512-umbembjIWOrPSOzEGG5vxFLkeM8kzIhLkgigtsOrfLKnuzxWxejAcUX+q/SoZCdemlODOcr5WiYa7+dIEzBXZQ==}
 
+  '@peculiar/asn1-schema@2.5.0':
+    resolution: {integrity: sha512-YM/nFfskFJSlHqv59ed6dZlLZqtZQwjRVJ4bBAiWV08Oc+1rSd5lDZcBEx0lGDHfSoH3UziI2pXt2UM33KerPQ==}
+
+  '@peculiar/asn1-x509-attr@2.5.0':
+    resolution: {integrity: sha512-9f0hPOxiJDoG/bfNLAFven+Bd4gwz/VzrCIIWc1025LEI4BXO0U5fOCTNDPbbp2ll+UzqKsZ3g61mpBp74gk9A==}
+
   '@peculiar/asn1-x509@2.4.0':
     resolution: {integrity: sha512-F7mIZY2Eao2TaoVqigGMLv+NDdpwuBKU1fucHPONfzaBS4JXXCNCmfO0Z3dsy7JzKGqtDcYC1mr9JjaZQZNiuw==}
+
+  '@peculiar/asn1-x509@2.5.0':
+    resolution: {integrity: sha512-CpwtMCTJvfvYTFMuiME5IH+8qmDe3yEWzKHe7OOADbGfq7ohxeLaXwQo0q4du3qs0AII3UbLCvb9NF/6q0oTKQ==}
+
+  '@peculiar/x509@1.14.0':
+    resolution: {integrity: sha512-Yc4PDxN3OrxUPiXgU63c+ZRXKGE8YKF2McTciYhUHFtHVB0KMnjeFSU0qpztGhsp4P0uKix4+J2xEpIEDu8oXg==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -2904,11 +2937,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@simplewebauthn/browser@13.1.2':
-    resolution: {integrity: sha512-aZnW0KawAM83fSBUgglP5WofbrLbLyr7CoPqYr66Eppm7zO86YX6rrCjRB3hQKPrL7ATvY4FVXlykZ6w6FwYYw==}
+  '@simplewebauthn/browser@13.2.0':
+    resolution: {integrity: sha512-N3fuA1AAnTo5gCStYoIoiasPccC+xPLx2YU88Dv0GeAmPQTWHETlZQq5xZ0DgUq1H9loXMWQH5qqUjcI7BHJ1A==}
 
-  '@simplewebauthn/server@13.1.2':
-    resolution: {integrity: sha512-VwoDfvLXSCaRiD+xCIuyslU0HLxVggeE5BL06+GbsP2l1fGf5op8e0c3ZtKoi+vSg1q4ikjtAghC23ze2Q3H9g==}
+  '@simplewebauthn/server@13.2.1':
+    resolution: {integrity: sha512-Inmfye5opZXe3HI0GaksqBnQiM7glcNySoG6DH1GgkO1Lh9dvuV4XSV9DK02DReUVX39HpcDob9nxHELjECoQw==}
     engines: {node: '>=20.0.0'}
 
   '@simplewebauthn/types@12.0.0':
@@ -3247,8 +3280,8 @@ packages:
   '@types/warning@3.0.3':
     resolution: {integrity: sha512-D1XC7WK8K+zZEveUPY+cf4+kgauk8N4eHr/XIHXGlGYkHLud6hK9lYfZk1ry1TNh798cZUCgb6MqGEG8DkJt6Q==}
 
-  '@upstash/redis@1.35.3':
-    resolution: {integrity: sha512-hSjv66NOuahW3MisRGlSgoszU2uONAY2l5Qo3Sae8OT3/Tng9K+2/cBRuyPBX8egwEGcNNCF9+r0V6grNnhL+w==}
+  '@upstash/redis@1.35.4':
+    resolution: {integrity: sha512-WE1ZnhFyBiIjTDW13GbO6JjkiMVVjw5VsvS8ENmvvJsze/caMQ5paxVD44+U68IUVmkXcbsLSoE+VIYsHtbQEw==}
 
   '@vercel/analytics@1.5.0':
     resolution: {integrity: sha512-MYsBzfPki4gthY5HnYN7jgInhAZ7Ac1cYDoRWFomwGHWEX7odTEzbtg9kf/QSo7XEsEAqlQugA6gJ2WS2DEa3g==}
@@ -3855,8 +3888,8 @@ packages:
   invariant@2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
 
-  ioredis@5.7.0:
-    resolution: {integrity: sha512-NUcA93i1lukyXU+riqEyPtSEkyFq8tX90uL659J+qpCZ3rEdViB/APC58oAhIh3+bJln2hzdlZbBZsGNrlsR8g==}
+  ioredis@5.8.0:
+    resolution: {integrity: sha512-AUXbKn9gvo9hHKvk6LbZJQSKn/qIfkWXrnsyL9Yrf+oeXmla9Nmf6XEumOddyhM8neynpK5oAV6r9r99KBuwzA==}
     engines: {node: '>=12.22.0'}
 
   is-arrayish@0.3.2:
@@ -3963,9 +3996,6 @@ packages:
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
-
-  magic-string@0.30.18:
-    resolution: {integrity: sha512-yi8swmWbO17qHhwIBNeeZxTceJMeBvWJaId6dyvTSOwTipqeHhMhOrz6513r1sOKnpvQ7zkhlG8tPrpilwTxHQ==}
 
   magic-string@0.30.19:
     resolution: {integrity: sha512-2N21sPY9Ws53PZvsEpVtNuSW+ScYbQdp4b9qUaL+9QkHUrGFKo56Lg9Emg5s9V/qrtNBmiR01sYhUOwu3H+VOw==}
@@ -4480,6 +4510,9 @@ packages:
   redux@5.0.1:
     resolution: {integrity: sha512-M9/ELqF6fy8FwmkpnF0S3YKOqMyoWJ4+CS5Efg2ct3oY9daQvd/Pc71FpGZsVsbl3Cpb+IIcjBDUnnyBdQbq4w==}
 
+  reflect-metadata@0.2.2:
+    resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
+
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
@@ -4611,11 +4644,11 @@ packages:
     resolution: {integrity: sha512-iq6eVVI64nQQTRYq2KtEg2d2uU7LElhTJwsH4YzIHZshxlgZms/wIc4VoDQTlG/IvVIrBKG06CrZnp0qv7hkcQ==}
     engines: {node: '>=12'}
 
-  stripe@18.5.0:
-    resolution: {integrity: sha512-Hp+wFiEQtCB0LlNgcFh5uVyKznpDjzyUZ+CNVEf+I3fhlYvh7rZruIg+jOwzJRCpy0ZTPMjlzm7J2/M2N6d+DA==}
-    engines: {node: '>=12.*'}
+  stripe@19.0.0:
+    resolution: {integrity: sha512-4HG17r7mui4Awic75DVSFVmH4EIXqNvoo3T2cYrVhcwovQz3gzQIPUiqzLzGcgxdUd9CB8zCntKzm0o63tUBgw==}
+    engines: {node: '>=16'}
     peerDependencies:
-      '@types/node': '>=12.x.x'
+      '@types/node': '>=16'
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -4701,11 +4734,18 @@ packages:
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
+  tslib@1.14.1:
+    resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
+
   tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
+
+  tsyringe@4.10.0:
+    resolution: {integrity: sha512-axr3IdNuVIxnaK5XGEUFTu3YmAQ6lllgrvqfEoR16g/HGnYY/6We4oWENtAnzK6/LpJ2ur9PAb80RBt7/U4ugw==}
+    engines: {node: '>= 6.0.0'}
 
   turbo-stream@2.4.1:
     resolution: {integrity: sha512-v8kOJXpG3WoTN/+at8vK7erSzo6nW6CIaeOvNOkHQVDajfz1ZVeSxCbc6tOH4hrGZW7VUCV0TOXd8CPzYnYkrw==}
@@ -4945,7 +4985,7 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
-  '@auth/core@0.40.0(@simplewebauthn/browser@13.1.2)(@simplewebauthn/server@13.1.2)(nodemailer@7.0.6)':
+  '@auth/core@0.40.0(@simplewebauthn/browser@13.2.0)(@simplewebauthn/server@13.2.1)(nodemailer@7.0.6)':
     dependencies:
       '@panva/hkdf': 1.2.1
       jose: 6.1.0
@@ -4953,8 +4993,8 @@ snapshots:
       preact: 10.24.3
       preact-render-to-string: 6.5.11(preact@10.24.3)
     optionalDependencies:
-      '@simplewebauthn/browser': 13.1.2
-      '@simplewebauthn/server': 13.1.2
+      '@simplewebauthn/browser': 13.2.0
+      '@simplewebauthn/server': 13.2.1
       nodemailer: 7.0.6
 
   '@aws-crypto/crc32@5.2.0':
@@ -5695,7 +5735,7 @@ snapshots:
     dependencies:
       '@swc/helpers': 0.5.15
 
-  '@ioredis/commands@1.3.0': {}
+  '@ioredis/commands@1.4.0': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:
@@ -6809,10 +6849,59 @@ snapshots:
       asn1js: 3.0.6
       tslib: 2.8.1
 
+  '@peculiar/asn1-cms@2.5.0':
+    dependencies:
+      '@peculiar/asn1-schema': 2.5.0
+      '@peculiar/asn1-x509': 2.5.0
+      '@peculiar/asn1-x509-attr': 2.5.0
+      asn1js: 3.0.6
+      tslib: 2.8.1
+
+  '@peculiar/asn1-csr@2.5.0':
+    dependencies:
+      '@peculiar/asn1-schema': 2.5.0
+      '@peculiar/asn1-x509': 2.5.0
+      asn1js: 3.0.6
+      tslib: 2.8.1
+
   '@peculiar/asn1-ecc@2.4.0':
     dependencies:
       '@peculiar/asn1-schema': 2.4.0
       '@peculiar/asn1-x509': 2.4.0
+      asn1js: 3.0.6
+      tslib: 2.8.1
+
+  '@peculiar/asn1-ecc@2.5.0':
+    dependencies:
+      '@peculiar/asn1-schema': 2.5.0
+      '@peculiar/asn1-x509': 2.5.0
+      asn1js: 3.0.6
+      tslib: 2.8.1
+
+  '@peculiar/asn1-pfx@2.5.0':
+    dependencies:
+      '@peculiar/asn1-cms': 2.5.0
+      '@peculiar/asn1-pkcs8': 2.5.0
+      '@peculiar/asn1-rsa': 2.5.0
+      '@peculiar/asn1-schema': 2.5.0
+      asn1js: 3.0.6
+      tslib: 2.8.1
+
+  '@peculiar/asn1-pkcs8@2.5.0':
+    dependencies:
+      '@peculiar/asn1-schema': 2.5.0
+      '@peculiar/asn1-x509': 2.5.0
+      asn1js: 3.0.6
+      tslib: 2.8.1
+
+  '@peculiar/asn1-pkcs9@2.5.0':
+    dependencies:
+      '@peculiar/asn1-cms': 2.5.0
+      '@peculiar/asn1-pfx': 2.5.0
+      '@peculiar/asn1-pkcs8': 2.5.0
+      '@peculiar/asn1-schema': 2.5.0
+      '@peculiar/asn1-x509': 2.5.0
+      '@peculiar/asn1-x509-attr': 2.5.0
       asn1js: 3.0.6
       tslib: 2.8.1
 
@@ -6823,10 +6912,30 @@ snapshots:
       asn1js: 3.0.6
       tslib: 2.8.1
 
+  '@peculiar/asn1-rsa@2.5.0':
+    dependencies:
+      '@peculiar/asn1-schema': 2.5.0
+      '@peculiar/asn1-x509': 2.5.0
+      asn1js: 3.0.6
+      tslib: 2.8.1
+
   '@peculiar/asn1-schema@2.4.0':
     dependencies:
       asn1js: 3.0.6
       pvtsutils: 1.3.6
+      tslib: 2.8.1
+
+  '@peculiar/asn1-schema@2.5.0':
+    dependencies:
+      asn1js: 3.0.6
+      pvtsutils: 1.3.6
+      tslib: 2.8.1
+
+  '@peculiar/asn1-x509-attr@2.5.0':
+    dependencies:
+      '@peculiar/asn1-schema': 2.5.0
+      '@peculiar/asn1-x509': 2.5.0
+      asn1js: 3.0.6
       tslib: 2.8.1
 
   '@peculiar/asn1-x509@2.4.0':
@@ -6835,6 +6944,27 @@ snapshots:
       asn1js: 3.0.6
       pvtsutils: 1.3.6
       tslib: 2.8.1
+
+  '@peculiar/asn1-x509@2.5.0':
+    dependencies:
+      '@peculiar/asn1-schema': 2.5.0
+      asn1js: 3.0.6
+      pvtsutils: 1.3.6
+      tslib: 2.8.1
+
+  '@peculiar/x509@1.14.0':
+    dependencies:
+      '@peculiar/asn1-cms': 2.5.0
+      '@peculiar/asn1-csr': 2.5.0
+      '@peculiar/asn1-ecc': 2.5.0
+      '@peculiar/asn1-pkcs9': 2.5.0
+      '@peculiar/asn1-rsa': 2.5.0
+      '@peculiar/asn1-schema': 2.5.0
+      '@peculiar/asn1-x509': 2.5.0
+      pvtsutils: 1.3.6
+      reflect-metadata: 0.2.2
+      tslib: 2.8.1
+      tsyringe: 4.10.0
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -8631,9 +8761,9 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.46.2':
     optional: true
 
-  '@simplewebauthn/browser@13.1.2': {}
+  '@simplewebauthn/browser@13.2.0': {}
 
-  '@simplewebauthn/server@13.1.2':
+  '@simplewebauthn/server@13.2.1':
     dependencies:
       '@hexagon/base64': 1.1.28
       '@levischuck/tiny-cbor': 0.2.11
@@ -8642,6 +8772,7 @@ snapshots:
       '@peculiar/asn1-rsa': 2.4.0
       '@peculiar/asn1-schema': 2.4.0
       '@peculiar/asn1-x509': 2.4.0
+      '@peculiar/x509': 1.14.0
 
   '@simplewebauthn/types@12.0.0': {}
 
@@ -9027,7 +9158,7 @@ snapshots:
       debug: 4.4.1
       deepmerge: 4.3.1
       kleur: 4.1.5
-      magic-string: 0.30.18
+      magic-string: 0.30.19
       svelte: 5.39.8
       vite: 7.0.0(@types/node@22.15.34)(jiti@1.21.7)(yaml@2.8.0)
       vitefu: 1.1.1(vite@7.0.0(@types/node@22.15.34)(jiti@1.21.7)(yaml@2.8.0))
@@ -9109,7 +9240,7 @@ snapshots:
 
   '@types/warning@3.0.3': {}
 
-  '@upstash/redis@1.35.3':
+  '@upstash/redis@1.35.4':
     dependencies:
       uncrypto: 0.1.3
 
@@ -9674,9 +9805,9 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  ioredis@5.7.0:
+  ioredis@5.8.0:
     dependencies:
-      '@ioredis/commands': 1.3.0
+      '@ioredis/commands': 1.4.0
       cluster-key-slot: 1.1.2
       debug: 4.4.1
       denque: 2.1.0
@@ -9770,10 +9901,6 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.4
 
-  magic-string@0.30.18:
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.5
-
   magic-string@0.30.19:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
@@ -9821,7 +9948,7 @@ snapshots:
 
   nanoid@3.3.11: {}
 
-  next-auth@4.24.11(@auth/core@0.40.0(@simplewebauthn/browser@13.1.2)(@simplewebauthn/server@13.1.2)(nodemailer@7.0.6))(next@15.2.4(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(nodemailer@7.0.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  next-auth@4.24.11(@auth/core@0.40.0(@simplewebauthn/browser@13.2.0)(@simplewebauthn/server@13.2.1)(nodemailer@7.0.6))(next@15.2.4(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(nodemailer@7.0.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@babel/runtime': 7.27.4
       '@panva/hkdf': 1.2.1
@@ -9836,7 +9963,7 @@ snapshots:
       react-dom: 19.0.0(react@19.0.0)
       uuid: 8.3.2
     optionalDependencies:
-      '@auth/core': 0.40.0(@simplewebauthn/browser@13.1.2)(@simplewebauthn/server@13.1.2)(nodemailer@7.0.6)
+      '@auth/core': 0.40.0(@simplewebauthn/browser@13.2.0)(@simplewebauthn/server@13.2.1)(nodemailer@7.0.6)
       nodemailer: 7.0.6
 
   next-themes@0.4.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
@@ -10271,6 +10398,8 @@ snapshots:
 
   redux@5.0.1: {}
 
+  reflect-metadata@0.2.2: {}
+
   require-directory@2.1.1: {}
 
   require-main-filename@2.0.0: {}
@@ -10444,7 +10573,7 @@ snapshots:
     dependencies:
       ansi-regex: 6.1.0
 
-  stripe@18.5.0(@types/node@22.15.34):
+  stripe@19.0.0(@types/node@22.15.34):
     dependencies:
       qs: 6.14.0
     optionalDependencies:
@@ -10555,9 +10684,15 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
+  tslib@1.14.1: {}
+
   tslib@2.6.2: {}
 
   tslib@2.8.1: {}
+
+  tsyringe@4.10.0:
+    dependencies:
+      tslib: 1.14.1
 
   turbo-stream@2.4.1: {}
 

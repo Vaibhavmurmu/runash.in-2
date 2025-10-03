@@ -8,7 +8,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Providers } from "@/components/providers"
 import { Suspense } from "react"
-import CookieConsent from "@/components/cookie-consent"
+import { CookieConsent } from "@/components/cookie-consent"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,10 +32,11 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Providers>
             <Suspense fallback={null}>{children}</Suspense>
+            {/* Cookie consent dialog */}
+            <CookieConsent />
             <Toaster />
           </Providers>
         </ThemeProvider>
-        <CookieConsent />
         <Analytics />
         <SpeedInsights />
       </body>
