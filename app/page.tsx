@@ -1,9 +1,8 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import Banner from "@/components/banner"
 import { Badge } from "@/components/ui/badge"
-import { Play, Zap, Users, Shield, ArrowRight, ChevronRight, Star, BarChart, Globe,SquareArrowDownRight } from "lucide-react"
+import { Play, Zap, Users, Shield, ArrowRight, ChevronRight, Star, BarChart, Globe } from "lucide-react"
 import VideoBackground from "@/components/video-background"
 import FeatureCard from "@/components/feature-card"
 import TestimonialCard from "@/components/testimonial-card"
@@ -18,7 +17,6 @@ import { LanguageSelector } from "@/components/language-selector"
 import { CountrySelector } from "@/components/country-selector"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-
 
 export default function Home() {
   const router = useRouter()
@@ -35,17 +33,15 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-white">
       {/* <Banner /> */}
       <Navbar />
-       {/* Hero Section with Video Background */}
-        <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
+      {/* Hero Section with Video Background */}
+      <section className="relative min-h-svh flex items-center justify-center overflow-hidden">
         <VideoBackground />
         <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block  mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
-            <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
-              Introducing RunAsh AI 
-            </span>
+            <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Introducing RunAsh AI</span>
           </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-            AI Live Streaming Platform 
+          <h1 className="text-balance text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+            AI Live Streaming Platform
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
             The next generation of AI live streaming platform for creators, sellers, and businesses
@@ -61,13 +57,13 @@ export default function Home() {
             <Button
               size="lg"
               variant="outline"
-              className="border-orange-500 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-950"
+              className="border-orange-500 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-950 bg-transparent"
               onClick={() => router.push("/demo")}
             >
               Watch Demo <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-          </div>     
-         {/* Tech badges */}
+          </div>
+          {/* Tech badges */}
           <div className="mt-12 flex flex-wrap justify-center gap-3">
             <TechBadge label="Real-time AI" />
             <TechBadge label="4K Quality" />
@@ -97,10 +93,10 @@ export default function Home() {
       <section className="py-24 bg-gradient-to-b from-white to-orange-50 dark:from-gray-900 dark:to-gray-950">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orage-200 dark:border-orange-800/50">
+            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
               <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Powerful Features</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+            <h2 className="text-balance text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
               AI Streaming Tools
             </h2>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
@@ -156,7 +152,7 @@ export default function Home() {
             <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
               <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Simple Process</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+            <h2 className="text-balance text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
               How RunAsh Works
             </h2>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
@@ -218,7 +214,7 @@ export default function Home() {
             <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
               <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Success Stories</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+            <h2 className="text-balance text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
               What Streamers Say
             </h2>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
@@ -227,7 +223,7 @@ export default function Home() {
           </div>
 
           <ScrollArea className="w-full pb-8">
-            <div className="flex space-x-6">
+            <div className="flex gap-6">
               <TestimonialCard
                 name="Sikander "
                 role="Seller Streamer"
@@ -263,8 +259,7 @@ export default function Home() {
           </ScrollArea>
         </div>
       </section>
-      
-      
+
       {/* Pricing */}
       <section className="py-24 bg-orange-50 dark:bg-gray-950 border-y border-orange-100 dark:border-orange-900/20">
         <div className="container mx-auto px-4">
@@ -272,7 +267,7 @@ export default function Home() {
             <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
               <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Flexible Plans</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+            <h2 className="text-balance text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
               Choose Your Plan
             </h2>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
@@ -289,7 +284,7 @@ export default function Home() {
                       : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
                   }`}
                 >
-                 🇺🇸 USD
+                  🇺🇸 USD
                 </button>
                 <button
                   onClick={() => setCurrency("INR")}
@@ -322,7 +317,7 @@ export default function Home() {
             />
             <PricingCard
               title="Professional"
-              price={formatPrice (49)}
+              price={formatPrice(49)}
               features={[
                 "1080p AI Enhancement",
                 "Advanced Chat Moderation",
@@ -338,7 +333,7 @@ export default function Home() {
             />
             <PricingCard
               title="Enterprise"
-              price={formatPrice (99)}
+              price={formatPrice(99)}
               features={[
                 "4K AI Enhancement",
                 "Premium Chat Moderation",
@@ -352,29 +347,34 @@ export default function Home() {
               ]}
               buttonText="Contact Sales"
               popular={false}
-             onButtonClick={() => router.push("/checkout?plan=enterprise")}
+              onButtonClick={() => router.push("/checkout?plan=enterprise")}
             />
           </div>
         </div>
       </section>
-    
+
       {/* CTA */}
       <section className="py-24 bg-gradient-to-r from-orange-600 to-yellow-500 dark:from-orange-700 dark:to-yellow-600">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Transform Your Streams?</h2>
+          <h2 className="text-balance text-3xl md:text-5xl font-bold mb-6 text-white">Transform Your Streams?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto text-white/90">
-            Join thousands of content creators who are elevating their streaming with RunAsh AI. Start your free trial 
+            Join thousands of content creators who are elevating their streaming with RunAsh AI. Start your free trial
             today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 shadow-lg shadow-orange-700/20"
-             onClick={() => router.push("/get-started")}
-             >
+            <Button
+              size="lg"
+              className="bg-white text-orange-600 hover:bg-gray-100 shadow-lg shadow-orange-700/20"
+              onClick={() => router.push("/get-started")}
+            >
               Start Your Free Trial <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-orange-600 hover:bg-orange-600/20"
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white text-orange-600 hover:bg-orange-600/20 bg-transparent"
               onClick={() => router.push("/demo")}
-              >
+            >
               Schedule a Demo
             </Button>
           </div>
@@ -385,12 +385,12 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-16 bg-white dark:bg-gray-900 border-t border-orange-100 dark:border-orange-900/20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-8">
             {/* Company Info */}
             <div className="lg:col-span-2">
               <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh AI</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-               Runash Digital Innovation Technologies Private Limited.
+                Runash Digital Innovation Technologies Private Limited.
               </p>
               <div className="flex items-center gap-2 mb-4">
                 <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -433,7 +433,7 @@ export default function Home() {
                     href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                   RunAshChat
+                    RunAshChat
                   </a>
                 </li>
                 <li>
@@ -441,7 +441,7 @@ export default function Home() {
                     href="/become-seller"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    Become a seller 
+                    Become a seller
                   </a>
                 </li>
               </ul>
@@ -463,7 +463,7 @@ export default function Home() {
                     href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    iOS App 
+                    iOS App
                   </a>
                 </li>
                 <li>
@@ -471,7 +471,7 @@ export default function Home() {
                     href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    Web App 
+                    Web App
                   </a>
                 </li>
                 <li>
@@ -479,7 +479,7 @@ export default function Home() {
                     href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    Android App 
+                    Android App
                   </a>
                 </li>
               </ul>
@@ -517,7 +517,7 @@ export default function Home() {
                     href="/docs"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    Documentation 
+                    Documentation
                   </a>
                 </li>
               </ul>
@@ -622,9 +622,7 @@ export default function Home() {
           {/* Sitemap */}
           <div className="border-t border-gray-200 dark:border-gray-800 pt-8 mt-8">
             <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white"></h3>
-             <p className="text-gray-600 dark:text-gray-400 mb-4">
-                
-              </p>
+            <p className="text-gray-600 dark:text-gray-400 mb-4"></p>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               <div>
                 <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Company</h4>
@@ -642,7 +640,7 @@ export default function Home() {
                       href="/contact"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Contact 
+                      Contact
                     </a>
                   </li>
                   <li>
@@ -650,16 +648,14 @@ export default function Home() {
                       href="/careers"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Careers 
+                      Careers
                     </a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      
-                    </a>
+                    ></a>
                   </li>
                 </ul>
               </div>
@@ -671,7 +667,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      AI Assistant 
+                      AI Assistant
                     </a>
                   </li>
                   <li>
@@ -679,7 +675,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Live Selling 
+                      Live Selling
                     </a>
                   </li>
                   <li>
@@ -687,16 +683,14 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Live Shopping 
+                      Live Shopping
                     </a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      
-                    </a>
+                    ></a>
                   </li>
                 </ul>
               </div>
@@ -716,7 +710,7 @@ export default function Home() {
                       href="https://x.com/runash_ai"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     X/Twitter 
+                      X/Twitter
                     </a>
                   </li>
                   <li>
@@ -724,26 +718,20 @@ export default function Home() {
                       href="/https://Huggingface.com/runash-ai"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Hugging Face 
+                      Hugging Face
                     </a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                     
-                    </a>
-
+                    ></a>
                   </li>
                   <li>
                     <a
                       href=""
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                     
-                    </a>
-
+                    ></a>
                   </li>
                 </ul>
               </div>
@@ -763,7 +751,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      AI Policy 
+                      AI Policy
                     </a>
                   </li>
                   <li>
@@ -771,25 +759,20 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Privacy Policy 
+                      Privacy Policy
                     </a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      
-                    </a>
+                    ></a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                     
-                    </a>
-
+                    ></a>
                   </li>
                 </ul>
               </div>
@@ -801,7 +784,7 @@ export default function Home() {
                       href="/pro"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Pro
+                      Pro
                     </a>
                   </li>
                   <li>
@@ -809,7 +792,7 @@ export default function Home() {
                       href="/pricing"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Pricing 
+                      Pricing
                     </a>
                   </li>
                   <li>
@@ -817,32 +800,26 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Enterprise 
+                      Enterprise
                     </a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      
-                    </a>
+                    ></a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                     
-                    </a>
+                    ></a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      
-                    </a>
+                    ></a>
                   </li>
                 </ul>
               </div>
@@ -854,7 +831,7 @@ export default function Home() {
                       href="/ai"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                   AI 
+                      AI
                     </a>
                   </li>
                   <li>
@@ -862,7 +839,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Models
+                      Models
                     </a>
                   </li>
                   <li>
@@ -870,32 +847,26 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Overview 
+                      Overview
                     </a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                    
-                    </a>
+                    ></a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                    
-                    </a>
+                    ></a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                       
-                    </a>
+                    ></a>
                   </li>
                 </ul>
               </div>
@@ -907,7 +878,7 @@ export default function Home() {
                       href="mailto:hi@runash.in"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Grants
+                      Grants
                     </a>
                   </li>
                   <li>
@@ -915,7 +886,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Buy Credit 
+                      Buy Credit
                     </a>
                   </li>
                   <li>
@@ -923,32 +894,26 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Free Credit 
+                      Free Credit
                     </a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      
-                    </a>
+                    ></a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                     
-                    </a>
+                    ></a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      
-                    </a>
+                    ></a>
                   </li>
                 </ul>
               </div>
@@ -968,7 +933,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Editor 
+                      Editor
                     </a>
                   </li>
                   <li>
@@ -983,25 +948,19 @@ export default function Home() {
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      
-                    </a>
+                    ></a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      
-                    </a>
+                    ></a>
                   </li>
                   <li>
                     <a
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                    >
-                      
-                    </a>
+                    ></a>
                   </li>
                 </ul>
               </div>
@@ -1022,8 +981,13 @@ export default function Home() {
                   href="/"
                   className="text-gray-600  dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
                 >
-                  Agent 
-                <Badge varient="secondary" className="bg-green-600 text-white gap-2 space-x-1 dark:bg-green-500 animate-pulse text-xs">New</Badge>
+                  Agent
+                  <Badge
+                    varient="secondary"
+                    className="bg-green-600 text-white gap-2 space-x-1 dark:bg-green-500 animate-pulse text-xs"
+                  >
+                    New
+                  </Badge>
                 </a>
                 <a
                   href="/help"
@@ -1035,7 +999,7 @@ export default function Home() {
                   href="/support"
                   className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
                 >
-                  Support 
+                  Support
                 </a>
               </div>
             </div>
