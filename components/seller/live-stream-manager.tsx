@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -21,6 +21,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { format } from "date-fns"
 import useSWR from "swr"
+import { useToast } from "@/hooks/use-toast"
 import {
   Video,
   Plus,
@@ -43,16 +44,56 @@ const fetcher = (url: string) =>
   })
 
 export function LiveStreamManager() {
+  const { toast } = useToast()
+
   const [streams, setStreams] = useState([])
   const [selectedDate, setSelectedDate] = useState<Date>()
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
-  const { data: fetchedStreams, mutate } = useSWR("/api/streams", fetcher)
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
+  const [category, setCategory] = useState<string | undefined>()
+  const [time, setTime] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  useState(() => {
-    if (fetchedStreams) {
-      setStreams(fetchedStreams)
-    }
+  const { data: fetchedStreams, error, isLoading, mutate } = useSWR("/api/streams", fetcher)
+
+  useEffect(() => {
+    if (fetchedStreams) setStreams(fetchedStreams)
   }, [fetchedStreams])
+
+  async function handleSchedule() {
+    try {
+      if (!title.trim() || !selectedDate || !time) {
+        toast({ title: "Missing details", description: "Please add a title, date, and time.", variant: "destructive" })
+        return
+      }
+      setIsSubmitting(true)
+      const when = new Date(`${format(selectedDate, "yyyy-MM-dd")}T${time}:00`)
+      const res = await fetch("/api/streams", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-user-id": "1" },
+        body: JSON.stringify({
+          title,
+          description,
+          category: category || "general",
+          scheduled_for: when.toISOString(),
+        }),
+      })
+      if (!res.ok) throw new Error("Failed to schedule stream")
+      await mutate()
+      setIsCreateDialogOpen(false)
+      setTitle("")
+      setDescription("")
+      setCategory(undefined)
+      setSelectedDate(undefined)
+      setTime("")
+      toast({ title: "Stream scheduled", description: "Your stream was scheduled successfully." })
+    } catch (e: any) {
+      toast({ title: "Error", description: e.message || "Could not schedule stream.", variant: "destructive" })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -80,25 +121,10 @@ export function LiveStreamManager() {
     }
   }
 
-  async function handleSchedule() {
-    const title = (document.getElementById("title") as HTMLInputElement)?.value
-    const description = (document.getElementById("description") as HTMLTextAreaElement)?.value
-    const timeInput = (document.getElementById("time") as HTMLInputElement)?.value
-    const when = selectedDate && timeInput ? new Date(`${format(selectedDate, "yyyy-MM-dd")}T${timeInput}:00`) : null
-    const res = await fetch("/api/streams", {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-user-id": "1" },
-      body: JSON.stringify({ title, description, category: "general", scheduled_for: when?.toISOString() }),
-    })
-    if (res.ok) {
-      await mutate()
-      setIsCreateDialogOpen(false)
-    }
-  }
-
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {isLoading && <div className="text-sm text-muted-foreground">Loading streams…</div>}
+      {error && <div className="text-sm text-red-600">Failed to load streams. Please refresh or try again later.</div>}
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">Live Stream Manager</h2>
@@ -120,11 +146,16 @@ export function LiveStreamManager() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="title">Stream Title</Label>
-                  <Input id="title" placeholder="Enter stream title" />
+                  <Input
+                    id="title"
+                    placeholder="Enter stream title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="category">Category</Label>
-                  <Select>
+                  <Select value={category} onValueChange={setCategory}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
@@ -139,7 +170,12 @@ export function LiveStreamManager() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="description">Description</Label>
-                <Textarea id="description" placeholder="Describe your stream content" />
+                <Textarea
+                  id="description"
+                  placeholder="Describe your stream content"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
@@ -158,15 +194,19 @@ export function LiveStreamManager() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="time">Time</Label>
-                  <Input id="time" type="time" />
+                  <Input id="time" type="time" value={time} onChange={(e) => setTime(e.target.value)} />
                 </div>
               </div>
               <div className="flex justify-end gap-2">
                 <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
                   Cancel
                 </Button>
-                <Button className="bg-gradient-to-r from-orange-500 to-amber-500" onClick={handleSchedule}>
-                  Schedule Stream
+                <Button
+                  className="bg-gradient-to-r from-orange-500 to-amber-500"
+                  onClick={handleSchedule}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Scheduling..." : "Schedule Stream"}
                 </Button>
               </div>
             </div>
@@ -174,7 +214,6 @@ export function LiveStreamManager() {
         </Dialog>
       </div>
 
-      {/* Stream Tabs */}
       <Tabs defaultValue="all" className="space-y-4">
         <TabsList>
           <TabsTrigger value="all">All Streams</TabsTrigger>

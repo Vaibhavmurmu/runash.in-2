@@ -34,6 +34,7 @@ import {
   Calendar,
   Download,
 } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
 
 const fetcher = (url: string) =>
   fetch(url, { headers: { "x-user-id": "1" } }).then((r) => {
@@ -42,14 +43,17 @@ const fetcher = (url: string) =>
   })
 
 export function OrderManager() {
+  const { toast } = useToast()
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedStatus, setSelectedStatus] = useState("all")
   const [selectedOrder, setSelectedOrder] = useState<any>(null)
 
-  const { data: orders = [], mutate } = useSWR(
-    `/api/orders?status=${selectedStatus}&q=${encodeURIComponent(searchTerm)}`,
-    fetcher,
-  )
+  const {
+    data: orders = [],
+    error,
+    isLoading,
+    mutate,
+  } = useSWR(`/api/orders?status=${selectedStatus}&q=${encodeURIComponent(searchTerm)}`, fetcher)
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -109,16 +113,24 @@ export function OrderManager() {
   })
 
   const updateOrderStatus = async (orderId: string, newStatus: string) => {
-    await fetch(`/api/orders/${orderId}`, {
-      method: "PUT",
-      headers: { "content-type": "application/json", "x-user-id": "1" },
-      body: JSON.stringify({ status: newStatus }),
-    })
-    await mutate()
+    try {
+      const res = await fetch(`/api/orders/${orderId}`, {
+        method: "PUT",
+        headers: { "content-type": "application/json", "x-user-id": "1" },
+        body: JSON.stringify({ status: newStatus }),
+      })
+      if (!res.ok) throw new Error("Failed to update order")
+      await mutate()
+      toast({ title: "Order updated", description: `Order ${orderId} marked as ${getStatusText(newStatus)}.` })
+    } catch (e: any) {
+      toast({ title: "Error", description: e.message || "Could not update order.", variant: "destructive" })
+    }
   }
 
   return (
     <div className="space-y-6">
+      {isLoading && <div className="text-sm text-muted-foreground">Loading orders…</div>}
+      {error && <div className="text-sm text-red-600">Failed to load orders. Please try again.</div>}
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import useSWR from "swr"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
@@ -14,6 +15,38 @@ import { SellerProfile } from "@/components/seller/seller-profile"
 
 export default function SellerDashboard() {
   const [activeTab, setActiveTab] = useState("overview")
+
+  // Fetch permissions to ensure only sellers can access this dashboard
+  const {
+    data: perms,
+    error: permsError,
+    isLoading: permsLoading,
+  } = useSWR("/api/auth/permissions", (url) =>
+    fetch(url).then((r) => (r.ok ? r.json() : Promise.reject(new Error("Failed to load permissions")))),
+  )
+
+  if (permsLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-muted-foreground">
+        Loading seller dashboard...
+      </div>
+    )
+  }
+
+  if (permsError || (perms && perms.role !== "seller")) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Card className="max-w-md text-center">
+          <CardHeader>
+            <CardTitle>Not authorized</CardTitle>
+          </CardHeader>
+          <CardContent className="text-muted-foreground">
+            You don{"'"}t have permission to access the Seller Dashboard.
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
 
   const stats = [
     {

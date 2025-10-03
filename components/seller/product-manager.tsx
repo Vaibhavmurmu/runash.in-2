@@ -19,6 +19,7 @@ import {
 import { Switch } from "@/components/ui/switch"
 import { Plus, Search, Filter, Edit, Trash2, Package, TrendingUp, Star, ShoppingCart, Upload } from "lucide-react"
 import useSWR from "swr"
+import { useToast } from "@/hooks/use-toast"
 
 const fetcher = (url: string) =>
   fetch(url, { headers: { "x-user-id": "1" } }).then((r) => {
@@ -27,10 +28,12 @@ const fetcher = (url: string) =>
   })
 
 export function ProductManager() {
+  const { toast } = useToast()
   const [products, setProducts] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  const [newProductCategory, setNewProductCategory] = useState<string | undefined>()
 
   const {
     data: productsData,
@@ -73,30 +76,46 @@ export function ProductManager() {
     : []
 
   async function handleCreate() {
-    const name = (document.getElementById("product-name") as HTMLInputElement)?.value
-    const description = (document.getElementById("product-description") as HTMLTextAreaElement)?.value
-    const price = Number((document.getElementById("product-price") as HTMLInputElement)?.value || 0)
-    const stock = Number((document.getElementById("product-stock") as HTMLInputElement)?.value || 0)
-    const res = await fetch("/api/products", {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-user-id": "1" },
-      body: JSON.stringify({
-        name,
-        description,
-        price,
-        stock,
-        category: selectedCategory === "all" ? null : selectedCategory,
-      }),
-    })
-    if (res.ok) {
+    try {
+      const name = (document.getElementById("product-name") as HTMLInputElement)?.value
+      const description = (document.getElementById("product-description") as HTMLTextAreaElement)?.value
+      const price = Number((document.getElementById("product-price") as HTMLInputElement)?.value || 0)
+      const stock = Number((document.getElementById("product-stock") as HTMLInputElement)?.value || 0)
+
+      if (!name?.trim()) {
+        toast({ title: "Name required", description: "Please enter a product name.", variant: "destructive" })
+        return
+      }
+      const res = await fetch("/api/products", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-user-id": "1" },
+        body: JSON.stringify({
+          name,
+          description,
+          price,
+          stock,
+          category: newProductCategory || (selectedCategory === "all" ? null : selectedCategory),
+        }),
+      })
+      if (!res.ok) throw new Error("Failed to create product")
       await mutate()
       setIsCreateDialogOpen(false)
+      setNewProductCategory(undefined)
+      toast({ title: "Product created", description: "Your product has been added." })
+    } catch (e: any) {
+      toast({ title: "Error", description: e.message || "Could not create product.", variant: "destructive" })
     }
   }
 
   async function handleDelete(id: number) {
-    const res = await fetch(`/api/products/${id}`, { method: "DELETE", headers: { "x-user-id": "1" } })
-    if (res.ok) mutate()
+    try {
+      const res = await fetch(`/api/products/${id}`, { method: "DELETE", headers: { "x-user-id": "1" } })
+      if (!res.ok) throw new Error("Failed to delete product")
+      mutate()
+      toast({ title: "Product deleted", description: "The product was removed." })
+    } catch (e: any) {
+      toast({ title: "Error", description: e.message || "Could not delete product.", variant: "destructive" })
+    }
   }
 
   return (
@@ -127,7 +146,7 @@ export function ProductManager() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="product-category">Category</Label>
-                  <Select>
+                  <Select value={newProductCategory} onValueChange={setNewProductCategory}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
