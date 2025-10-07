@@ -16,8 +16,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "RunAsh AI - Organic Products & Sustainable Living",
-  description: "AI-powered assistant for organic products, sustainable living, recipes, and retail automation",
+  title: "RunAsh AI - Agentic live commerce",
+  description: "AI Deep Agents for live stream video and image generator,organic products, sustainable living, recipes, and retail automation",
   generator: "v0.dev",
 }
 
