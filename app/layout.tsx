@@ -9,6 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Providers } from "@/components/providers"
 import { Suspense } from "react"
 import { CookieConsent } from "@/components/cookie-consent"
+import { Banner} from "@/components/banner"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,8 +18,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "RunAsh AI - Agentic live commerce",
-  description: "AI Deep Agents for live stream video and image generator,organic products, sustainable living, recipes, and retail automation",
-  generator: "v0.dev",
+  description: "RunAsh AI is an live stream video generation model, creating realistic video from text, organic products, sustainable living, recipes, and retail automation",
+  generator: "RunAsh AI Lab",
 }
 
 export default function RootLayout({
@@ -30,10 +31,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          
           <Providers>
             <Suspense fallback={null}>{children}</Suspense>
             {/* Cookie consent dialog */}
             <CookieConsent />
+            
             <Toaster />
           </Providers>
         </ThemeProvider>
