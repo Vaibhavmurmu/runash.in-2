@@ -5,11 +5,14 @@
     </a>
     </p>
   <strong>
-    <h1 align="center"></h1>
+    <h1 align="center">RunAsh AI</h1>
   </strong>
+  <p>The Open-source agentic live commerce for retail automation, real‑time video generation, and multimodal tooling</p>
   </div>
+
   
-# RunAsh AI Live Streaming Platform
+  
+## The AI Live Streaming Platform 
 
 ## Introduction
 
