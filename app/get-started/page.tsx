@@ -170,7 +170,7 @@ export default function GetStartedPage() {
 
           {/* Step 1: Create Account */}
           {step === 1 && (
-            <Card className="max-w-2xl mx-auto shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+            <Card className="max-w-md mx-auto shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
               <CardHeader className="text-center pb-6">
                 <CardTitle className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 text-transparent bg-clip-text">
                   Create your account
