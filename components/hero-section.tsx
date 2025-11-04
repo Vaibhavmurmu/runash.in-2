@@ -69,7 +69,7 @@ export default function HeroSection() {
         </div>
 
         <div className="flex justify-center lg:justify-end">
-          <Iphone />
+        {/*  <Iphone /> */}
         </div>
       </div>
     </section>
