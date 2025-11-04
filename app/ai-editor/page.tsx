@@ -1,14 +1,14 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Header from "@/components/header" 
+{/* import Header from "@/components/header" */}
 import HeroSection from "@/components/hero-section"
 import FeaturesSection from "@/components/features-section"
 import DemoSection from "@/components/demo-section"
 import Footer from "@/components/footer"
 
 export default function AiEditor() {
-  const [isDark, setIsDark] = useState(false)
+  {/* const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
     const isDarkMode =
@@ -30,11 +30,11 @@ export default function AiEditor() {
       document.documentElement.classList.add("dark")
       localStorage.setItem("theme", "dark")
     }
-  }
+  } */}
 
   return (
     <main className="min-h-screen bg-background text-foreground transition-colors duration-300">
-      <Header isDark={isDark} onToggleTheme={toggleTheme} />
+      
       <HeroSection />
       <FeaturesSection />
       <DemoSection />
