@@ -27,7 +27,7 @@ export default function IosApp() {
         >
           {/* Notch */}
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-20 bg-black rounded-b-3xl px-8 py-1">
-            <div className="w-32 h-7 bg-black rounded-full">iOS App </div>
+            <div className="w-32 h-7 bg-black text-white rounded-full">iOS App </div>
           </div>
 
           {/* Screen Content */}
@@ -37,6 +37,13 @@ export default function IosApp() {
           </div>
         </div>
       </div>
+    </div>
+    <div className="mt-12 pt-8 border-t border-orange-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center">
+         <div className="flex items-center gap-4">
+              <p className="text-gray-600 dark:text-gray-400">
+               Coming Soon.
+              </p>
+         </div>
     </div>
   )
 }
