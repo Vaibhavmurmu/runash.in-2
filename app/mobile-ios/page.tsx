@@ -38,12 +38,6 @@ export default function IosApp() {
         </div>
       </div>
     </div>
-    <div className="mt-12 pt-8 border-t border-orange-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center">
-         <div className="flex items-center gap-4">
-              <p className="text-gray-600 dark:text-gray-400">
-               Coming Soon.
-              </p>
-         </div>
-    </div>
+    
   )
 }
