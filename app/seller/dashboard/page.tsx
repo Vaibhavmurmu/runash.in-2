@@ -12,6 +12,9 @@ import { LiveStreamManager } from "@/components/seller/live-stream-manager"
 import { ProductManager } from "@/components/seller/product-manager"
 import { OrderManager } from "@/components/seller/order-manager"
 import { SellerProfile } from "@/components/seller/seller-profile"
+import { BusinessSettings } from "@/components/seller/business-settings"
+import { InventoryManager } from "@/components/seller/inventory-manager"
+import { PayoutManager } from "@/components/seller/payout-manager"
 
 export default function SellerDashboard() {
   const [activeTab, setActiveTab] = useState("overview")
@@ -155,13 +158,15 @@ export default function SellerDashboard() {
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6 lg:w-auto lg:grid-cols-6">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-8 overflow-auto">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="streams">Streams</TabsTrigger>
             <TabsTrigger value="products">Products</TabsTrigger>
+            <TabsTrigger value="inventory">Inventory</TabsTrigger>
             <TabsTrigger value="orders">Orders</TabsTrigger>
+            <TabsTrigger value="payouts">Payouts</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
-            <TabsTrigger value="profile">Profile</TabsTrigger>
+            <TabsTrigger value="business">Business</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
@@ -250,12 +255,24 @@ export default function SellerDashboard() {
             <ProductManager />
           </TabsContent>
 
+          <TabsContent value="inventory">
+            <InventoryManager />
+          </TabsContent>
+
           <TabsContent value="orders">
             <OrderManager />
           </TabsContent>
 
+          <TabsContent value="payouts">
+            <PayoutManager />
+          </TabsContent>
+
           <TabsContent value="analytics">
             <SellerAnalytics />
+          </TabsContent>
+
+          <TabsContent value="business">
+            <BusinessSettings />
           </TabsContent>
 
           <TabsContent value="profile">

@@ -322,7 +322,7 @@ export default function BecomeSellerPage() {
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-50 to-yellow-50 text-transparent bg-clip-text">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-yellow-500 text-transparent bg-clip-text">
               Powerful Features for Sellers
             </h2>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
@@ -376,59 +376,6 @@ export default function BecomeSellerPage() {
           </div>
         </div>
       </section>
-      
-        {/* Testimonials */}
-      {/*    <section className="py-24 bg-white dark:bg-gray-900">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
-              <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Success Stories</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-              What Streamers Say
-            </h2>
-            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-              Join thousands of content creators who have transformed their streaming with RunAsh AI
-            </p>
-          </div>
-
-          <ScrollArea className="w-full pb-8">
-            <div className="flex space-x-6">
-              <TestimonialCard
-                name="Sikander "
-                role="Seller Streamer"
-                image="/placeholder.svg?height=80&width=80"
-                quote="RunAsh AI has doubled my viewer engagement and made streaming so much easier. The AI enhancements make my stream look professional without expensive equipment."
-              />
-              <TestimonialCard
-                name="Nirali"
-                role="Seller Streamer"
-                image="/placeholder.svg?height=80&width=80"
-                quote="The AI video enhancement makes my organic products streams look professional without expensive equipment. My subscribers have increased by 200% since switching to RunAsh."
-              />
-              <TestimonialCard
-                name="Jassi"
-                role="Seller Streamer"
-                image="/placeholder.svg?height=80&width=80"
-                quote="The audience analytics have helped me tailor my content to what my viewers actually want. The AI content suggestions are spot on and have helped me grow my channel."
-              />
-              <TestimonialCard
-                name="P k Murmu"
-                role="Seller Streamer"
-                image="/placeholder.svg?height=80&width=80"
-                quote="As a seller, audio quality is everything. RunAsh's AI audio enhancement has made my live demonstration sound studio-quality. My fans love it!"
-              />
-              <TestimonialCard
-                name="Sujata"
-                role="Cooking Channel Host"
-                image="/placeholder.svg?height=80&width=80"
-                quote="The multi-camera AI switching is a game-changer for my cooking streams. It's like having a professional director for my channel. Absolutely worth every penny."
-              />
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        </div>
-      </section> */}
 
       {/* Success Stories */}
       <section className="py-20 bg-gradient-to-b from-orange-50 to-white dark:from-gray-950 dark:to-gray-900">

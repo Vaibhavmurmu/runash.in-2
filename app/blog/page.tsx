@@ -7,8 +7,6 @@ import { ArrowRight, Calendar, Clock, Search, User } from "lucide-react"
 import ThemeToggle from "@/components/theme-toggle"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
-import { useRouter } from 'next/navigation';
-
 
 const BlogPost = ({
   title,
@@ -29,7 +27,6 @@ const BlogPost = ({
   image: string
   featured?: boolean
 }) => {
-const router = useRouter();
   return (
     <Card
       className={`overflow-hidden ${featured ? "border-orange-500/50 bg-orange-50/50 dark:bg-orange-950/20" : "border-orange-200/50 dark:border-orange-900/30"}`}
@@ -141,7 +138,7 @@ export default function BlogPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                     <div className="aspect-video overflow-hidden rounded-xl">
                       <img
-                        src="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGH6b59uE8j3XVPfqwyF91ABSNMCxigK4LzEca?height=40&width=40"
+                        src="/placeholder.svg?height=400&width=600"
                         alt="Featured article"
                         className="w-full h-full object-cover"
                       />
@@ -155,7 +152,7 @@ export default function BlogPage() {
                           Featured
                         </span>
                       </div>
-                      <h3 className="text-3xl font-bold mb-4">The Future of AI Live Streaming</h3>
+                      <h3 className="text-3xl font-bold mb-4">The Future of AI-Powered Live Streaming</h3>
                       <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg">
                         Explore how artificial intelligence is revolutionizing the live streaming industry and what it
                         means for content creators worldwide.
@@ -174,9 +171,8 @@ export default function BlogPage() {
                           <span>8 min read</span>
                         </div>
                       </div>
-                      <Button className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white"
-                        onClick={() => router.push(`/blog/${slug}`)} >
-                        Read Full Article <ArrowRight className="ml-2 h-4 w-4"  />
+                      <Button className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white">
+                        Read Full Article <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     </div>
                   </div>
@@ -284,7 +280,7 @@ export default function BlogPage() {
               <TabsContent value="ai" className="mt-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   <BlogPost
-                    title="The Future of AI Live Streaming"
+                    title="The Future of AI-Powered Live Streaming"
                     excerpt="Explore how artificial intelligence is revolutionizing the live streaming industry."
                     author="Vaibhav Murmu"
                     date="Jun 06, 2025"
