@@ -87,7 +87,7 @@ export function CountrySelector() {
         <Button
           variant="ghost"
           size="sm"
-          className="h-8 px-2 text-xs  boarder hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="h-8 px-2 text-xs boarder hover:bg-gray-100 dark:hover:bg-gray-800"
           disabled={isLoading}
         >
           <MapPin className="h-3 w-3 mr-1" />
