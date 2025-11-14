@@ -44,9 +44,9 @@ export default function Home() {
             <Bell className="w-4 h-4" />
             <span>
               🎉 New AI Video Generation Model Released!{" "}
-              <Link href="/blog/new-model" className="underline font-semibold hover:text-orange-200">
+              <a href="/blog/new-model" className="underline font-semibold hover:text-orange-200">
                 Learn more
-              </Link>
+              </a>
             </span>
           </div>
           </div>
