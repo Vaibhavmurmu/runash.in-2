@@ -42,7 +42,7 @@ export default function Home() {
           <div className="container relative z-10 max-auto bg-gradient-to-r from-orange-600 to-yello-600 text-white py-2 px-4 text-center text-sm relative">
           <div className="inline-block mb-4 px-3 py-1 flex items-center justify-center space-x-2">
             <Bell className="w-4 h-4" />
-            span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
+            <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
               🎉 New AI Video Generation Model Released!{" "}
               <a href="/blog/new-model" className="underline font-semibold hover:text-orange-200">
                 Learn more
