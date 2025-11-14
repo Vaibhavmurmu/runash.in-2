@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import Banner from "@/components/banner"
 import { Badge } from "@/components/ui/badge"
-import { Play, Zap, Users, Shield, ArrowRight, ChevronRight, Star, BarChart, Globe,SquareArrowDownRight } from "lucide-react"
+import { Bell, Play, Zap, Users, Shield, ArrowRight, ChevronRight, Star, BarChart, Globe,SquareArrowDownRight } from "lucide-react"
 import VideoBackground from "@/components/video-background"
 import FeatureCard from "@/components/feature-card"
 import TestimonialCard from "@/components/testimonial-card"
