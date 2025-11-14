@@ -38,7 +38,7 @@ export default function Home() {
        {/* Hero Section with Video Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
-         
+         <Banner />
           <div className="container relative z-10 px4 max-auto bg-gradient-to-r from-orange-600 to-yello-600 text-white text-center text-sm">
           <div className="inline-block mb-4 px-3 py-1 items-center bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm ">
             <Bell className="w-4 h-4" />
@@ -48,7 +48,8 @@ export default function Home() {
                 Learn more
               </a>
             </span>
-          
+          </div>
+          </div>
           
         <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block  mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
@@ -90,9 +91,7 @@ export default function Home() {
         </div>
         <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
           <ChevronRight className="h-8 w-8 transform rotate-90 text-orange-500 dark:text-orange-400" />
-        </div>
-        </div>
-        </div>
+        </div>  
       </section>
 
       {/* Stats Section */}
