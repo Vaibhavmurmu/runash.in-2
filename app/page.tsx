@@ -35,11 +35,8 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-white">
       
       <Navbar />
-       {/* Hero Section with Video Background */}
-        <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
-        <VideoBackground />
-         <div className="container relative z-10 mx-auto px-4 text-center">
-          <div className="inline-block  mt-12 mb-18 px-3 py-3 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+      <div className="container relative z-10 mx-auto px-4 text-center">
+          <div className="inline-block  mt-4 mb-12 px-3 py-3 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
             <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
                🎉 New AI Video Generation Model Released!{" "}
               <a href="/blog/new-model" className="underline font-semibold hover:text-orange-200">
@@ -47,6 +44,10 @@ export default function Home() {
               </a>
             </span>
           </div>
+       {/* Hero Section with Video Background */}
+        <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
+        <VideoBackground />
+         
          
           
         <div className="container relative z-10 mx-auto px-4 text-center">
