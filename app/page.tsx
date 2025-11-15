@@ -38,9 +38,9 @@ export default function Home() {
        {/* Hero Section with Video Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
-         <Banner />
+         
           <div className="container relative z-10 px4 max-auto bg-gradient-to-r from-orange-600 to-yello-600 text-white text-center text-sm">
-          <div className="inline-block mb-4 px-3 py-1 items-center bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm ">
+          <div className="inline-block mt-2 mb-6 px-3 py-1 items-center bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm ">
             <Bell className="w-4 h-4" />
             <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
               🎉 New AI Video Generation Model Released!{" "}
