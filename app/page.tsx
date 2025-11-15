@@ -36,7 +36,7 @@ export default function Home() {
       
       <Navbar />
       <div className="container relative z-10 mx-auto px-4 text-center">
-          <div className="inline-block  mt-4 mb-12 px-3 py-3 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+          <div className="inline-block  mt-12 mb-0 px-3 py-3 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
             <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
                🎉 New AI Video Generation Model Released!{" "}
               <a href="/blog/new-model" className="underline font-semibold hover:text-orange-200">
