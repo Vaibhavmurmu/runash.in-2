@@ -15,7 +15,7 @@ import FeaturedProducts from "@/components/grocery/featured-products"
 import CartDrawer from "@/components/cart/cart-drawer"
 import type { GroceryProduct, GroceryCategory, GroceryFilter } from "@/types/grocery-store"
 import FloatingLiveShoppingButton from "@/components/grocery/floating-live-shopping-button"
-import { Product, groceryProducts } from '../lib/grocery-products';
+import { groceryProducts } from "../lib/grocery-products"
 // or adjust the path as per your file structure, e.g.
 // import { Product, groceryProducts } from './lib/grocery-products';
 
