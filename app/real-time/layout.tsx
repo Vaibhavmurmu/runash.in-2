@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -30,8 +29,6 @@ export const metadata: Metadata = {
   },
 }
 
-import Loading from './loading'
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,9 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans antialiased`}>
-        <Suspense fallback={<Loading />}>
-          {children}
-        </Suspense>
+        {children}
         <Analytics />
       </body>
     </html>
