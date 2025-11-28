@@ -8,20 +8,21 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 const countries = [
   { code: "IN", name: "India", currency: "INR", timezone: "Asia/Kolkata", flag: "🇮🇳" },
   { code: "US", name: "United States", currency: "USD", timezone: "America/New_York", flag: "🇺🇸" },
-  { code: "GB", name: "United Kingdom", currency: "GBP", timezone: "Europe/London", flag: "🇬🇧" },
-  { code: "CA", name: "Canada", currency: "CAD", timezone: "America/Toronto", flag: "🇨🇦" },
-  { code: "AU", name: "Australia", currency: "AUD", timezone: "Australia/Sydney", flag: "🇦🇺" },
-  { code: "DE", name: "Germany", currency: "EUR", timezone: "Europe/Berlin", flag: "🇩🇪" },
-  { code: "FR", name: "France", currency: "EUR", timezone: "Europe/Paris", flag: "🇫🇷" },
-  { code: "JP", name: "Japan", currency: "JPY", timezone: "Asia/Tokyo", flag: "🇯🇵" },
-  { code: "KR", name: "South Korea", currency: "KRW", timezone: "Asia/Seoul", flag: "🇰🇷" },
-  { code: "CN", name: "China", currency: "CNY", timezone: "Asia/Shanghai", flag: "🇨🇳" },
-  { code: "BR", name: "Brazil", currency: "BRL", timezone: "America/Sao_Paulo", flag: "🇧🇷" },
-  { code: "MX", name: "Mexico", currency: "MXN", timezone: "America/Mexico_City", flag: "🇲🇽" },
   { code: "SG", name: "Singapore", currency: "SGD", timezone: "Asia/Singapore", flag: "🇸🇬" },
-  { code: "NL", name: "Netherlands", currency: "EUR", timezone: "Europe/Amsterdam", flag: "🇳🇱" },
-  { code: "SE", name: "Sweden", currency: "SEK", timezone: "Europe/Stockholm", flag: "🇸🇪" },
-  { code: "CH", name: "Switzerland", currency: "CHF", timezone: "Europe/Zurich", flag: "🇨🇭" },
+ // { code: "GB", name: "United Kingdom", currency: "GBP", timezone: "Europe/London", flag: "🇬🇧" }, 
+ // { code: "CA", name: "Canada", currency: "CAD", timezone: "America/Toronto", flag: "🇨🇦" }, 
+ // { code: "AU", name: "Australia", currency: "AUD", timezone: "Australia/Sydney", flag: "🇦🇺" }, 
+ // { code: "DE", name: "Germany", currency: "EUR", timezone: "Europe/Berlin", flag: "🇩🇪" }, 
+ // { code: "FR", name: "France", currency: "EUR", timezone: "Europe/Paris", flag: "🇫🇷" }, 
+ // { code: "JP", name: "Japan", currency: "JPY", timezone: "Asia/Tokyo", flag: "🇯🇵" }, 
+ // { code: "KR", name: "South Korea", currency: "KRW", timezone: "Asia/Seoul", flag: "🇰🇷" }, 
+ // { code: "CN", name: "China", currency: "CNY", timezone: "Asia/Shanghai", flag: "🇨🇳" }, 
+ // { code: "BR", name: "Brazil", currency: "BRL", timezone: "America/Sao_Paulo", flag: "🇧🇷" }, 
+ // { code: "MX", name: "Mexico", currency: "MXN", timezone: "America/Mexico_City", flag: "🇲🇽" }, 
+ // { code: "SG", name: "Singapore", currency: "SGD", timezone: "Asia/Singapore", flag: "🇸🇬" },
+ // { code: "NL", name: "Netherlands", currency: "EUR", timezone: "Europe/Amsterdam", flag: "🇳🇱" }, 
+ // { code: "SE", name: "Sweden", currency: "SEK", timezone: "Europe/Stockholm", flag: "🇸🇪" },  
+// { code: "CH", name: "Switzerland", currency: "CHF", timezone: "Europe/Zurich", flag: "🇨🇭" }, 
 ]
 
 export function CountrySelector() {
@@ -87,7 +88,7 @@ export function CountrySelector() {
         <Button
           variant="ghost"
           size="sm"
-          className="h-8 px-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="h-8 px-2 text-xs boarder hover:bg-gray-100 dark:hover:bg-gray-800"
           disabled={isLoading}
         >
           <MapPin className="h-3 w-3 mr-1" />
