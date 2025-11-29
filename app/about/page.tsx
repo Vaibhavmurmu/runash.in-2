@@ -13,11 +13,11 @@ export default function AboutPage() {
   const router = useRouter()
 
   const supporters = [
-    { name: "MIT", href: "https://www.mit.edu", logo: "href="/mit.svg?size=160" },
-    { name: "Y Combinator", href: "https://www.ycombinator.com", logo: "href="/ycombinator.svg?size=160" },
-    { name: "GitHub", href: "https://github.com", logo: "href="/github.svg?size=160" },
-    { name: "Vercel", href: "https://vercel.com", logo: "href="/vercel.svg?size=160" },
-    { name: "Hugging Face", href: "https://huggingface.co", logo: "href="/huggingface.svg?size=160" },
+    { name: "MIT", href: "https://www.mit.edu", logo: "image="/mit.svg?size=160" },
+    { name: "Y Combinator", href: "https://www.ycombinator.com", logo: "image="/ycombinator.svg?size=160" },
+    { name: "GitHub", href: "https://github.com", logo: "image="/github.svg?size=160" },
+    { name: "Vercel", href: "https://vercel.com", logo: "image="/vercel.svg?size=160" },
+    { name: "Hugging Face", href: "https://huggingface.co", logo: "image="/huggingface.svg?size=160" },
   ]
   
   return (
@@ -340,10 +340,15 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-              Our Supporters
+              Backend by 
             </h2>
             <p className="text-gray-700 dark:text-gray-300 text-lg">
-              Our supporters industry leaders to bring the best streaming experience possible.
+              We are proudly backed by a powerhouse collective driving global innovation.
+              From the foundational research and academic excellence provided by MIT, to the critical early-stage mentorship of startup accelerator Y Combinator, our project is grounded in proven success.
+              Development is fueled by the open-source community via GitHub, while cutting-edge AI methodologies stem from our relationship with Hugging Face.
+              The entire experience is then seamlessly deployed and scaled using the modern frontend cloud of Vercel.
+              This unparalleled support network ensures our commitment to excellence, speed, and open innovation at the intersection of academia, venture, and software development.
+            </p>
             </p>
           </div>
 
@@ -393,22 +398,22 @@ export default function AboutPage() {
                 role="list"
                 // duplicate items for seamless loop
               >
-                {partners.concat(supporters).map((p, i) => (
+                {partners.concat(supporters).map((s, i) => (
                   <a
-                    key={`${p.name}-${i}`}
+                    key={`${s.name}-${i}`}
                     role="listitem"
-                    href={p.href}
+                    href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="carousel-item flex items-center justify-center bg-white dark:bg-gray-900 border border-orange-200 dark:border-orange-800/30 rounded-xl p-6"
                     style={{ minWidth: 220 }}
                   >
                     <img
-                      src={p.logo}
-                      alt={`${p.name} logo`}
+                      src={s.logo}
+                      alt={`${s.name} logo`}
                       className="object-contain"
                     />
-                    <span className="sr-only">{p.name}</span>
+                    <span className="sr-only">{s.name}</span>
                   </a>
                 ))}
               </div>
