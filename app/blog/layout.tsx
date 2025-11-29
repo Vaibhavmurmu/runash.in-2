@@ -5,22 +5,22 @@ import { Toaster } from "@/components/ui/toaster"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "RunAsh AI Blog",
+  title: "RunAsh Blog",
   description: "Deep dives on AI, live streaming, APIs, payments, chat systems, and more — by RunAsh AI.",
-  metadataBase: new URL("https://runash.example.com"),
+  metadataBase: new URL("https://runash.in/blog"),
   openGraph: {
-    title: "RunAsh AI Blog",
+    title: "RunAsh Blog",
     description: "Deep dives on AI, live streaming, APIs, payments, chat systems, and more.",
-    url: "https://runash.example.com",
-    siteName: "RunAsh AI Blog",
+    url: "https://runash.in/blog",
+    siteName: "RunAsh Blog",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "RunAsh AI Blog",
+    title: "RunAsh Blog",
     description: "Deep dives on AI, live streaming, APIs, payments, chat systems, and more.",
   },
-    generator: 'v0.app'
+    generator: 'runash.app'
 }
 
 export default function RootLayout({
