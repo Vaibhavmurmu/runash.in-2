@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-
+import Image from "next/image"
 import { useState } from "react"
 import { signIn, getSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
@@ -71,13 +71,23 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50 dark:from-orange-950/20 dark:via-gray-950 dark:to-amber-950/20 flex flex-col">
+     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50 dark:from-orange-950/20 dark:via-gray-950 dark:to-amber-950/20 text-gray-900 dark:text-white flex flex-col"> 
       {/* Header */}
       <header className="w-full py-6 px-6 flex justify-between items-center">
-        <Link href="/" className="flex items-center group">
-          <div className="relative mr-3 h-10 w-10 overflow-hidden rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 shadow-lg group-hover:shadow-xl transition-all duration-300">
+        <Link href="/home" className="flex items-center group">
+                {/* <div className="relative mr-3 h-10 w-10 overflow-hidden rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 shadow-lg group-hover:shadow-xl transition-all duration-300">
             <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-lg">R</div>
-          </div>
+          </div> */}
+          <div className="relative mr-3 h-10 w-10 overflow-hidden rounded-xl bg-gradient-to-br from-white to-gray-50 dark:from-orange-950/20 dark:via-gray-950 dark:to-amber-950/20 shadow-lg group-hover:shadow-xl transition-all duration-300">
+          {/* Insert logo image */}
+          <Image
+            src="/RunAsh Logo.png"
+            alt="RunAsh Logo"
+            fill
+            className="object-contain p-1"
+            sizes="40px"
+          />
+        </div>
           <span className="text-2xl font-bold bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 dark:from-orange-400 dark:via-orange-300 dark:to-amber-300 text-transparent bg-clip-text">
             RunAsh
           </span>
