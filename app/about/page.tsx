@@ -17,7 +17,7 @@ export default function AboutPage() {
     { name: "Y Combinator", href: "https://www.ycombinator.com", logo: "href="/ycombinator.svg?size=160" },
     { name: "GitHub", href: "https://github.com", logo: "href="/github.svg?size=160" },
     { name: "Vercel", href: "https://vercel.com", logo: "href="/vercel.svg?size=160" },
-    { name: "Hugging Face", href: "https://huggingface.co", logo: "href="/huggingface?size=160" },
+    { name: "Hugging Face", href: "https://huggingface.co", logo: "href="/huggingface.svg?size=160" },
   ]
   
   return (
