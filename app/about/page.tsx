@@ -13,7 +13,7 @@ export default function AboutPage() {
   const router = useRouter()
 
   const partners = [
-    { name: "MIT", href: "https://www.mit.edu", logo: "https://logo.clearbit.com/mit.edu?size=160" },
+    { name: "MIT", href: "https://www.mit.edu", logo: "https://github.com/rammurmu/runash.in/blob/3569b50db8960d18adc0b767a6780c6881019334/public/mit%20logo.png?size=160" },
     { name: "Y Combinator", href: "https://www.ycombinator.com", logo: "https://logo.clearbit.com/ycombinator.com?size=160" },
     { name: "GitHub", href: "https://github.com", logo: "https://logo.clearbit.com/github.com?size=160" },
     { name: "Vercel", href: "https://vercel.com", logo: "https://logo.clearbit.com/vercel.com?size=160" },
