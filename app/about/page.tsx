@@ -12,12 +12,12 @@ import { useRouter } from "next/navigation"
 export default function AboutPage() {
   const router = useRouter()
 
-  const partners = [
-    { name: "MIT", href: "https://www.mit.edu", logo: "https://logo.clearbit.com/mit.edu?size=160" },
-    { name: "Y Combinator", href: "https://www.ycombinator.com", logo: "https://logo.clearbit.com/ycombinator.com?size=160" },
-    { name: "GitHub", href: "https://github.com", logo: "https://logo.clearbit.com/github.com?size=160" },
-    { name: "Vercel", href: "https://vercel.com", logo: "https://logo.clearbit.com/vercel.com?size=160" },
-    { name: "Hugging Face", href: "https://huggingface.co", logo: "https://logo.clearbit.com/huggingface.co?size=160" },
+  const supporters = [
+    { name: "MIT", href: "https://www.mit.edu", logo: "href="/mit.svg?size=160" },
+    { name: "Y Combinator", href: "https://www.ycombinator.com", logo: "href="/ycombinator.svg?size=160" },
+    { name: "GitHub", href: "https://github.com", logo: "href="/github.svg?size=160" },
+    { name: "Vercel", href: "https://vercel.com", logo: "href="/vercel.svg?size=160" },
+    { name: "Hugging Face", href: "https://huggingface.co", logo: "href="/huggingface?size=160" },
   ]
   
   return (
@@ -151,11 +151,11 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <TeamMember
               name="Ram Murmu"
-              role="Founder & CEO/CTO"
+              role="Founder & CEO"
               image="/rammurmu.jpg?height=300&width=300"
               bio="Led engineering and AI researcher team with 10+ years experience in full-stack,machine learning and computer vision."
               socialLinks={{
-                twitter: "https://twitter.com/rammurmu",
+                twitter: "https://twitter.com/_rammurmu",
                 linkedin: "https://linkedin.com/in/rammurmu",
               }}
               gradient="from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400"
@@ -200,8 +200,8 @@ export default function AboutPage() {
               image="/placeholder.svg?height=300&width=300"
               bio="Award-winning designer focused on creating intuitive interfaces for complex AI tools."
               socialLinks={{
-                twitter: "https://twitter.com/",
-                linkedin: "https://linkedin.com/in/",
+                twitter: "https://twitter.com/v0",
+                linkedin: "https://linkedin.com/in/v0",
               }}
               gradient="from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400"
             />
@@ -335,15 +335,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Partners Section - Auto Carousel */}
+      {/* Supporters Section - Auto Carousel */}
       <section className="py-20 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-              Our Partners
+              Our Supporters
             </h2>
             <p className="text-gray-700 dark:text-gray-300 text-lg">
-              We collaborate with industry leaders to bring you the best streaming experience possible.
+              Our supporters industry leaders to bring the best streaming experience possible.
             </p>
           </div>
 
@@ -393,7 +393,7 @@ export default function AboutPage() {
                 role="list"
                 // duplicate items for seamless loop
               >
-                {partners.concat(partners).map((p, i) => (
+                {partners.concat(supporters).map((p, i) => (
                   <a
                     key={`${p.name}-${i}`}
                     role="listitem"
