@@ -1,54 +1,61 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { resetPassword } from "@/lib/auth-utils"
-import { rateLimit } from "@/lib/rate-limit"
-import { z } from "zod"
+import { db } from "@/lib/db"
+import { verificationTokens, users } from "@/db/schema"
+import { eq, and } from "drizzle-orm"
+import bcrypt from "bcryptjs"
 
-const resetPasswordSchema = z.object({
-  token: z.string().min(1, "Token is required"),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters long")
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
-    ),
-})
-
+/**
+ * Reset password with token
+ * POST /api/auth/reset-password
+ */
 export async function POST(request: NextRequest) {
   try {
-    const rateLimitResult = await rateLimit(request, "reset-password", 5, 900) // 5 attempts per 15 minutes
-    if (!rateLimitResult.success) {
-      return NextResponse.json(
-        { message: "Too many password reset attempts. Please try again later." },
-        { status: 429 },
-      )
+    const { token, password } = await request.json()
+
+    if (!token || !password) {
+      return NextResponse.json({ error: "Token and password are required" }, { status: 400 })
     }
 
-    const body = await request.json()
-
-    const validationResult = resetPasswordSchema.safeParse(body)
-    if (!validationResult.success) {
-      return NextResponse.json(
-        {
-          message: "Validation failed",
-          errors: validationResult.error.flatten().fieldErrors,
-        },
-        { status: 400 },
-      )
+    if (password.length < 8) {
+      return NextResponse.json({ error: "Password must be at least 8 characters" }, { status: 400 })
     }
 
-    const { token, password } = validationResult.data
+    // Find reset token
+    const resetRecord = await db
+      .select()
+      .from(verificationTokens)
+      .where(
+        and(
+          eq(verificationTokens.token, token),
+          eq(verificationTokens.type, "password_reset"),
+          eq(verificationTokens.used, false),
+        ),
+      )
+      .limit(1)
 
-    await resetPassword(token, password)
+    if (!resetRecord.length) {
+      return NextResponse.json({ error: "Invalid or expired reset token" }, { status: 400 })
+    }
 
-    return NextResponse.json({ message: "Password reset successfully" })
+    const record = resetRecord[0]
+
+    // Check expiration
+    if (new Date() > record.expiresAt) {
+      return NextResponse.json({ error: "Reset token has expired" }, { status: 400 })
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    // Update password and mark token as used
+    await Promise.all([
+      db.update(users).set({ password: hashedPassword, updatedAt: new Date() }).where(eq(users.id, record.userId)),
+      db.update(verificationTokens).set({ used: true, usedAt: new Date() }).where(eq(verificationTokens.id, record.id)),
+    ])
+
+    return NextResponse.json({ success: true, message: "Password reset successfully" }, { status: 200 })
   } catch (error) {
-    console.error("Reset password error:", error)
-
-    if (error instanceof Error && error.message === "Invalid or expired token") {
-      return NextResponse.json({ message: "Invalid or expired reset token" }, { status: 400 })
-    }
-
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 })
+    console.error("[v0] Password reset error:", error)
+    return NextResponse.json({ error: "Password reset failed" }, { status: 500 })
   }
 }

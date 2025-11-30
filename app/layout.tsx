@@ -1,24 +1,34 @@
 import type React from "react"
 import type { Metadata } from "next"
-import "./globals.css"
-import { Inter } from "next/font/google"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/toaster"
+import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Providers } from "@/components/providers"
-import { Suspense } from "react"
-import { CookieConsent } from "@/components/cookie-consent"
+import { AuthProvider } from "@/components/auth-provider"
+import "./globals.css"
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
+const _geist = Geist({ subsets: ["latin"] })
+const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "RunAsh AI - Organic Products & Sustainable Living",
-  description: "AI-powered assistant for organic products, sustainable living, recipes, and retail automation",
-  generator: "v0.dev",
+  title: "v0 App",
+  description: "Created with v0",
+  generator: "v0.app",
+  icons: {
+    icon: [
+      {
+        url: "/icon-light-32x32.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-dark-32x32.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/icon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    apple: "/apple-icon.png",
+  },
 }
 
 export default function RootLayout({
@@ -28,17 +38,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Providers>
-            <Suspense fallback={null}>{children}</Suspense>
-            {/* Cookie consent dialog */}
-            <CookieConsent />
-            <Toaster />
-          </Providers>
-        </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
+      <body className={`font-sans antialiased`}>
+        <AuthProvider>
+          {children}
+          <Analytics />
+        </AuthProvider>
       </body>
     </html>
   )

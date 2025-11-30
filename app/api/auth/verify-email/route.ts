@@ -1,41 +1,53 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { verifyEmailToken } from "@/lib/auth-utils"
-import { neon } from "@neondatabase/serverless"
+import { db } from "@/lib/db"
+import { verificationTokens, users } from "@/db/schema"
+import { eq, and } from "drizzle-orm"
 
-const sql = neon(process.env.DATABASE_URL!)
-
+/**
+ * Verify email with token
+ * POST /api/auth/verify-email
+ */
 export async function POST(request: NextRequest) {
   try {
     const { token } = await request.json()
 
     if (!token) {
-      return NextResponse.json({ message: "Verification token is required" }, { status: 400 })
+      return NextResponse.json({ error: "Verification token is required" }, { status: 400 })
     }
 
-    const result = await verifyEmailToken(token)
+    // Find and verify token
+    const verificationRecord = await db
+      .select()
+      .from(verificationTokens)
+      .where(
+        and(
+          eq(verificationTokens.token, token),
+          eq(verificationTokens.type, "email_verification"),
+          eq(verificationTokens.used, false),
+        ),
+      )
+      .limit(1)
 
-    if (!result.success) {
-      return NextResponse.json({ message: result.error || "Invalid or expired verification token" }, { status: 400 })
+    if (!verificationRecord.length) {
+      return NextResponse.json({ error: "Invalid or expired verification token" }, { status: 400 })
     }
 
-    // Update user email verification status
-    await sql`
-      UPDATE users 
-      SET email_verified = true, email_verified_at = NOW()
-      WHERE id = ${result.userId}
-    `
+    const record = verificationRecord[0]
 
-    // Delete used verification token
-    await sql`
-      DELETE FROM email_verification_tokens 
-      WHERE token = ${token}
-    `
+    // Check if token has expired
+    if (new Date() > record.expiresAt) {
+      return NextResponse.json({ error: "Verification token has expired" }, { status: 400 })
+    }
 
-    return NextResponse.json({
-      message: "Email verified successfully",
-    })
+    // Mark token as used and verify email
+    await Promise.all([
+      db.update(verificationTokens).set({ used: true, usedAt: new Date() }).where(eq(verificationTokens.id, record.id)),
+      db.update(users).set({ emailVerified: true, updatedAt: new Date() }).where(eq(users.id, record.userId)),
+    ])
+
+    return NextResponse.json({ success: true, message: "Email verified successfully" }, { status: 200 })
   } catch (error) {
-    console.error("Email verification error:", error)
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 })
+    console.error("[v0] Email verification error:", error)
+    return NextResponse.json({ error: "Email verification failed" }, { status: 500 })
   }
 }
