@@ -28,7 +28,7 @@ export function DetailsDialog({
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{title ?? "Details"}</DialogTitle>
-          <DialogDescription>Explore more .</DialogDescription>
+          <DialogDescription>Explore more.</DialogDescription>
         </DialogHeader>
 
         <div className="py-2">{children}</div>
