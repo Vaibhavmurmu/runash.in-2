@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import {
   BarChart3,
   Users,
@@ -177,7 +177,7 @@ function StreamCard({ stream }: { stream: RecentStream }) {
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1">
               <Eye className="h-4 w-4" />
-              {stream.viewers.toLocaleString()}
+              {stream.viewers?.toLocaleString?.() ?? stream.viewers}
             </div>
             <div className="flex items-center gap-1">
               <Clock className="h-4 w-4" />
@@ -187,7 +187,7 @@ function StreamCard({ stream }: { stream: RecentStream }) {
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">{stream.date}</span>
             <Badge variant={stream.status === "live" ? "destructive" : "secondary"} className="text-xs">
-              {stream.status.toUpperCase()}
+              {stream.status?.toUpperCase?.() ?? stream.status}
             </Badge>
           </div>
         </div>
@@ -254,64 +254,123 @@ export function EnhancedDashboard() {
   const [activities, setActivities] = useState<any[]>([])
   const [achievements, setAchievements] = useState<any[]>([])
   const [monthlyGoals, setMonthlyGoals] = useState<any[]>([])
+  const [user, setUser] = useState<any | null>(null)
+  const [lastUpdatedAt, setLastUpdatedAt] = useState<number | null>(null)
+
+  // Dialog state for actions
+  const [startDialogOpen, setStartDialogOpen] = useState(false)
+  const [scheduleDialogOpen, setScheduleDialogOpen] = useState(false)
+  const [inviteDialogOpen, setInviteDialogOpen] = useState(false)
+
+  // Forms
+  const [startTitle, setStartTitle] = useState("")
+  const [startCategory, setStartCategory] = useState("Gaming")
+
+  const [scheduleTitle, setScheduleTitle] = useState("")
+  const [scheduleCategory, setScheduleCategory] = useState("Gaming")
+  const [scheduleDate, setScheduleDate] = useState("")
+
+  const [inviteEmails, setInviteEmails] = useState("")
+
+  const getGreeting = useCallback(() => {
+    const hour = new Date().getHours()
+    if (hour < 12) return "Good morning"
+    if (hour < 18) return "Good afternoon"
+    return "Good evening"
+  }, [])
 
   useEffect(() => {
     loadDashboardData()
+
+    // Poll for updates every 30s for "real-time" status
+    const id = setInterval(() => {
+      loadDashboardData()
+    }, 30000)
+
+    return () => clearInterval(id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const loadDashboardData = async () => {
     try {
       setIsLoading(true)
 
-      const userId = "1" // Get from your auth context
+      // 1) fetch current user (real)
+      const meRes = await fetch("/api/me")
+      if (meRes.ok) {
+        const me = await meRes.json()
+        setUser(me)
+      } else {
+        setUser(null)
+      }
 
-      const [statsRes, streamsRes, activityRes] = await Promise.all([
-        fetch("/api/dashboard/stats", {
-          headers: { "x-user-id": userId },
-        }),
-        fetch("/api/dashboard/streams?limit=6", {
-          headers: { "x-user-id": userId },
-        }),
-        fetch("/api/dashboard/activity?limit=10", {
-          headers: { "x-user-id": userId },
-        }),
+      const userId = (await (meRes.ok ? (await meRes.json()).id : null)) || (user && user.id) || undefined
+
+      // 2) fetch dashboard data using real user id when available
+      const headers: Record<string, string> = {}
+      if (userId) headers["x-user-id"] = String(userId)
+
+      const [statsRes, streamsRes, activityRes, achievementsRes, goalsRes] = await Promise.all([
+        fetch("/api/dashboard/stats", { headers }),
+        fetch("/api/dashboard/streams?limit=12", { headers }),
+        fetch("/api/dashboard/activity?limit=10", { headers }),
+        fetch("/api/dashboard/achievements", { headers }),
+        fetch("/api/dashboard/goals", { headers }),
       ])
 
       if (statsRes.ok) {
         const statsData = await statsRes.json()
         setStats(statsData)
+      } else {
+        setStats(null)
       }
 
       if (streamsRes.ok) {
         const streamsData = await streamsRes.json()
         setRecentStreams(streamsData)
+      } else {
+        setRecentStreams([])
       }
 
       if (activityRes.ok) {
         const activityData = await activityRes.json()
         setActivities(activityData)
+      } else {
+        setActivities([])
       }
 
-      setAchievements([
-        { title: "First Stream", description: "Completed your first live stream", unlocked: true },
-        {
-          title: "100 Followers",
-          description: "Reached 100 followers",
-          unlocked: stats?.followers ? stats.followers >= 100 : false,
-        },
-        {
-          title: "Viral Content",
-          description: "Stream reached 10K views",
-          unlocked: stats?.totalViews ? stats.totalViews >= 10000 : false,
-        },
-        { title: "Super Streamer", description: "Stream for 100 hours total", unlocked: false },
-      ])
+      if (achievementsRes.ok) {
+        const ach = await achievementsRes.json()
+        setAchievements(ach)
+      } else {
+        // fallback sample achievements computed from stats
+        setAchievements([
+          { title: "First Stream", description: "Completed your first live stream", unlocked: true },
+          {
+            title: "100 Followers",
+            description: "Reached 100 followers",
+            unlocked: stats?.followers ? stats.followers >= 100 : false,
+          },
+          {
+            title: "Viral Content",
+            description: "Stream reached 10K views",
+            unlocked: stats?.totalViews ? stats.totalViews >= 10000 : false,
+          },
+        ])
+      }
 
-      setMonthlyGoals([
-        { name: "Streaming Hours", current: 45, target: 60, unit: "hours" },
-        { name: "New Followers", current: 234, target: 300, unit: "followers" },
-        { name: "Revenue Goal", current: stats?.revenue || 0, target: 2000, unit: "$" },
-      ])
+      if (goalsRes.ok) {
+        const goals = await goalsRes.json()
+        setMonthlyGoals(goals)
+      } else {
+        setMonthlyGoals([
+          { name: "Streaming Hours", current: 45, target: 60, unit: "hours" },
+          { name: "New Followers", current: stats?.followers || 0, target: 300, unit: "followers" },
+          { name: "Revenue Goal", current: stats?.revenue || 0, target: 2000, unit: "$" },
+        ])
+      }
+
+      setLastUpdatedAt(Date.now())
     } catch (error) {
       console.error("Error loading dashboard data:", error)
       toast({
@@ -324,51 +383,143 @@ export function EnhancedDashboard() {
     }
   }
 
+  // Actions
+  const handleStartStreaming = async () => {
+    try {
+      setIsLoading(true)
+      const payload = { title: startTitle || "Untitled Stream", category: startCategory }
+      const res = await fetch("/api/streams/start", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(user?.id ? { "x-user-id": String(user.id) } : {}) },
+        body: JSON.stringify(payload),
+      })
+      if (res.ok) {
+        toast({ title: "Stream started", description: "Your stream is now live." })
+        setStartDialogOpen(false)
+        // optimistic refresh
+        await loadDashboardData()
+      } else {
+        const err = await res.text()
+        toast({ title: "Failed to start", description: err || "Unknown error", variant: "destructive" })
+      }
+    } catch (e) {
+      toast({ title: "Error", description: "Unable to start stream", variant: "destructive" })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleScheduleStream = async () => {
+    try {
+      setIsLoading(true)
+      const payload = { title: scheduleTitle || "Scheduled Stream", category: scheduleCategory, when: scheduleDate }
+      const res = await fetch("/api/streams/schedule", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(user?.id ? { "x-user-id": String(user.id) } : {}) },
+        body: JSON.stringify(payload),
+      })
+      if (res.ok) {
+        toast({ title: "Scheduled", description: "Stream scheduled successfully." })
+        setScheduleDialogOpen(false)
+        await loadDashboardData()
+      } else {
+        const err = await res.text()
+        toast({ title: "Failed to schedule", description: err || "Unknown error", variant: "destructive" })
+      }
+    } catch (e) {
+      toast({ title: "Error", description: "Unable to schedule stream", variant: "destructive" })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleInviteCollaborators = async () => {
+    try {
+      setIsLoading(true)
+      const emails = inviteEmails.split(",").map((e) => e.trim()).filter(Boolean)
+      const res = await fetch("/api/collaborators/invite", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(user?.id ? { "x-user-id": String(user.id) } : {}) },
+        body: JSON.stringify({ emails }),
+      })
+      if (res.ok) {
+        toast({ title: "Invites sent", description: `${emails.length} collaborator(s) invited.` })
+        setInviteDialogOpen(false)
+        setInviteEmails("")
+      } else {
+        const err = await res.text()
+        toast({ title: "Invite failed", description: err || "Unknown error", variant: "destructive" })
+      }
+    } catch (e) {
+      toast({ title: "Error", description: "Unable to send invites", variant: "destructive" })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   const statsCards = stats
     ? [
         {
           title: "Total Views",
-          value: stats.totalViews.toLocaleString(),
+          value: stats.totalViews?.toLocaleString?.() ?? stats.totalViews ?? 0,
           icon: <Eye />,
           description: "from last month",
-          trend: { value: stats.trends.views, isPositive: stats.trends.views >= 0 },
+          trend: { value: stats.trends?.views ?? 0, isPositive: (stats.trends?.views ?? 0) >= 0 },
         },
         {
           title: "Followers",
-          value: stats.followers.toLocaleString(),
+          value: stats.followers?.toLocaleString?.() ?? stats.followers ?? 0,
           icon: <Users />,
           description: "from last month",
-          trend: { value: stats.trends.followers, isPositive: stats.trends.followers >= 0 },
+          trend: { value: stats.trends?.followers ?? 0, isPositive: (stats.trends?.followers ?? 0) >= 0 },
         },
         {
           title: "Live Streams",
-          value: stats.liveStreams.toString(),
+          value: stats.liveStreams?.toString?.() ?? stats.liveStreams ?? 0,
           icon: <Video />,
           description: "this month",
-          trend: { value: stats.trends.streams, isPositive: stats.trends.streams >= 0 },
+          trend: { value: stats.trends?.streams ?? 0, isPositive: (stats.trends?.streams ?? 0) >= 0 },
         },
         {
           title: "Revenue",
-          value: `$${stats.revenue.toLocaleString()}`,
+          value: `$${(stats.revenue ?? 0).toLocaleString?.() ?? stats.revenue ?? 0}`,
           icon: <DollarSign />,
           description: "this month",
-          trend: { value: stats.trends.revenue, isPositive: stats.trends.revenue >= 0 },
+          trend: { value: stats.trends?.revenue ?? 0, isPositive: (stats.trends?.revenue ?? 0) >= 0 },
         },
       ]
     : []
+
+  const anyLive = recentStreams.some((s) => s.status === "live")
+  const liveStream = recentStreams.find((s) => s.status === "live")
 
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
-            Dashboard
-          </h1>
-          <p className="text-muted-foreground">Welcome back! Here's what's happening with your streams.</p>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
+              {getGreeting()}{user ? `, ${user.name.split(" ")[0]}` : ""}
+            </h1>
+            {user && (
+              <Avatar className="h-10 w-10">
+                <AvatarImage src={user.avatar || "/placeholder.svg"} alt={user.name} />
+                <AvatarFallback>{user.name?.substring(0, 2).toUpperCase()}</AvatarFallback>
+              </Avatar>
+            )}
+          </div>
+          <p className="text-muted-foreground">
+            {anyLive
+              ? `You are live now: "${liveStream?.title}" — ${liveStream?.viewers?.toLocaleString?.() ?? liveStream?.viewers} viewers`
+              : "Welcome back! Here's what's happening with your streams."}
+            {lastUpdatedAt && !isLoading && (
+              <span className="ml-2 text-xs text-muted-foreground">· updated {new Date(lastUpdatedAt).toLocaleTimeString()}</span>
+            )}
+          </p>
         </div>
         <div className="flex items-center gap-2">
-          <Sheet>
+           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="sm">
                 <Target className="mr-2 h-4 w-4" />
@@ -381,19 +532,132 @@ export function EnhancedDashboard() {
                 <SheetDescription>Quickly access common streaming actions and tools.</SheetDescription>
               </SheetHeader>
               <div className="grid gap-4 py-4">
-                <Button className="w-full bg-gradient-to-r from-orange-500 to-amber-400 hover:from-orange-600 hover:to-amber-500">
-                  <Video className="mr-2 h-4 w-4" />
-                  Start New Stream
-                </Button>
-                <Button variant="outline" className="w-full bg-transparent">
-                  <Calendar className="mr-2 h-4 w-4" />
-                  Schedule Stream
-                </Button>
-                <Button variant="outline" className="w-full bg-transparent">
-                  <Users className="mr-2 h-4 w-4" />
-                  Invite Collaborators
-                </Button>
-                <Button variant="outline" className="w-full bg-transparent" onClick={loadDashboardData}>
+                <Dialog open={startDialogOpen} onOpenChange={setStartDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button className="w-full bg-gradient-to-r from-orange-500 to-amber-400 hover:from-orange-600 hover:to-amber-500">
+                      <Video className="mr-2 h-4 w-4" />
+                      Start New Stream
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Start Live Stream</DialogTitle>
+                      <DialogDescription>Configure your stream settings and go live in seconds.</DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Stream Title</label>
+                        <input
+                          value={startTitle}
+                          onChange={(e) => setStartTitle(e.target.value)}
+                          className="w-full px-3 py-2 border rounded-md"
+                          placeholder="Enter your stream title..."
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Category</label>
+                        <select
+                          value={startCategory}
+                          onChange={(e) => setStartCategory(e.target.value)}
+                          className="w-full px-3 py-2 border rounded-md"
+                        >
+                          <option>Gaming</option>
+                          <option>Education</option>
+                          <option>Technology</option>
+                          <option>Entertainment</option>
+                        </select>
+                      </div>
+                      <Button
+                        className="w-full bg-gradient-to-r from-orange-500 to-amber-400 hover:from-orange-600 hover:to-amber-500"
+                        onClick={handleStartStreaming}
+                      >
+                        Start Streaming
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+
+                <Dialog open={scheduleDialogOpen} onOpenChange={setScheduleDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" className="w-full bg-transparent">
+                      <Calendar className="mr-2 h-4 w-4" />
+                      Schedule Stream
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Schedule Stream</DialogTitle>
+                      <DialogDescription>Pick a date and time to schedule your stream.</DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Stream Title</label>
+                        <input
+                          value={scheduleTitle}
+                          onChange={(e) => setScheduleTitle(e.target.value)}
+                          className="w-full px-3 py-2 border rounded-md"
+                          placeholder="Enter your stream title..."
+                        />
+                      </div>
+                         <div className="space-y-2">
+                        <label className="text-sm font-medium">Category</label>
+                        <select
+                          value={scheduleCategory}
+                          onChange={(e) => setScheduleCategory(e.target.value)}
+                          className="w-full px-3 py-2 border rounded-md"
+                        >
+                          <option>Gaming</option>
+                          <option>Education</option>
+                          <option>Technology</option>
+                          <option>Entertainment</option>
+                        </select>
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Date & Time</label>
+                        <input
+                          value={scheduleDate}
+                          onChange={(e) => setScheduleDate(e.target.value)}
+                          type="datetime-local"
+                          className="w-full px-3 py-2 border rounded-md"
+                        />
+                      </div>
+                      <Button className="w-full" onClick={handleScheduleStream}>
+                        Schedule Stream
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+
+                <Dialog open={inviteDialogOpen} onOpenChange={setInviteDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" className="w-full bg-transparent">
+                      <Users className="mr-2 h-4 w-4" />
+                      Invite Collaborators
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Invite Collaborators</DialogTitle>
+                      <DialogDescription>Invite by email (comma separated)</DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Emails</label>
+                        <input
+                          value={inviteEmails}
+                          onChange={(e) => setInviteEmails(e.target.value)}
+                          className="w-full px-3 py-2 border rounded-md"
+                          placeholder="alice@example.com, bob@example.com"
+                        />
+                      </div>
+                      <Button className="w-full" onClick={handleInviteCollaborators}>
+                        Send Invites
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+
+                <Button variant="outline" className="w-full bg-transparent" onClick={() => loadDashboardData()}>
                   <BarChart3 className="mr-2 h-4 w-4" />
                   Refresh Data
                 </Button>
@@ -405,22 +669,31 @@ export function EnhancedDashboard() {
             <DialogTrigger asChild>
               <Button className="bg-gradient-to-r from-orange-500 to-amber-400 hover:from-orange-600 hover:to-amber-500">
                 <Video className="mr-2 h-4 w-4" />
-                Go Live
+                Quick Go Live
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
               <DialogHeader>
-                <DialogTitle>Start Live Stream</DialogTitle>
-                <DialogDescription>Configure your stream settings and go live in seconds.</DialogDescription>
+                <DialogTitle>Quick Start</DialogTitle>
+                <DialogDescription>Start streaming with a title and category in one click.</DialogDescription>
               </DialogHeader>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Stream Title</label>
-                  <input className="w-full px-3 py-2 border rounded-md" placeholder="Enter your stream title..." />
+                  <input
+                    value={startTitle}
+                    onChange={(e) => setStartTitle(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-md"
+                    placeholder="Enter your stream title..."
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Category</label>
-                  <select className="w-full px-3 py-2 border rounded-md">
+                  <select
+                    value={startCategory}
+                    onChange={(e) => setStartCategory(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-md"
+                  >
                     <option>Gaming</option>
                     <option>Education</option>
                     <option>Technology</option>
@@ -429,12 +702,7 @@ export function EnhancedDashboard() {
                 </div>
                 <Button
                   className="w-full bg-gradient-to-r from-orange-500 to-amber-400 hover:from-orange-600 hover:to-amber-500"
-                  onClick={() => {
-                    toast({
-                      title: "Stream Started!",
-                      description: "Your live stream is now active.",
-                    })
-                  }}
+                  onClick={handleStartStreaming}
                 >
                   Start Streaming
                 </Button>
@@ -468,7 +736,7 @@ export function EnhancedDashboard() {
                 description={stat.description}
                 trend={stat.trend}
               />
-            ))}
+                ))}
       </div>
 
       {/* Main Content */}
@@ -608,7 +876,7 @@ export function EnhancedDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="border-border/40 bg-card/50 backdrop-blur">
+          <Card className="border-border/40 bg-card/50 backdrop-blur">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Target className="h-5 w-5" />
@@ -628,7 +896,7 @@ export function EnhancedDashboard() {
                         : `${goal.current}/${goal.target} ${goal.unit}`}
                     </span>
                   </div>
-                  <Progress value={(goal.current / goal.target) * 100} className="h-2" />
+                  <Progress value={Math.min(100, ((goal.current ?? 0) / (goal.target || 1)) * 100)} className="h-2" />
                 </div>
               ))}
             </div>
