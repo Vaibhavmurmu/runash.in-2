@@ -189,4 +189,4 @@ export default function StreamNotification({ onGoToStudio, user }: StreamNotific
       </div>
     </Card>
   )
-}
+  }
