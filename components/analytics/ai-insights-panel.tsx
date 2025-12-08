@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -21,79 +21,206 @@ interface AIInsightsPanelProps {
   period: string
 }
 
+type InsightType = "opportunity" | "optimization" | "warning" | "success" | string
+
+interface Insight {
+  id: string
+  type: InsightType
+  title: string
+  description: string
+  impact: "high" | "medium" | "low" | string
+  confidence: number
+  action: string
+  icon?: string
+  applied?: boolean
+}
+
+interface RecommendationCategory {
+  category: string
+  suggestions: string[]
+}
+
+const ICONS: Record<string, any> = {
+  Clock,
+  Target,
+  AlertTriangle,
+  CheckCircle,
+  Sparkles,
+  TrendingUp,
+  Users,
+  Lightbulb,
+}
+
 export function AIInsightsPanel({ period }: AIInsightsPanelProps) {
   const [mounted, setMounted] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [insights, setInsights] = useState<Insight[]>([])
+  const [recommendations, setRecommendations] = useState<RecommendationCategory[]>([])
+  const [minConfidence, setMinConfidence] = useState(0)
+
+  const LOCAL_STORAGE_KEY = `ai-insights-applied:${period}`
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  const insights = [
-    {
-      type: "opportunity",
-      title: "Peak Engagement Window",
-      description:
-        "Your audience is most active between 7-9 PM EST. Consider scheduling more streams during this time.",
-      impact: "high",
-      confidence: 92,
-      action: "Schedule streams during peak hours",
-      icon: Clock,
-    },
-    {
-      type: "optimization",
-      title: "Product Showcase Timing",
-      description: "Viewers are 34% more likely to purchase when products are shown in the first 10 minutes.",
-      impact: "medium",
-      confidence: 87,
-      action: "Move product highlights earlier",
-      icon: Target,
-    },
-    {
-      type: "warning",
-      title: "Viewer Drop-off Pattern",
-      description: "15% of viewers leave after 12 minutes. Consider adding interactive elements around this time.",
-      impact: "medium",
-      confidence: 78,
-      action: "Add polls or Q&A at 10-minute mark",
-      icon: AlertTriangle,
-    },
-    {
-      type: "success",
-      title: "Chat Engagement Success",
-      description: "Your response rate to chat messages has improved by 45%, leading to higher retention.",
-      impact: "high",
-      confidence: 95,
-      action: "Continue current chat strategy",
-      icon: CheckCircle,
-    },
-  ]
+  const loadAppliedFromStorage = useCallback(() => {
+    try {
+      const raw = typeof window !== "undefined" ? localStorage.getItem(LOCAL_STORAGE_KEY) : null
+      if (!raw) return new Set<string>()
+      return new Set<string>(JSON.parse(raw))
+    } catch (e) {
+      return new Set<string>()
+    }
+  }, [LOCAL_STORAGE_KEY])
 
-  const recommendations = [
-    {
-      category: "Content Strategy",
-      suggestions: [
-        "Add product demos in the first 5 minutes",
-        "Use countdown timers for limited offers",
-        "Include viewer polls every 15 minutes",
-      ],
+  const saveAppliedToStorage = useCallback(
+    (set: Set<string>) => {
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(Array.from(set)))
+      } catch (e) {
+        // ignore
+      }
     },
-    {
-      category: "Audience Growth",
-      suggestions: [
-        "Cross-promote on social media 2 hours before streaming",
-        "Create teaser content for upcoming products",
-        "Collaborate with other streamers in your niche",
-      ],
+    [LOCAL_STORAGE_KEY]
+  )
+
+  useEffect(() => {
+    const controller = new AbortController()
+
+    async function fetchData() {
+      setLoading(true)
+      setError(null)
+
+      try {
+        // Fetch real insights from your backend. Endpoint should return structured JSON:
+        // { insights: Insight[], recommendations: RecommendationCategory[] }
+        const res = await fetch(`/api/analytics/ai-insights?period=${encodeURIComponent(period)}`, {
+          signal: controller.signal,
+        })
+
+        if (!res.ok) throw new Error(`Fetch failed: ${res.status}`)
+
+        const data = await res.json()
+
+        // Merge with applied state from localStorage so UI reflects user actions even if backend doesn't
+        const appliedSet = loadAppliedFromStorage()
+
+        const serverInsights: Insight[] = (data.insights || []).map((s: any) => ({
+          id: String(s.id),
+          type: s.type || "opportunity",
+          title: s.title || "Untitled insight",
+          description: s.description || "",
+          impact: s.impact || "medium",
+          confidence: Number(s.confidence || 0),
+          action: s.action || "",
+          icon: s.icon || undefined,
+          applied: appliedSet.has(String(s.id)),
+        }))
+
+        setInsights(serverInsights)
+        setRecommendations(data.recommendations || [])
+      } catch (e: any) {
+        if (e.name === "AbortError") return
+        console.error(e)
+        setError(e.message || "Failed to load insights")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+
+    return () => controller.abort()
+  }, [period, loadAppliedFromStorage])
+
+  const refresh = useCallback(() => {
+    // simple way to refetch is to toggle loading and re-run effect by changing period (we keep period same)
+    // so we call the same fetch endpoint manually here
+    setLoading(true)
+    setError(null)
+
+    fetch(`/api/analytics/ai-insights?period=${encodeURIComponent(period)}`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Fetch failed: ${res.status}`)
+        return res.json()
+      })
+      .then((data) => {
+        const appliedSet = loadAppliedFromStorage()
+        const serverInsights: Insight[] = (data.insights || []).map((s: any) => ({
+          id: String(s.id),
+          type: s.type || "opportunity",
+          title: s.title || "Untitled insight",
+          description: s.description || "",
+          impact: s.impact || "medium",
+          confidence: Number(s.confidence || 0),
+          action: s.action || "",
+          icon: s.icon || undefined,
+          applied: appliedSet.has(String(s.id)),
+        }))
+
+        setInsights(serverInsights)
+        setRecommendations(data.recommendations || [])
+      })
+      .catch((e) => {
+        console.error(e)
+        setError(e.message || "Failed to refresh insights")
+      })
+      .finally(() => setLoading(false))
+  }, [period, loadAppliedFromStorage])
+
+  const applyInsight = useCallback(
+    async (insightId: string) => {
+      // optimistic update locally and persist in localStorage
+      const appliedSet = loadAppliedFromStorage()
+      appliedSet.add(insightId)
+      saveAppliedToStorage(appliedSet)
+      setInsights((prev) => prev.map((p) => (p.id === insightId ? { ...p, applied: true } : p)))
+
+      try {
+        // Inform backend about the user's action. This endpoint should exist in your API.
+        await fetch(`/api/analytics/insights/${encodeURIComponent(insightId)}/apply`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ period }),
+        })
+      } catch (e) {
+        // If backend fails, we keep local optimistic update but log the error
+        console.error("Failed to notify backend about applied insight", e)
+      }
     },
-    {
-      category: "Revenue Optimization",
-      suggestions: [
-        "Bundle complementary products together",
-        "Offer exclusive stream-only discounts",
-        "Implement urgency-driven pricing",
-      ],
-    },
-  ]
+    [period, loadAppliedFromStorage, saveAppliedToStorage]
+  )
+
+  const exportCSV = useCallback(() => {
+    // Build a CSV from the insights and recommendations to allow quick export
+    const rows: string[] = []
+    rows.push("type,title,description,impact,confidence,action,applied")
+    insights.forEach((i) => {
+      const row = [i.type, escapeCsv(i.title), escapeCsv(i.description), i.impact, String(i.confidence), escapeCsv(i.action), String(Boolean(i.applied))]
+      rows.push(row.join(","))
+    })
+
+    const csv = rows.join("\n")
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `ai-insights-${period || "all"}.csv`
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+    URL.revokeObjectURL(url)
+  }, [insights, period])
+
+  function escapeCsv(value: string) {
+    if (typeof value !== "string") return String(value)
+    if (value.includes(",") || value.includes("\n") || value.includes('"')) {
+      return '"' + value.replace(/"/g, '""') + '"'
+    }
+    return value
+  }
 
   const getInsightColor = (type: string) => {
     switch (type) {
@@ -143,9 +270,31 @@ export function AIInsightsPanel({ period }: AIInsightsPanelProps) {
       {/* AI Insights Header */}
       <Card>
         <CardHeader>
-          <div className="flex items-center space-x-2">
-            <Sparkles className="h-5 w-5 text-orange-500" />
-            <CardTitle>AI-Powered Insights</CardTitle>
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center space-x-2">
+              <Sparkles className="h-5 w-5 text-orange-500" />
+              <CardTitle>AI-Powered Insights</CardTitle>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <label className="text-sm text-muted-foreground">Min Confidence</label>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={minConfidence}
+                onChange={(e) => setMinConfidence(Number(e.target.value))}
+                className="w-40"
+              />
+
+              <Button size="sm" onClick={refresh} disabled={loading}>
+                {loading ? "Refreshing..." : "Refresh"}
+              </Button>
+
+              <Button size="sm" variant="ghost" onClick={exportCSV}>
+                Export CSV
+              </Button>
+            </div>
           </div>
           <CardDescription>
             Intelligent analysis of your stream performance with actionable recommendations
@@ -154,15 +303,17 @@ export function AIInsightsPanel({ period }: AIInsightsPanelProps) {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-500">4</div>
-              <div className="text-sm text-muted-foreground">New Insights</div>
+              <div className="text-2xl font-bold text-orange-500">{insights.length}</div>
+              <div className="text-sm text-muted-foreground">Insights</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-500">87%</div>
+              <div className="text-2xl font-bold text-green-500">
+                {insights.length ? Math.round(insights.reduce((s, i) => s + i.confidence, 0) / insights.length) : "—"}%
+              </div>
               <div className="text-sm text-muted-foreground">Avg Confidence</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-500">12</div>
+              <div className="text-2xl font-bold text-blue-500">{recommendations.reduce((s, r) => s + r.suggestions.length, 0)}</div>
               <div className="text-sm text-muted-foreground">Recommendations</div>
             </div>
           </div>
@@ -171,41 +322,68 @@ export function AIInsightsPanel({ period }: AIInsightsPanelProps) {
 
       {/* Key Insights */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {insights.map((insight, index) => (
-          <Card key={index}>
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-2">
-                  <insight.icon className="h-5 w-5" />
-                  <CardTitle className="text-lg">{insight.title}</CardTitle>
-                </div>
-                <Badge className={getInsightColor(insight.type)}>{insight.type}</Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">{insight.description}</p>
+        {loading && (
+          <div className="col-span-2 p-4 text-center text-sm text-muted-foreground">Loading insights...</div>
+        )}
 
-              <div className="flex items-center justify-between text-sm">
-                <span>Confidence Level</span>
-                <span className="font-medium">{insight.confidence}%</span>
-              </div>
-              <Progress value={insight.confidence} className="h-2" />
+        {error && (
+          <div className="col-span-2 p-4 text-center text-sm text-red-500">Error: {error}</div>
+        )}
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm">Impact:</span>
-                  <Badge variant="outline" className={getImpactColor(insight.impact)}>
-                    {insight.impact}
-                  </Badge>
+        {insights.filter((i) => i.confidence >= minConfidence).map((insight) => {
+          const Icon = insight.icon && ICONS[insight.icon] ? ICONS[insight.icon] : ICONS[insight.type] || Sparkles
+
+          return (
+            <Card key={insight.id}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center space-x-2">
+                    <Icon className="h-5 w-5" />
+                    <CardTitle className="text-lg">{insight.title}</CardTitle>
+                  </div>
+                  <Badge className={getInsightColor(insight.type)}>{insight.type}</Badge>
                 </div>
-                <Button size="sm" variant="outline">
-                  <ArrowRight className="h-4 w-4 mr-2" />
-                  {insight.action}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">{insight.description}</p>
+
+                <div className="flex items-center justify-between text-sm">
+                  <span>Confidence Level</span>
+                  <span className="font-medium">{insight.confidence}%</span>
+                </div>
+                <Progress value={insight.confidence} className="h-2" />
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm">Impact:</span>
+                    <Badge variant="outline" className={getImpactColor(insight.impact)}>
+                      {insight.impact}
+                    </Badge>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Button size="sm" variant={insight.applied ? "secondary" : "outline"} onClick={() => applyInsight(insight.id)} disabled={Boolean(insight.applied)}>
+                      {insight.applied ? (
+                        <>
+                          <CheckCircle className="h-4 w-4 mr-2" /> Applied
+                        </>
+                      ) : (
+                        <>
+                          <ArrowRight className="h-4 w-4 mr-2" />
+                          {insight.action || "Apply"}
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )
+        })}
+
+        {insights.filter((i) => i.confidence >= minConfidence).length === 0 && !loading && (
+          <div className="col-span-2 p-4 text-center text-sm text-muted-foreground">No insights match the selected filters.</div>
+        )}
       </div>
 
       {/* Recommendations */}
@@ -232,6 +410,10 @@ export function AIInsightsPanel({ period }: AIInsightsPanelProps) {
                 </ul>
               </div>
             ))}
+
+            {recommendations.length === 0 && !loading && (
+              <div className="col-span-3 text-sm text-muted-foreground">No recommendations available for this period.</div>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -276,4 +458,4 @@ export function AIInsightsPanel({ period }: AIInsightsPanelProps) {
       </Card>
     </div>
   )
-}
+  }
