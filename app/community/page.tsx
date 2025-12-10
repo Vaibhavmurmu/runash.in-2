@@ -22,7 +22,7 @@ import {
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import SlideOver from "@/components/SlideOver"
-import { ThemeToggle } from "@/components/theme-toggle
+import ThemeToggle from "@/components/theme-toggle"
 import { motion } from "framer-motion"
 
 /**
